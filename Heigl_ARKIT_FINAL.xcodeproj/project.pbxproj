@@ -1,0 +1,714 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D06CFED42AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFED32AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift */; };
+		D06CFED62AE75A2300FFC3F7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFED52AE75A2300FFC3F7 /* ContentView.swift */; };
+		D06CFED82AE75A2500FFC3F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D06CFED72AE75A2500FFC3F7 /* Assets.xcassets */; };
+		D06CFEDB2AE75A2500FFC3F7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D06CFEDA2AE75A2500FFC3F7 /* Preview Assets.xcassets */; };
+		D06CFEDD2AE75A2500FFC3F7 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFEDC2AE75A2500FFC3F7 /* Persistence.swift */; };
+		D06CFEE02AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D06CFEDE2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld */; };
+		D06CFEEA2AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFEE92AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.swift */; };
+		D06CFEF42AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFEF32AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.swift */; };
+		D06CFEF62AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFEF52AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITestsLaunchTests.swift */; };
+		D06CFF062AE75A6100FFC3F7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF052AE75A6100FFC3F7 /* LoginView.swift */; };
+		D06CFF082AE75A7200FFC3F7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF072AE75A7200FFC3F7 /* LoadingView.swift */; };
+		D06CFF0A2AE75A7C00FFC3F7 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF092AE75A7C00FFC3F7 /* MainMenuView.swift */; };
+		D06CFF0C2AE75A8800FFC3F7 /* MapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF0B2AE75A8800FFC3F7 /* MapsView.swift */; };
+		D06CFF0E2AE75AA300FFC3F7 /* NewsFeedVieew.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF0D2AE75AA300FFC3F7 /* NewsFeedVieew.swift */; };
+		D06CFF102AE75AD000FFC3F7 /* SettingsFAQSafety.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF0F2AE75AD000FFC3F7 /* SettingsFAQSafety.swift */; };
+		D06CFF162AE75B5500FFC3F7 /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */; };
+		D06CFF182AE75B7100FFC3F7 /* InitialDataIngestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF172AE75B7100FFC3F7 /* InitialDataIngestor.swift */; };
+		D06CFF1A2AE75B9000FFC3F7 /* CoreLocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF192AE75B9000FFC3F7 /* CoreLocationHelper.swift */; };
+		D06CFF1C2AE75B9C00FFC3F7 /* NewsFeedHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF1B2AE75B9C00FFC3F7 /* NewsFeedHelper.swift */; };
+		D06CFF1E2AE75BBA00FFC3F7 /* SettingsFAQSafetyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF1D2AE75BBA00FFC3F7 /* SettingsFAQSafetyHelper.swift */; };
+		D06CFF202AE7636900FFC3F7 /* ARObject+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF1F2AE7636900FFC3F7 /* ARObject+CoreData.swift */; };
+		D06CFF222AE7637B00FFC3F7 /* FAQ+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF212AE7637B00FFC3F7 /* FAQ+CoreData.swift */; };
+		D06CFF242AE763B800FFC3F7 /* MapsData+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF232AE763B800FFC3F7 /* MapsData+CoreData.swift */; };
+		D06CFF262AE763DA00FFC3F7 /* NewsFeed+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF252AE763D900FFC3F7 /* NewsFeed+CoreData.swift */; };
+		D06CFF282AE763FE00FFC3F7 /* Notifications+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF272AE763FE00FFC3F7 /* Notifications+CoreData.swift */; };
+		D06CFF2C2AE7652D00FFC3F7 /* Safety+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF2B2AE7652D00FFC3F7 /* Safety+CoreData.swift */; };
+		D06CFF2E2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF2D2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift */; };
+		D06CFF302AE768D100FFC3F7 /* Users+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF2F2AE768D100FFC3F7 /* Users+CoreData.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D06CFEE62AE75A2600FFC3F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D06CFEC82AE75A2300FFC3F7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D06CFECF2AE75A2300FFC3F7;
+			remoteInfo = Heigl_ARKIT_FINAL;
+		};
+		D06CFEF02AE75A2600FFC3F7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D06CFEC82AE75A2300FFC3F7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D06CFECF2AE75A2300FFC3F7;
+			remoteInfo = Heigl_ARKIT_FINAL;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D06CFED02AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Heigl_ARKIT_FINAL.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D06CFED32AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heigl_ARKIT_FINALApp.swift; sourceTree = "<group>"; };
+		D06CFED52AE75A2300FFC3F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D06CFED72AE75A2500FFC3F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D06CFEDA2AE75A2500FFC3F7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D06CFEDC2AE75A2500FFC3F7 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		D06CFEDF2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Heigl_ARKIT_FINAL.xcdatamodel; sourceTree = "<group>"; };
+		D06CFEE52AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Heigl_ARKIT_FINALTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D06CFEE92AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heigl_ARKIT_FINALTests.swift; sourceTree = "<group>"; };
+		D06CFEEF2AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Heigl_ARKIT_FINALUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D06CFEF32AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heigl_ARKIT_FINALUITests.swift; sourceTree = "<group>"; };
+		D06CFEF52AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heigl_ARKIT_FINALUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D06CFF052AE75A6100FFC3F7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		D06CFF072AE75A7200FFC3F7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		D06CFF092AE75A7C00FFC3F7 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		D06CFF0B2AE75A8800FFC3F7 /* MapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsView.swift; sourceTree = "<group>"; };
+		D06CFF0D2AE75AA300FFC3F7 /* NewsFeedVieew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedVieew.swift; sourceTree = "<group>"; };
+		D06CFF0F2AE75AD000FFC3F7 /* SettingsFAQSafety.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFAQSafety.swift; sourceTree = "<group>"; };
+		D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
+		D06CFF172AE75B7100FFC3F7 /* InitialDataIngestor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialDataIngestor.swift; sourceTree = "<group>"; };
+		D06CFF192AE75B9000FFC3F7 /* CoreLocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationHelper.swift; sourceTree = "<group>"; };
+		D06CFF1B2AE75B9C00FFC3F7 /* NewsFeedHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedHelper.swift; sourceTree = "<group>"; };
+		D06CFF1D2AE75BBA00FFC3F7 /* SettingsFAQSafetyHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFAQSafetyHelper.swift; sourceTree = "<group>"; };
+		D06CFF1F2AE7636900FFC3F7 /* ARObject+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARObject+CoreData.swift"; sourceTree = "<group>"; };
+		D06CFF212AE7637B00FFC3F7 /* FAQ+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FAQ+CoreData.swift"; sourceTree = "<group>"; };
+		D06CFF232AE763B800FFC3F7 /* MapsData+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapsData+CoreData.swift"; sourceTree = "<group>"; };
+		D06CFF252AE763D900FFC3F7 /* NewsFeed+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsFeed+CoreData.swift"; sourceTree = "<group>"; };
+		D06CFF272AE763FE00FFC3F7 /* Notifications+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notifications+CoreData.swift"; sourceTree = "<group>"; };
+		D06CFF2B2AE7652D00FFC3F7 /* Safety+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Safety+CoreData.swift"; sourceTree = "<group>"; };
+		D06CFF2D2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsPreferences+CoreData.swift"; sourceTree = "<group>"; };
+		D06CFF2F2AE768D100FFC3F7 /* Users+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreData.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D06CFECD2AE75A2300FFC3F7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D06CFEE22AE75A2600FFC3F7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D06CFEEC2AE75A2600FFC3F7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D06CFEC72AE75A2300FFC3F7 = {
+			isa = PBXGroup;
+			children = (
+				D06CFED22AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL */,
+				D06CFEE82AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests */,
+				D06CFEF22AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests */,
+				D06CFED12AE75A2300FFC3F7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D06CFED12AE75A2300FFC3F7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D06CFED02AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL.app */,
+				D06CFEE52AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.xctest */,
+				D06CFEEF2AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D06CFED22AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL */ = {
+			isa = PBXGroup;
+			children = (
+				D06CFF032AE75A3B00FFC3F7 /* Models */,
+				D06CFF022AE75A3300FFC3F7 /* Views */,
+				D06CFED32AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift */,
+				D06CFED52AE75A2300FFC3F7 /* ContentView.swift */,
+				D06CFED72AE75A2500FFC3F7 /* Assets.xcassets */,
+				D06CFEDC2AE75A2500FFC3F7 /* Persistence.swift */,
+				D06CFEDE2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld */,
+				D06CFED92AE75A2500FFC3F7 /* Preview Content */,
+			);
+			path = Heigl_ARKIT_FINAL;
+			sourceTree = "<group>";
+		};
+		D06CFED92AE75A2500FFC3F7 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D06CFEDA2AE75A2500FFC3F7 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D06CFEE82AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests */ = {
+			isa = PBXGroup;
+			children = (
+				D06CFEE92AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.swift */,
+			);
+			path = Heigl_ARKIT_FINALTests;
+			sourceTree = "<group>";
+		};
+		D06CFEF22AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D06CFEF32AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.swift */,
+				D06CFEF52AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITestsLaunchTests.swift */,
+			);
+			path = Heigl_ARKIT_FINALUITests;
+			sourceTree = "<group>";
+		};
+		D06CFF022AE75A3300FFC3F7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D06CFF052AE75A6100FFC3F7 /* LoginView.swift */,
+				D06CFF072AE75A7200FFC3F7 /* LoadingView.swift */,
+				D06CFF092AE75A7C00FFC3F7 /* MainMenuView.swift */,
+				D06CFF0B2AE75A8800FFC3F7 /* MapsView.swift */,
+				D06CFF0D2AE75AA300FFC3F7 /* NewsFeedVieew.swift */,
+				D06CFF0F2AE75AD000FFC3F7 /* SettingsFAQSafety.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D06CFF032AE75A3B00FFC3F7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D06CFF042AE75A4300FFC3F7 /* CoreData */,
+				D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */,
+				D06CFF172AE75B7100FFC3F7 /* InitialDataIngestor.swift */,
+				D06CFF192AE75B9000FFC3F7 /* CoreLocationHelper.swift */,
+				D06CFF1B2AE75B9C00FFC3F7 /* NewsFeedHelper.swift */,
+				D06CFF1D2AE75BBA00FFC3F7 /* SettingsFAQSafetyHelper.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D06CFF042AE75A4300FFC3F7 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				D06CFF1F2AE7636900FFC3F7 /* ARObject+CoreData.swift */,
+				D06CFF212AE7637B00FFC3F7 /* FAQ+CoreData.swift */,
+				D06CFF232AE763B800FFC3F7 /* MapsData+CoreData.swift */,
+				D06CFF252AE763D900FFC3F7 /* NewsFeed+CoreData.swift */,
+				D06CFF272AE763FE00FFC3F7 /* Notifications+CoreData.swift */,
+				D06CFF2B2AE7652D00FFC3F7 /* Safety+CoreData.swift */,
+				D06CFF2D2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift */,
+				D06CFF2F2AE768D100FFC3F7 /* Users+CoreData.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D06CFECF2AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D06CFEF92AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "Heigl_ARKIT_FINAL" */;
+			buildPhases = (
+				D06CFECC2AE75A2300FFC3F7 /* Sources */,
+				D06CFECD2AE75A2300FFC3F7 /* Frameworks */,
+				D06CFECE2AE75A2300FFC3F7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Heigl_ARKIT_FINAL;
+			productName = Heigl_ARKIT_FINAL;
+			productReference = D06CFED02AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D06CFEE42AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D06CFEFC2AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "Heigl_ARKIT_FINALTests" */;
+			buildPhases = (
+				D06CFEE12AE75A2600FFC3F7 /* Sources */,
+				D06CFEE22AE75A2600FFC3F7 /* Frameworks */,
+				D06CFEE32AE75A2600FFC3F7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D06CFEE72AE75A2600FFC3F7 /* PBXTargetDependency */,
+			);
+			name = Heigl_ARKIT_FINALTests;
+			productName = Heigl_ARKIT_FINALTests;
+			productReference = D06CFEE52AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D06CFEEE2AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D06CFEFF2AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "Heigl_ARKIT_FINALUITests" */;
+			buildPhases = (
+				D06CFEEB2AE75A2600FFC3F7 /* Sources */,
+				D06CFEEC2AE75A2600FFC3F7 /* Frameworks */,
+				D06CFEED2AE75A2600FFC3F7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D06CFEF12AE75A2600FFC3F7 /* PBXTargetDependency */,
+			);
+			name = Heigl_ARKIT_FINALUITests;
+			productName = Heigl_ARKIT_FINALUITests;
+			productReference = D06CFEEF2AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D06CFEC82AE75A2300FFC3F7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					D06CFECF2AE75A2300FFC3F7 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					D06CFEE42AE75A2600FFC3F7 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = D06CFECF2AE75A2300FFC3F7;
+					};
+					D06CFEEE2AE75A2600FFC3F7 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = D06CFECF2AE75A2300FFC3F7;
+					};
+				};
+			};
+			buildConfigurationList = D06CFECB2AE75A2300FFC3F7 /* Build configuration list for PBXProject "Heigl_ARKIT_FINAL" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D06CFEC72AE75A2300FFC3F7;
+			productRefGroup = D06CFED12AE75A2300FFC3F7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D06CFECF2AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL */,
+				D06CFEE42AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests */,
+				D06CFEEE2AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D06CFECE2AE75A2300FFC3F7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D06CFEDB2AE75A2500FFC3F7 /* Preview Assets.xcassets in Resources */,
+				D06CFED82AE75A2500FFC3F7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D06CFEE32AE75A2600FFC3F7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D06CFEED2AE75A2600FFC3F7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D06CFECC2AE75A2300FFC3F7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D06CFEDD2AE75A2500FFC3F7 /* Persistence.swift in Sources */,
+				D06CFF0C2AE75A8800FFC3F7 /* MapsView.swift in Sources */,
+				D06CFF1A2AE75B9000FFC3F7 /* CoreLocationHelper.swift in Sources */,
+				D06CFF0A2AE75A7C00FFC3F7 /* MainMenuView.swift in Sources */,
+				D06CFF182AE75B7100FFC3F7 /* InitialDataIngestor.swift in Sources */,
+				D06CFF242AE763B800FFC3F7 /* MapsData+CoreData.swift in Sources */,
+				D06CFED62AE75A2300FFC3F7 /* ContentView.swift in Sources */,
+				D06CFF1E2AE75BBA00FFC3F7 /* SettingsFAQSafetyHelper.swift in Sources */,
+				D06CFF0E2AE75AA300FFC3F7 /* NewsFeedVieew.swift in Sources */,
+				D06CFF222AE7637B00FFC3F7 /* FAQ+CoreData.swift in Sources */,
+				D06CFF2C2AE7652D00FFC3F7 /* Safety+CoreData.swift in Sources */,
+				D06CFEE02AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld in Sources */,
+				D06CFF2E2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift in Sources */,
+				D06CFF062AE75A6100FFC3F7 /* LoginView.swift in Sources */,
+				D06CFF202AE7636900FFC3F7 /* ARObject+CoreData.swift in Sources */,
+				D06CFF302AE768D100FFC3F7 /* Users+CoreData.swift in Sources */,
+				D06CFF102AE75AD000FFC3F7 /* SettingsFAQSafety.swift in Sources */,
+				D06CFED42AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift in Sources */,
+				D06CFF162AE75B5500FFC3F7 /* UserAuth.swift in Sources */,
+				D06CFF262AE763DA00FFC3F7 /* NewsFeed+CoreData.swift in Sources */,
+				D06CFF1C2AE75B9C00FFC3F7 /* NewsFeedHelper.swift in Sources */,
+				D06CFF082AE75A7200FFC3F7 /* LoadingView.swift in Sources */,
+				D06CFF282AE763FE00FFC3F7 /* Notifications+CoreData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D06CFEE12AE75A2600FFC3F7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D06CFEEA2AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D06CFEEB2AE75A2600FFC3F7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D06CFEF42AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.swift in Sources */,
+				D06CFEF62AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D06CFEE72AE75A2600FFC3F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D06CFECF2AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL */;
+			targetProxy = D06CFEE62AE75A2600FFC3F7 /* PBXContainerItemProxy */;
+		};
+		D06CFEF12AE75A2600FFC3F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D06CFECF2AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL */;
+			targetProxy = D06CFEF02AE75A2600FFC3F7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		D06CFEF72AE75A2600FFC3F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D06CFEF82AE75A2600FFC3F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D06CFEFA2AE75A2600FFC3F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Heigl_ARKIT_FINAL/Preview Content\"";
+				DEVELOPMENT_TEAM = 4562Q5CQ46;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-ARKIT-FINAL";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D06CFEFB2AE75A2600FFC3F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Heigl_ARKIT_FINAL/Preview Content\"";
+				DEVELOPMENT_TEAM = 4562Q5CQ46;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-ARKIT-FINAL";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D06CFEFD2AE75A2600FFC3F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4562Q5CQ46;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-ARKIT-FINALTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Heigl_ARKIT_FINAL.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Heigl_ARKIT_FINAL";
+			};
+			name = Debug;
+		};
+		D06CFEFE2AE75A2600FFC3F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4562Q5CQ46;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-ARKIT-FINALTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Heigl_ARKIT_FINAL.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Heigl_ARKIT_FINAL";
+			};
+			name = Release;
+		};
+		D06CFF002AE75A2600FFC3F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4562Q5CQ46;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-ARKIT-FINALUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Heigl_ARKIT_FINAL;
+			};
+			name = Debug;
+		};
+		D06CFF012AE75A2600FFC3F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4562Q5CQ46;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-ARKIT-FINALUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Heigl_ARKIT_FINAL;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D06CFECB2AE75A2300FFC3F7 /* Build configuration list for PBXProject "Heigl_ARKIT_FINAL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D06CFEF72AE75A2600FFC3F7 /* Debug */,
+				D06CFEF82AE75A2600FFC3F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D06CFEF92AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "Heigl_ARKIT_FINAL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D06CFEFA2AE75A2600FFC3F7 /* Debug */,
+				D06CFEFB2AE75A2600FFC3F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D06CFEFC2AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "Heigl_ARKIT_FINALTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D06CFEFD2AE75A2600FFC3F7 /* Debug */,
+				D06CFEFE2AE75A2600FFC3F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D06CFEFF2AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "Heigl_ARKIT_FINALUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D06CFF002AE75A2600FFC3F7 /* Debug */,
+				D06CFF012AE75A2600FFC3F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D06CFEDE2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D06CFEDF2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodel */,
+			);
+			currentVersion = D06CFEDF2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodel */;
+			path = Heigl_ARKIT_FINAL.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = D06CFEC82AE75A2300FFC3F7 /* Project object */;
+}

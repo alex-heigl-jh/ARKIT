@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22221.1" systemVersion="23A5337a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ARObject" representedClassName="ARObject" syncable="YES" codeGenerationType="class">
+        <attribute name="arID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="FAQ" representedClassName="FAQ" syncable="YES" codeGenerationType="class">
+        <attribute name="faqContent" attributeType="String"/>
+        <attribute name="faqID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="faqPicture1" optional="YES" attributeType="String"/>
+        <attribute name="faqPicture2" optional="YES" attributeType="String"/>
+        <attribute name="faqTitle" attributeType="String"/>
+        <attribute name="faqVideo" attributeType="String"/>
+    </entity>
+    <entity name="MapData" representedClassName="MapData" syncable="YES" codeGenerationType="class">
+        <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="landmarkID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="lastModified" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="locationType" attributeType="String"/>
+        <attribute name="sceneLocation" attributeType="String"/>
+        <attribute name="userID" attributeType="UUID" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="NewsFeed" representedClassName="NewsFeed" syncable="YES" codeGenerationType="class">
+        <attribute name="newsContent" attributeType="String"/>
+        <attribute name="newsID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="newsPicture" optional="YES" attributeType="String"/>
+        <attribute name="newsPosterID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="newsTitle" attributeType="String"/>
+        <attribute name="newsType" attributeType="String"/>
+        <attribute name="newsVideo" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Notifications" representedClassName="Notifications" syncable="YES" codeGenerationType="class">
+        <attribute name="notContent" attributeType="String"/>
+        <attribute name="notID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="notTitle" attributeType="String"/>
+        <attribute name="notType" attributeType="String"/>
+    </entity>
+    <entity name="Safety" representedClassName="Safety" syncable="YES" codeGenerationType="class">
+        <attribute name="safContent" attributeType="String"/>
+        <attribute name="safID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="safPicture" optional="YES" attributeType="String"/>
+        <attribute name="safTitle" attributeType="String"/>
+        <attribute name="safVideo" optional="YES"/>
+    </entity>
+    <entity name="SettingsPreferences" representedClassName="SettingsPreferences" syncable="YES" codeGenerationType="class">
+        <attribute name="lightDark" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="mapView" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="signOut"/>
+        <attribute name="userID" attributeType="UUID" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
+        <attribute name="firstName" attributeType="String"/>
+        <attribute name="lastName" attributeType="String"/>
+        <attribute name="password" attributeType="String"/>
+        <attribute name="profilePicURL" attributeType="String"/>
+        <attribute name="userID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="username" attributeType="String"/>
+    </entity>
+</model>
