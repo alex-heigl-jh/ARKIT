@@ -8,13 +8,16 @@
 import SwiftUI
 
 @main
-struct Heigl_ARKIT_FINALApp: App {
-    let persistenceController = PersistenceController.shared
-
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-        }
+struct Heigl_ARKIT_FINAL: App {
+  let persistenceController = PersistenceController.shared
+  
+  var body: some Scene {
+    WindowGroup {
+      NavigationStack {
+        LoginView()
+          .environment(\.managedObjectContext, persistenceController.container.viewContext)
+          .environmentObject(UserAuth())
+      }
     }
+  }
 }

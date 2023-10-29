@@ -8,11 +8,121 @@
 import SwiftUI
 
 struct LoginView: View {
+  @State private var username: String = UserDefaults.standard.string(forKey: "username") ?? ""
+  @State private var password: String = ""
+  @EnvironmentObject var userAuth: UserAuth
+  @State private var networkDataLoaded: Bool = true
+  let dataModel: InitialDataIngestor
+
+  init() {
+    dataModel = InitialDataIngestor()
+  }
+
+  var body: some View {
+    viewToDisplay
+  }
+
+  @ViewBuilder
+  private var viewToDisplay: some View {
+    if !userAuth.isLoggedIn {
+      LoginEntryView(username: $username, password: $password)
+    } else {
+      if networkDataLoaded == false {
+        LoadingView(dataModel: dataModel, networkDataLoaded: $networkDataLoaded)
+//        LoadingView()
+          
+      } else {
+        MainMenuView()
+      }
+    }
+  }
+}
+
+struct LoginEntryView: View {
+
+    @Binding var username: String
+    @Binding var password: String
+    @EnvironmentObject var userAuth: UserAuth
+    
+    // State variables for animation
+    @State private var rotationAngle: Double = 0
+    @State private var scaleValue: CGFloat = 1.0
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            // Logo for AR - Using "arkit" system symbol
+            Image(systemName: "arkit")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .foregroundColor(.blue) // Coloring it blue for enhanced appeal
+                .rotationEffect(Angle(degrees: rotationAngle)) // Rotation animation
+                .scaleEffect(scaleValue) // Scale animation
+                .padding(30)
+//                .onAppear() {
+//                    // Rotate by 360 degrees
+//                    withAnimation(Animation.linear(duration: 6).repeatForever(autoreverses: false)) {
+//                        rotationAngle += 360
+//                    }
+//                    
+//                    // Toggle scale with delay
+//                    let scaling = Animation.easeInOut(duration: 1.5).repeatForever(autoreverses: true)
+//                    withAnimation(scaling.delay(3)) {
+//                        scaleValue = 1.5
+//                    }
+//                }
+            
+            Text("AR Creator") // Updated App Name
+                .font(.largeTitle)
+                .bold()
+                .foregroundColor(.purple) // Making title purple for flashiness
+
+            Spacer(minLength: 10)
+            
+            VStack(alignment: .center) {
+                HStack {
+                    Spacer(minLength: 50)
+                    TextField("Username", text: $username)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Spacer(minLength: 50)
+                }
+                
+                HStack {
+                    Spacer(minLength: 50)
+                    SecureField("Password", text: $password)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Spacer(minLength: 50)
+                }
+                
+                Button(action: {
+                    self.saveUserName(userName: self.username)
+                    self.userAuth.login()
+                }, label: {
+                    Text("Login")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10) // Making button more flashy
+                })
+                .padding(.top, 20)
+            }
+            Spacer(minLength: 50)
+        }
+        .background(
+            LinearGradient(gradient: Gradient(colors: [Color.white, Color.purple.opacity(0.2)]), startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+        ) // Adding a gradient background for enhanced appeal
+    }
+
+    func saveUserName(userName: String) {
+        UserDefaults.standard.set(userName.lowercased(), forKey: "username")
     }
 }
 
-#Preview {
+
+
+struct LoginView_Previews: PreviewProvider {
+  static var previews: some View {
     LoginView()
+      .environmentObject(UserAuth())
+  }
 }

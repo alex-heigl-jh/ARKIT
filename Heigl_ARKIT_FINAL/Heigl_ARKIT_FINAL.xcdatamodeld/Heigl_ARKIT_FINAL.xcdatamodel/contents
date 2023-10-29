@@ -11,7 +11,13 @@
         <attribute name="faqTitle" attributeType="String"/>
         <attribute name="faqVideo" attributeType="String"/>
     </entity>
-    <entity name="MapData" representedClassName="MapData" syncable="YES" codeGenerationType="class">
+    <entity name="IAP" representedClassName="IAP" syncable="YES" codeGenerationType="class">
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="purchased" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="MapsData" representedClassName="MapsData" syncable="YES" codeGenerationType="class">
         <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="landmarkID" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="lastModified" attributeType="Date" usesScalarValueType="NO"/>
@@ -39,12 +45,12 @@
         <attribute name="safID" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="safPicture" optional="YES" attributeType="String"/>
         <attribute name="safTitle" attributeType="String"/>
-        <attribute name="safVideo" optional="YES"/>
+        <attribute name="safVideo" optional="YES" attributeType="String"/>
     </entity>
     <entity name="SettingsPreferences" representedClassName="SettingsPreferences" syncable="YES" codeGenerationType="class">
         <attribute name="lightDark" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="mapView" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="signOut"/>
+        <attribute name="signOut" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="userID" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">

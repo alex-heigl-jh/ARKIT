@@ -20,7 +20,7 @@
 		D06CFF082AE75A7200FFC3F7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF072AE75A7200FFC3F7 /* LoadingView.swift */; };
 		D06CFF0A2AE75A7C00FFC3F7 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF092AE75A7C00FFC3F7 /* MainMenuView.swift */; };
 		D06CFF0C2AE75A8800FFC3F7 /* MapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF0B2AE75A8800FFC3F7 /* MapsView.swift */; };
-		D06CFF0E2AE75AA300FFC3F7 /* NewsFeedVieew.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF0D2AE75AA300FFC3F7 /* NewsFeedVieew.swift */; };
+		D06CFF0E2AE75AA300FFC3F7 /* NewsFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF0D2AE75AA300FFC3F7 /* NewsFeedView.swift */; };
 		D06CFF102AE75AD000FFC3F7 /* SettingsFAQSafety.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF0F2AE75AD000FFC3F7 /* SettingsFAQSafety.swift */; };
 		D06CFF162AE75B5500FFC3F7 /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */; };
 		D06CFF182AE75B7100FFC3F7 /* InitialDataIngestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF172AE75B7100FFC3F7 /* InitialDataIngestor.swift */; };
@@ -35,6 +35,9 @@
 		D06CFF2C2AE7652D00FFC3F7 /* Safety+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF2B2AE7652D00FFC3F7 /* Safety+CoreData.swift */; };
 		D06CFF2E2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF2D2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift */; };
 		D06CFF302AE768D100FFC3F7 /* Users+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF2F2AE768D100FFC3F7 /* Users+CoreData.swift */; };
+		D06CFF332AEEFF4700FFC3F7 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF322AEEFF4700FFC3F7 /* CoreDataHelper.swift */; };
+		D06CFF352AEF029400FFC3F7 /* IAP+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF342AEF029400FFC3F7 /* IAP+CoreData.swift */; };
+		D06CFF372AEF094500FFC3F7 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF362AEF094500FFC3F7 /* ARView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +74,7 @@
 		D06CFF072AE75A7200FFC3F7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		D06CFF092AE75A7C00FFC3F7 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		D06CFF0B2AE75A8800FFC3F7 /* MapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsView.swift; sourceTree = "<group>"; };
-		D06CFF0D2AE75AA300FFC3F7 /* NewsFeedVieew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedVieew.swift; sourceTree = "<group>"; };
+		D06CFF0D2AE75AA300FFC3F7 /* NewsFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedView.swift; sourceTree = "<group>"; };
 		D06CFF0F2AE75AD000FFC3F7 /* SettingsFAQSafety.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFAQSafety.swift; sourceTree = "<group>"; };
 		D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
 		D06CFF172AE75B7100FFC3F7 /* InitialDataIngestor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialDataIngestor.swift; sourceTree = "<group>"; };
@@ -86,6 +89,9 @@
 		D06CFF2B2AE7652D00FFC3F7 /* Safety+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Safety+CoreData.swift"; sourceTree = "<group>"; };
 		D06CFF2D2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsPreferences+CoreData.swift"; sourceTree = "<group>"; };
 		D06CFF2F2AE768D100FFC3F7 /* Users+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreData.swift"; sourceTree = "<group>"; };
+		D06CFF322AEEFF4700FFC3F7 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		D06CFF342AEF029400FFC3F7 /* IAP+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IAP+CoreData.swift"; sourceTree = "<group>"; };
+		D06CFF362AEF094500FFC3F7 /* ARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,8 +186,9 @@
 				D06CFF072AE75A7200FFC3F7 /* LoadingView.swift */,
 				D06CFF092AE75A7C00FFC3F7 /* MainMenuView.swift */,
 				D06CFF0B2AE75A8800FFC3F7 /* MapsView.swift */,
-				D06CFF0D2AE75AA300FFC3F7 /* NewsFeedVieew.swift */,
+				D06CFF0D2AE75AA300FFC3F7 /* NewsFeedView.swift */,
 				D06CFF0F2AE75AD000FFC3F7 /* SettingsFAQSafety.swift */,
+				D06CFF362AEF094500FFC3F7 /* ARView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -210,6 +217,8 @@
 				D06CFF2B2AE7652D00FFC3F7 /* Safety+CoreData.swift */,
 				D06CFF2D2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift */,
 				D06CFF2F2AE768D100FFC3F7 /* Users+CoreData.swift */,
+				D06CFF342AEF029400FFC3F7 /* IAP+CoreData.swift */,
+				D06CFF322AEEFF4700FFC3F7 /* CoreDataHelper.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -345,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D06CFEDD2AE75A2500FFC3F7 /* Persistence.swift in Sources */,
+				D06CFF372AEF094500FFC3F7 /* ARView.swift in Sources */,
 				D06CFF0C2AE75A8800FFC3F7 /* MapsView.swift in Sources */,
 				D06CFF1A2AE75B9000FFC3F7 /* CoreLocationHelper.swift in Sources */,
 				D06CFF0A2AE75A7C00FFC3F7 /* MainMenuView.swift in Sources */,
@@ -352,16 +362,18 @@
 				D06CFF242AE763B800FFC3F7 /* MapsData+CoreData.swift in Sources */,
 				D06CFED62AE75A2300FFC3F7 /* ContentView.swift in Sources */,
 				D06CFF1E2AE75BBA00FFC3F7 /* SettingsFAQSafetyHelper.swift in Sources */,
-				D06CFF0E2AE75AA300FFC3F7 /* NewsFeedVieew.swift in Sources */,
+				D06CFF0E2AE75AA300FFC3F7 /* NewsFeedView.swift in Sources */,
 				D06CFF222AE7637B00FFC3F7 /* FAQ+CoreData.swift in Sources */,
 				D06CFF2C2AE7652D00FFC3F7 /* Safety+CoreData.swift in Sources */,
 				D06CFEE02AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld in Sources */,
 				D06CFF2E2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift in Sources */,
 				D06CFF062AE75A6100FFC3F7 /* LoginView.swift in Sources */,
+				D06CFF352AEF029400FFC3F7 /* IAP+CoreData.swift in Sources */,
 				D06CFF202AE7636900FFC3F7 /* ARObject+CoreData.swift in Sources */,
 				D06CFF302AE768D100FFC3F7 /* Users+CoreData.swift in Sources */,
 				D06CFF102AE75AD000FFC3F7 /* SettingsFAQSafety.swift in Sources */,
 				D06CFED42AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift in Sources */,
+				D06CFF332AEEFF4700FFC3F7 /* CoreDataHelper.swift in Sources */,
 				D06CFF162AE75B5500FFC3F7 /* UserAuth.swift in Sources */,
 				D06CFF262AE763DA00FFC3F7 /* NewsFeed+CoreData.swift in Sources */,
 				D06CFF1C2AE75B9C00FFC3F7 /* NewsFeedHelper.swift in Sources */,

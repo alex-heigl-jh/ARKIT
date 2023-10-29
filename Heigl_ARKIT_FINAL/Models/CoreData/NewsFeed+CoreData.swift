@@ -6,3 +6,34 @@
 //
 
 import Foundation
+import CoreData
+
+extension NewsFeed {
+
+  static func createWith(
+    newsContent: String,
+    newsID: UUID,
+    newsPicture: String,
+    newsPosterID: UUID,
+    newsTitle: String,
+    newsType: String,
+    newsVideo: String,
+    in context: NSManagedObjectContext
+  ) {
+    context.perform {
+        let item = NewsFeed(context: context)
+        item.newsContent = newsContent
+        item.newsID = newsID
+        item.newsPicture = newsPicture
+        item.newsPosterID = newsPosterID
+        item.newsTitle = newsTitle
+        item.newsType = newsType
+        item.newsVideo = newsVideo
+      do {
+        try context.save()
+      } catch {
+        fatalError("Problem saving NewsFeed to CoreData")
+      }
+    }
+  }
+}

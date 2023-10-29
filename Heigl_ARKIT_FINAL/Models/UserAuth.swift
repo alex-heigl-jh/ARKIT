@@ -1,8 +1,21 @@
 //
 //  UserAuth.swift
-//  Heigl_ARKIT_FINAL
+//  ToDoApp
 //
-//  Created by Alex Heigl on 10/23/23.
+//  Created by Teacher on 9/11/22.
 //
 
 import Foundation
+
+class UserAuth: ObservableObject {
+
+  @Published var isLoggedIn = false
+
+  func login() {
+    self.isLoggedIn = true
+  }
+
+  func logout() {
+    self.isLoggedIn = false
+  }
+}
