@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -37,7 +37,13 @@
 		D06CFF302AE768D100FFC3F7 /* Users+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF2F2AE768D100FFC3F7 /* Users+CoreData.swift */; };
 		D06CFF332AEEFF4700FFC3F7 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF322AEEFF4700FFC3F7 /* CoreDataHelper.swift */; };
 		D06CFF352AEF029400FFC3F7 /* IAP+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF342AEF029400FFC3F7 /* IAP+CoreData.swift */; };
-		D06CFF372AEF094500FFC3F7 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF362AEF094500FFC3F7 /* ARView.swift */; };
+		D06CFF3B2AF0834400FFC3F7 /* UsersJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF3A2AF0834400FFC3F7 /* UsersJSON.swift */; };
+		D06CFF3E2AF14A5700FFC3F7 /* CustomARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF3D2AF14A5700FFC3F7 /* CustomARView.swift */; };
+		D06CFF402AF14A9B00FFC3F7 /* CustomARViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF3F2AF14A9B00FFC3F7 /* CustomARViewRepresentable.swift */; };
+		D06CFF432AF15C9300FFC3F7 /* ARAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF422AF15C9300FFC3F7 /* ARAction.swift */; };
+		D06CFF452AF15DCD00FFC3F7 /* ARManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF442AF15DCD00FFC3F7 /* ARManager.swift */; };
+		D06CFF472AF1679D00FFC3F7 /* ARContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF462AF1679D00FFC3F7 /* ARContentView.swift */; };
+		D06CFF492AF1919800FFC3F7 /* LocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF482AF1919800FFC3F7 /* LocationDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,7 +97,14 @@
 		D06CFF2F2AE768D100FFC3F7 /* Users+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreData.swift"; sourceTree = "<group>"; };
 		D06CFF322AEEFF4700FFC3F7 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		D06CFF342AEF029400FFC3F7 /* IAP+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IAP+CoreData.swift"; sourceTree = "<group>"; };
-		D06CFF362AEF094500FFC3F7 /* ARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARView.swift; sourceTree = "<group>"; };
+		D06CFF3A2AF0834400FFC3F7 /* UsersJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersJSON.swift; sourceTree = "<group>"; };
+		D06CFF3D2AF14A5700FFC3F7 /* CustomARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomARView.swift; sourceTree = "<group>"; };
+		D06CFF3F2AF14A9B00FFC3F7 /* CustomARViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomARViewRepresentable.swift; sourceTree = "<group>"; };
+		D06CFF412AF14F2500FFC3F7 /* Heigl-ARKIT-FINAL-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Heigl-ARKIT-FINAL-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D06CFF422AF15C9300FFC3F7 /* ARAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARAction.swift; sourceTree = "<group>"; };
+		D06CFF442AF15DCD00FFC3F7 /* ARManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARManager.swift; sourceTree = "<group>"; };
+		D06CFF462AF1679D00FFC3F7 /* ARContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARContentView.swift; sourceTree = "<group>"; };
+		D06CFF482AF1919800FFC3F7 /* LocationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +141,7 @@
 				D06CFED12AE75A2300FFC3F7 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		D06CFED12AE75A2300FFC3F7 /* Products */ = {
 			isa = PBXGroup;
@@ -142,6 +156,7 @@
 		D06CFED22AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL */ = {
 			isa = PBXGroup;
 			children = (
+				D06CFF412AF14F2500FFC3F7 /* Heigl-ARKIT-FINAL-Info.plist */,
 				D06CFF032AE75A3B00FFC3F7 /* Models */,
 				D06CFF022AE75A3300FFC3F7 /* Views */,
 				D06CFED32AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift */,
@@ -182,13 +197,14 @@
 		D06CFF022AE75A3300FFC3F7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D06CFF3C2AF1487200FFC3F7 /* ARTarget */,
 				D06CFF052AE75A6100FFC3F7 /* LoginView.swift */,
 				D06CFF072AE75A7200FFC3F7 /* LoadingView.swift */,
 				D06CFF092AE75A7C00FFC3F7 /* MainMenuView.swift */,
 				D06CFF0B2AE75A8800FFC3F7 /* MapsView.swift */,
+				D06CFF482AF1919800FFC3F7 /* LocationDetailsView.swift */,
 				D06CFF0D2AE75AA300FFC3F7 /* NewsFeedView.swift */,
 				D06CFF0F2AE75AD000FFC3F7 /* SettingsFAQSafety.swift */,
-				D06CFF362AEF094500FFC3F7 /* ARView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -202,6 +218,7 @@
 				D06CFF192AE75B9000FFC3F7 /* CoreLocationHelper.swift */,
 				D06CFF1B2AE75B9C00FFC3F7 /* NewsFeedHelper.swift */,
 				D06CFF1D2AE75BBA00FFC3F7 /* SettingsFAQSafetyHelper.swift */,
+				D06CFF3A2AF0834400FFC3F7 /* UsersJSON.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -221,6 +238,18 @@
 				D06CFF322AEEFF4700FFC3F7 /* CoreDataHelper.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		D06CFF3C2AF1487200FFC3F7 /* ARTarget */ = {
+			isa = PBXGroup;
+			children = (
+				D06CFF3D2AF14A5700FFC3F7 /* CustomARView.swift */,
+				D06CFF3F2AF14A9B00FFC3F7 /* CustomARViewRepresentable.swift */,
+				D06CFF422AF15C9300FFC3F7 /* ARAction.swift */,
+				D06CFF442AF15DCD00FFC3F7 /* ARManager.swift */,
+				D06CFF462AF1679D00FFC3F7 /* ARContentView.swift */,
+			);
+			path = ARTarget;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,7 +332,7 @@
 				};
 			};
 			buildConfigurationList = D06CFECB2AE75A2300FFC3F7 /* Build configuration list for PBXProject "Heigl_ARKIT_FINAL" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -354,10 +383,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D06CFEDD2AE75A2500FFC3F7 /* Persistence.swift in Sources */,
-				D06CFF372AEF094500FFC3F7 /* ARView.swift in Sources */,
 				D06CFF0C2AE75A8800FFC3F7 /* MapsView.swift in Sources */,
 				D06CFF1A2AE75B9000FFC3F7 /* CoreLocationHelper.swift in Sources */,
 				D06CFF0A2AE75A7C00FFC3F7 /* MainMenuView.swift in Sources */,
+				D06CFF452AF15DCD00FFC3F7 /* ARManager.swift in Sources */,
 				D06CFF182AE75B7100FFC3F7 /* InitialDataIngestor.swift in Sources */,
 				D06CFF242AE763B800FFC3F7 /* MapsData+CoreData.swift in Sources */,
 				D06CFED62AE75A2300FFC3F7 /* ContentView.swift in Sources */,
@@ -367,18 +396,24 @@
 				D06CFF2C2AE7652D00FFC3F7 /* Safety+CoreData.swift in Sources */,
 				D06CFEE02AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld in Sources */,
 				D06CFF2E2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift in Sources */,
+				D06CFF492AF1919800FFC3F7 /* LocationDetailsView.swift in Sources */,
 				D06CFF062AE75A6100FFC3F7 /* LoginView.swift in Sources */,
 				D06CFF352AEF029400FFC3F7 /* IAP+CoreData.swift in Sources */,
 				D06CFF202AE7636900FFC3F7 /* ARObject+CoreData.swift in Sources */,
 				D06CFF302AE768D100FFC3F7 /* Users+CoreData.swift in Sources */,
 				D06CFF102AE75AD000FFC3F7 /* SettingsFAQSafety.swift in Sources */,
+				D06CFF3B2AF0834400FFC3F7 /* UsersJSON.swift in Sources */,
 				D06CFED42AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift in Sources */,
 				D06CFF332AEEFF4700FFC3F7 /* CoreDataHelper.swift in Sources */,
 				D06CFF162AE75B5500FFC3F7 /* UserAuth.swift in Sources */,
+				D06CFF472AF1679D00FFC3F7 /* ARContentView.swift in Sources */,
 				D06CFF262AE763DA00FFC3F7 /* NewsFeed+CoreData.swift in Sources */,
 				D06CFF1C2AE75B9C00FFC3F7 /* NewsFeedHelper.swift in Sources */,
 				D06CFF082AE75A7200FFC3F7 /* LoadingView.swift in Sources */,
+				D06CFF3E2AF14A5700FFC3F7 /* CustomARView.swift in Sources */,
 				D06CFF282AE763FE00FFC3F7 /* Notifications+CoreData.swift in Sources */,
+				D06CFF432AF15C9300FFC3F7 /* ARAction.swift in Sources */,
+				D06CFF402AF14A9B00FFC3F7 /* CustomARViewRepresentable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,9 +577,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Heigl_ARKIT_FINAL/Preview Content\"";
-				DEVELOPMENT_TEAM = 4562Q5CQ46;
+				DEVELOPMENT_TEAM = L969A3FLRT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Heigl-ARKIT-FINAL-Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Needed to show AR View";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Needed to display your location on the map!";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Needed to display your location on the map!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -571,9 +610,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Heigl_ARKIT_FINAL/Preview Content\"";
-				DEVELOPMENT_TEAM = 4562Q5CQ46;
+				DEVELOPMENT_TEAM = L969A3FLRT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Heigl-ARKIT-FINAL-Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Needed to show AR View";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Needed to display your location on the map!";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Needed to display your location on the map!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

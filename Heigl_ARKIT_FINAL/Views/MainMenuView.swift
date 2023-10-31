@@ -24,7 +24,7 @@ struct MainMenuView: View {
             }
 
             withAnimation(Animation.spring().delay(0.2)) {
-                mainButton(label: "Augmented Reality", images: ["camera.metering.matrix", "arkit", "figure.walk"], destination: ARView(), colors: [Color.orange, Color.red])
+                mainButton(label: "Augmented Reality", images: ["camera.metering.matrix", "arkit", "figure.walk"], destination: ARContentView(), colors: [Color.orange, Color.red])
                     .transition(.move(edge: .bottom))
             }
 

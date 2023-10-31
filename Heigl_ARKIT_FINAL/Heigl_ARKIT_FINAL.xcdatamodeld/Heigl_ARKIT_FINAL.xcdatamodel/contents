@@ -4,12 +4,12 @@
         <attribute name="arID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <entity name="FAQ" representedClassName="FAQ" syncable="YES" codeGenerationType="class">
-        <attribute name="faqContent" attributeType="String"/>
-        <attribute name="faqID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="faqContent" optional="YES" attributeType="String"/>
+        <attribute name="faqID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="faqPicture1" optional="YES" attributeType="String"/>
         <attribute name="faqPicture2" optional="YES" attributeType="String"/>
-        <attribute name="faqTitle" attributeType="String"/>
-        <attribute name="faqVideo" attributeType="String"/>
+        <attribute name="faqTitle" optional="YES" attributeType="String"/>
+        <attribute name="faqVideo" optional="YES" attributeType="String"/>
     </entity>
     <entity name="IAP" representedClassName="IAP" syncable="YES" codeGenerationType="class">
         <attribute name="desc" optional="YES" attributeType="String"/>
@@ -19,46 +19,46 @@
     </entity>
     <entity name="MapsData" representedClassName="MapsData" syncable="YES" codeGenerationType="class">
         <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="landmarkID" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="lastModified" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="locationType" attributeType="String"/>
-        <attribute name="sceneLocation" attributeType="String"/>
-        <attribute name="userID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="landmarkID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="lastModified" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="locationType" optional="YES" attributeType="String"/>
+        <attribute name="sceneLocation" optional="YES" attributeType="String"/>
+        <attribute name="userID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <entity name="NewsFeed" representedClassName="NewsFeed" syncable="YES" codeGenerationType="class">
-        <attribute name="newsContent" attributeType="String"/>
-        <attribute name="newsID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="newsContent" optional="YES" attributeType="String"/>
+        <attribute name="newsID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="newsPicture" optional="YES" attributeType="String"/>
-        <attribute name="newsPosterID" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="newsTitle" attributeType="String"/>
-        <attribute name="newsType" attributeType="String"/>
+        <attribute name="newsPosterID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="newsTitle" optional="YES" attributeType="String"/>
+        <attribute name="newsType" optional="YES" attributeType="String"/>
         <attribute name="newsVideo" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Notifications" representedClassName="Notifications" syncable="YES" codeGenerationType="class">
-        <attribute name="notContent" attributeType="String"/>
-        <attribute name="notID" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="notTitle" attributeType="String"/>
-        <attribute name="notType" attributeType="String"/>
+        <attribute name="notContent" optional="YES" attributeType="String"/>
+        <attribute name="notID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="notTitle" optional="YES" attributeType="String"/>
+        <attribute name="notType" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Safety" representedClassName="Safety" syncable="YES" codeGenerationType="class">
-        <attribute name="safContent" attributeType="String"/>
-        <attribute name="safID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="safContent" optional="YES" attributeType="String"/>
+        <attribute name="safID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="safPicture" optional="YES" attributeType="String"/>
-        <attribute name="safTitle" attributeType="String"/>
+        <attribute name="safTitle" optional="YES" attributeType="String"/>
         <attribute name="safVideo" optional="YES" attributeType="String"/>
     </entity>
     <entity name="SettingsPreferences" representedClassName="SettingsPreferences" syncable="YES" codeGenerationType="class">
-        <attribute name="lightDark" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="mapView" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="signOut" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="userID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="lightDark" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="mapView" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="signOut" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="userID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
-        <attribute name="firstName" attributeType="String"/>
-        <attribute name="lastName" attributeType="String"/>
-        <attribute name="password" attributeType="String"/>
-        <attribute name="profilePicURL" attributeType="String"/>
-        <attribute name="userID" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="username" attributeType="String"/>
+        <attribute name="firstName" optional="YES" attributeType="String"/>
+        <attribute name="lastName" optional="YES" attributeType="String"/>
+        <attribute name="password" optional="YES" attributeType="String"/>
+        <attribute name="profilePicURL" optional="YES" attributeType="String"/>
+        <attribute name="userID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="username" optional="YES" attributeType="String"/>
     </entity>
 </model>
