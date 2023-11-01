@@ -13,12 +13,6 @@ struct PersistenceController {
   static var preview: PersistenceController = {
     let result = PersistenceController(inMemory: true)
     let viewContext = result.container.viewContext
-    let locations = ["Columbia, MD", "Ellicott City, MD", "Washington, DC", "Annapolis, MD", "Baltimore, MD", "Laurel, MD", "Silver Spring, Maryland", "Elkridge, MD", "Canton, MD", "Beltsville, MD"]
-    
-    for i in 0..<3 {
-      let newItem = IAP(context: viewContext)
-      newItem.name = "IAP \(i+1)"
-    }
     
     do {
       try viewContext.save()
@@ -60,3 +54,5 @@ struct PersistenceController {
     return taskContext
   }
 }
+
+

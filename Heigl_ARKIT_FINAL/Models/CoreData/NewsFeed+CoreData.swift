@@ -12,6 +12,7 @@ extension NewsFeed {
 
   static func createWith(
     newsContent: String,
+	newsCreatedOn: Date,
     newsID: UUID,
     newsPicture: String,
     newsPosterID: UUID,
@@ -23,12 +24,21 @@ extension NewsFeed {
     context.perform {
         let item = NewsFeed(context: context)
         item.newsContent = newsContent
+		item.newsCreatedOn = newsCreatedOn
         item.newsID = newsID
         item.newsPicture = newsPicture
         item.newsPosterID = newsPosterID
         item.newsTitle = newsTitle
         item.newsType = newsType
         item.newsVideo = newsVideo
+		
+		if let user = User.fetchUserBy(userID: newsPosterID, in: context) {
+			item.poster = user
+			user.addToPost(item)
+		}
+		
+		print("News feed titled \(newsTitle) created.")
+		
       do {
         try context.save()
       } catch {

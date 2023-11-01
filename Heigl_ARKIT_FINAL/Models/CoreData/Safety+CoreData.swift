@@ -25,6 +25,7 @@ extension Safety {
         item.safPicture = safPicture
         item.safTitle = safTitle
         item.safVideo = safVideo
+		print("Safety object \(safTitle) created.")
       do {
         try context.save()
       } catch {

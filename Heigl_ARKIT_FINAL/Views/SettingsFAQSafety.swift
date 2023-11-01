@@ -25,8 +25,6 @@ struct SettingsPreferencesSafetyView: View {
 
             ScrollView { // Added ScrollView
                 VStack(spacing: 20) {
-                    Text("Settings, FAQ, & Safety View")
-                        .font(.headline)
 
                     Divider()
 

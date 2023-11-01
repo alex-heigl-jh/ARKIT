@@ -27,12 +27,14 @@
     </entity>
     <entity name="NewsFeed" representedClassName="NewsFeed" syncable="YES" codeGenerationType="class">
         <attribute name="newsContent" optional="YES" attributeType="String"/>
+        <attribute name="newsCreatedOn" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="newsID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="newsPicture" optional="YES" attributeType="String"/>
         <attribute name="newsPosterID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="newsTitle" optional="YES" attributeType="String"/>
         <attribute name="newsType" optional="YES" attributeType="String"/>
         <attribute name="newsVideo" optional="YES" attributeType="String"/>
+        <relationship name="poster" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="post" inverseEntity="User"/>
     </entity>
     <entity name="Notifications" representedClassName="Notifications" syncable="YES" codeGenerationType="class">
         <attribute name="notContent" optional="YES" attributeType="String"/>
@@ -41,10 +43,10 @@
         <attribute name="notType" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Safety" representedClassName="Safety" syncable="YES" codeGenerationType="class">
-        <attribute name="safContent" optional="YES" attributeType="String"/>
-        <attribute name="safID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="safContent" attributeType="String"/>
+        <attribute name="safID" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="safPicture" optional="YES" attributeType="String"/>
-        <attribute name="safTitle" optional="YES" attributeType="String"/>
+        <attribute name="safTitle" attributeType="String"/>
         <attribute name="safVideo" optional="YES" attributeType="String"/>
     </entity>
     <entity name="SettingsPreferences" representedClassName="SettingsPreferences" syncable="YES" codeGenerationType="class">
@@ -60,5 +62,6 @@
         <attribute name="profilePicURL" optional="YES" attributeType="String"/>
         <attribute name="userID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="username" optional="YES" attributeType="String"/>
+        <relationship name="post" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NewsFeed" inverseName="poster" inverseEntity="NewsFeed"/>
     </entity>
 </model>

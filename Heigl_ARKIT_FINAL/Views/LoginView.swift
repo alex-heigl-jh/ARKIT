@@ -11,7 +11,7 @@ struct LoginView: View {
   @State private var username: String = UserDefaults.standard.string(forKey: "username") ?? ""
   @State private var password: String = ""
   @EnvironmentObject var userAuth: UserAuth
-  @State private var networkDataLoaded: Bool = true
+  @State private var networkDataLoaded: Bool = false
   let dataModel: InitialDataIngestor
 
   init() {
@@ -29,7 +29,6 @@ struct LoginView: View {
     } else {
       if networkDataLoaded == false {
         LoadingView(dataModel: dataModel, networkDataLoaded: $networkDataLoaded)
-//        LoadingView()
           
       } else {
         MainMenuView()
@@ -58,18 +57,6 @@ struct LoginEntryView: View {
                 .rotationEffect(Angle(degrees: rotationAngle)) // Rotation animation
                 .scaleEffect(scaleValue) // Scale animation
                 .padding(30)
-//                .onAppear() {
-//                    // Rotate by 360 degrees
-//                    withAnimation(Animation.linear(duration: 6).repeatForever(autoreverses: false)) {
-//                        rotationAngle += 360
-//                    }
-//                    
-//                    // Toggle scale with delay
-//                    let scaling = Animation.easeInOut(duration: 1.5).repeatForever(autoreverses: true)
-//                    withAnimation(scaling.delay(3)) {
-//                        scaleValue = 1.5
-//                    }
-//                }
             
             Text("AR Creator") // Updated App Name
                 .font(.largeTitle)

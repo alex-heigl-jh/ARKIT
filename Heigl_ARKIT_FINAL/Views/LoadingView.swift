@@ -22,7 +22,7 @@ struct LoadingView: View {
       .task {
 //        await dataModel.loadAllData(from: .Web, isLoaded: _networkDataLoaded) // Load Data from JSON files on server
 //          await dataModel.loadAllData(from: .LocalJSON, isLoaded: _networkDataLoaded) // Load Data from local JSON files
-//        await dataModel.loadAllData(from: .Local, isLoaded: _networkDataLoaded) // Load data from hardcoded data in InitialDataIngestor
+        await dataModel.loadAllData(from: .Local, isLoaded: _networkDataLoaded) // Load data from hardcoded data in InitialDataIngestor
       }
   }
 }

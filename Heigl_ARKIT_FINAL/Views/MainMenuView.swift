@@ -11,6 +11,7 @@ import CoreData
 
 struct MainMenuView: View {
     @State private var selectedView: Int? = nil
+	@Environment(\.managedObjectContext) var managedObjectContext
 
     var body: some View {
         VStack(spacing: 30) {
@@ -48,8 +49,8 @@ struct MainMenuView: View {
     }
 
     // Updated mainButton function
-    func mainButton<T: View>(label: String, images: [String], destination: T, colors: [Color]) -> some View {
-        NavigationLink(destination: destination) {
+	func mainButton<T: View>(label: String, images: [String], destination: T, colors: [Color]) -> some View {
+		NavigationLink(destination: destination.environment(\.managedObjectContext, self.managedObjectContext)) {
             VStack {
                 HStack {
                     ForEach(images, id: \.self) { imageName in

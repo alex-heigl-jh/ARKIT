@@ -4,6 +4,7 @@
 //
 //  Created by Alex Heigl on 10/31/23.
 //
+//  Code initially based off of tutorial from: https://www.youtube.com/watch?v=KbqbU-cCKf4
 
 import SwiftUI
 
@@ -48,22 +49,6 @@ struct ARContentView: View {
 		
 	}
 }
-
-
-//		VStack {
-//			Picker("Select Color", selection: $selectedColor) {
-//				ForEach(colors, id: \.self) { color in
-//					color
-//						.frame(width: 50, height: 50)
-//						.background(color)
-//				}
-//			}
-//			.pickerStyle(SegmentedPickerStyle())
-//			.padding()
-//			.onChange(of: selectedColor, perform: { color in
-//				ARManager.shared.actionStream.send(.changeColor(color))
-//			})
-//		}
 
 #Preview {
     ARContentView()

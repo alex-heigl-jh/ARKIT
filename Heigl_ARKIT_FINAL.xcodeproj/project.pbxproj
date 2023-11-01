@@ -24,9 +24,6 @@
 		D06CFF102AE75AD000FFC3F7 /* SettingsFAQSafety.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF0F2AE75AD000FFC3F7 /* SettingsFAQSafety.swift */; };
 		D06CFF162AE75B5500FFC3F7 /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */; };
 		D06CFF182AE75B7100FFC3F7 /* InitialDataIngestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF172AE75B7100FFC3F7 /* InitialDataIngestor.swift */; };
-		D06CFF1A2AE75B9000FFC3F7 /* CoreLocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF192AE75B9000FFC3F7 /* CoreLocationHelper.swift */; };
-		D06CFF1C2AE75B9C00FFC3F7 /* NewsFeedHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF1B2AE75B9C00FFC3F7 /* NewsFeedHelper.swift */; };
-		D06CFF1E2AE75BBA00FFC3F7 /* SettingsFAQSafetyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF1D2AE75BBA00FFC3F7 /* SettingsFAQSafetyHelper.swift */; };
 		D06CFF202AE7636900FFC3F7 /* ARObject+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF1F2AE7636900FFC3F7 /* ARObject+CoreData.swift */; };
 		D06CFF222AE7637B00FFC3F7 /* FAQ+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF212AE7637B00FFC3F7 /* FAQ+CoreData.swift */; };
 		D06CFF242AE763B800FFC3F7 /* MapsData+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF232AE763B800FFC3F7 /* MapsData+CoreData.swift */; };
@@ -44,6 +41,8 @@
 		D06CFF452AF15DCD00FFC3F7 /* ARManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF442AF15DCD00FFC3F7 /* ARManager.swift */; };
 		D06CFF472AF1679D00FFC3F7 /* ARContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF462AF1679D00FFC3F7 /* ARContentView.swift */; };
 		D06CFF492AF1919800FFC3F7 /* LocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF482AF1919800FFC3F7 /* LocationDetailsView.swift */; };
+		D06CFF4B2AF294ED00FFC3F7 /* NewsFeedJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF4A2AF294ED00FFC3F7 /* NewsFeedJSON.swift */; };
+		D06CFF552AF2E24600FFC3F7 /* SafetyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF542AF2E24600FFC3F7 /* SafetyJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,9 +83,6 @@
 		D06CFF0F2AE75AD000FFC3F7 /* SettingsFAQSafety.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFAQSafety.swift; sourceTree = "<group>"; };
 		D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
 		D06CFF172AE75B7100FFC3F7 /* InitialDataIngestor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialDataIngestor.swift; sourceTree = "<group>"; };
-		D06CFF192AE75B9000FFC3F7 /* CoreLocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationHelper.swift; sourceTree = "<group>"; };
-		D06CFF1B2AE75B9C00FFC3F7 /* NewsFeedHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedHelper.swift; sourceTree = "<group>"; };
-		D06CFF1D2AE75BBA00FFC3F7 /* SettingsFAQSafetyHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFAQSafetyHelper.swift; sourceTree = "<group>"; };
 		D06CFF1F2AE7636900FFC3F7 /* ARObject+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARObject+CoreData.swift"; sourceTree = "<group>"; };
 		D06CFF212AE7637B00FFC3F7 /* FAQ+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FAQ+CoreData.swift"; sourceTree = "<group>"; };
 		D06CFF232AE763B800FFC3F7 /* MapsData+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapsData+CoreData.swift"; sourceTree = "<group>"; };
@@ -105,6 +101,8 @@
 		D06CFF442AF15DCD00FFC3F7 /* ARManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARManager.swift; sourceTree = "<group>"; };
 		D06CFF462AF1679D00FFC3F7 /* ARContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARContentView.swift; sourceTree = "<group>"; };
 		D06CFF482AF1919800FFC3F7 /* LocationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsView.swift; sourceTree = "<group>"; };
+		D06CFF4A2AF294ED00FFC3F7 /* NewsFeedJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedJSON.swift; sourceTree = "<group>"; };
+		D06CFF542AF2E24600FFC3F7 /* SafetyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,10 +213,9 @@
 				D06CFF042AE75A4300FFC3F7 /* CoreData */,
 				D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */,
 				D06CFF172AE75B7100FFC3F7 /* InitialDataIngestor.swift */,
-				D06CFF192AE75B9000FFC3F7 /* CoreLocationHelper.swift */,
-				D06CFF1B2AE75B9C00FFC3F7 /* NewsFeedHelper.swift */,
-				D06CFF1D2AE75BBA00FFC3F7 /* SettingsFAQSafetyHelper.swift */,
 				D06CFF3A2AF0834400FFC3F7 /* UsersJSON.swift */,
+				D06CFF4A2AF294ED00FFC3F7 /* NewsFeedJSON.swift */,
+				D06CFF542AF2E24600FFC3F7 /* SafetyJSON.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -384,13 +381,13 @@
 			files = (
 				D06CFEDD2AE75A2500FFC3F7 /* Persistence.swift in Sources */,
 				D06CFF0C2AE75A8800FFC3F7 /* MapsView.swift in Sources */,
-				D06CFF1A2AE75B9000FFC3F7 /* CoreLocationHelper.swift in Sources */,
 				D06CFF0A2AE75A7C00FFC3F7 /* MainMenuView.swift in Sources */,
 				D06CFF452AF15DCD00FFC3F7 /* ARManager.swift in Sources */,
 				D06CFF182AE75B7100FFC3F7 /* InitialDataIngestor.swift in Sources */,
+				D06CFF4B2AF294ED00FFC3F7 /* NewsFeedJSON.swift in Sources */,
+				D06CFF552AF2E24600FFC3F7 /* SafetyJSON.swift in Sources */,
 				D06CFF242AE763B800FFC3F7 /* MapsData+CoreData.swift in Sources */,
 				D06CFED62AE75A2300FFC3F7 /* ContentView.swift in Sources */,
-				D06CFF1E2AE75BBA00FFC3F7 /* SettingsFAQSafetyHelper.swift in Sources */,
 				D06CFF0E2AE75AA300FFC3F7 /* NewsFeedView.swift in Sources */,
 				D06CFF222AE7637B00FFC3F7 /* FAQ+CoreData.swift in Sources */,
 				D06CFF2C2AE7652D00FFC3F7 /* Safety+CoreData.swift in Sources */,
@@ -408,7 +405,6 @@
 				D06CFF162AE75B5500FFC3F7 /* UserAuth.swift in Sources */,
 				D06CFF472AF1679D00FFC3F7 /* ARContentView.swift in Sources */,
 				D06CFF262AE763DA00FFC3F7 /* NewsFeed+CoreData.swift in Sources */,
-				D06CFF1C2AE75B9C00FFC3F7 /* NewsFeedHelper.swift in Sources */,
 				D06CFF082AE75A7200FFC3F7 /* LoadingView.swift in Sources */,
 				D06CFF3E2AF14A5700FFC3F7 /* CustomARView.swift in Sources */,
 				D06CFF282AE763FE00FFC3F7 /* Notifications+CoreData.swift in Sources */,
