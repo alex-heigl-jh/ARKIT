@@ -70,9 +70,9 @@ class CustomARView: ARView {
 		let coordinateAnchor = AnchorEntity(world: .zero)
 		
 		// Attach anchors to detected planes (This works best of devices with a LIDAR sensor)
-//		let _ = AnchorEntity(plane: .horizontal)
-//		let _ = AnchorEntity(plane: .vertical)
-//		
+		let _ = AnchorEntity(plane: .horizontal)
+		let _ = AnchorEntity(plane: .vertical)
+		
 		// Attach anchors to tracked body parts, such as the face
 		let _ = AnchorEntity(.face)
 		
@@ -104,10 +104,11 @@ class CustomARView: ARView {
 		let material = SimpleMaterial(color: UIColor(color), isMetallic: false)
 		let entity = ModelEntity(mesh: block, materials: [material])
 		
-//		let anchor = AnchorEntity(plane: .horizontal)
-//		anchor.addChild(entity)
-//		
-//		scene.addAnchor(anchor)
+		let anchor = AnchorEntity(plane: .horizontal)
+		
+		anchor.addChild(entity)
+		
+		scene.addAnchor(anchor)
 		
 	}
 	

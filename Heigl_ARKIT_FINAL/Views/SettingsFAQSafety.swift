@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct SettingsPreferencesSafetyView: View {
     @State private var dummyText: String = "Dummy Text"
@@ -65,18 +66,71 @@ struct FAQView: View {
     }
 }
 
-// Safety Content View
 struct SafetyView: View {
-    var body: some View {
-        VStack {
-            Text("Safety Content")
-            // Add more UI components specific to safety here
-        }
-    }
+	@Environment(\.managedObjectContext) private var viewContext
+	@FetchRequest(entity: Safety.entity(), sortDescriptors: [])
+	private var safetyEntries: FetchedResults<Safety>
+
+	var body: some View {
+		VStack {
+			Text("Safety Content")
+				.font(.title)
+			ScrollView {
+				LazyVStack {
+					ForEach(safetyEntries, id: \.self) { entry in
+						SafetyCardView(safetyEntry: entry)
+					}
+				}
+			}
+		}
+	}
 }
 
 struct SettingsPreferencesSafetyView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsPreferencesSafetyView()
     }
+}
+
+
+struct SafetyCardView: View {
+	var safetyEntry: Safety
+
+	var body: some View {
+		VStack {
+			Text(safetyEntry.safTitle ?? "No Title")
+				.font(.headline)
+			URLImage(url: safetyEntry.safPicture ?? "")
+			Text(safetyEntry.safContent ?? "No Content")
+				.font(.body)
+				.padding()
+		}
+		.padding()
+		.background(Color.white)
+		.cornerRadius(10)
+		.shadow(radius: 5)
+	}
+}
+
+struct URLImage: View {
+	var url: String
+	
+	var body: some View {
+		if let imageUrl = URL(string: url), let imageData = try? Data(contentsOf: imageUrl), let image = UIImage(data: imageData) {
+			return Image(uiImage: image)
+				.resizable()
+				.scaledToFit()
+				.frame(height: 200)
+				.cornerRadius(10)
+				.padding()
+		} else {
+			// If the image can't be loaded, use a placeholder
+			return Image(systemName: "photo")
+				.resizable()
+				.scaledToFit()
+				.frame(height: 200)
+				.cornerRadius(10)
+				.padding()
+		}
+	}
 }

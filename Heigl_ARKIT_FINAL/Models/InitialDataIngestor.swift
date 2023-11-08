@@ -193,7 +193,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 			safVideo: nil
 		)
 		let safety5 = SafetyJSON(
-			safContent: "Ensure that your AR app has appropriate privacy settings, especially when it uses the device's camera or requires location access.",
+			safContent: "Ensure that your AR app has appropriate privacy settings. This application requires access to the camera and the users location to function properly.",
 			safID: UUID(),
 			safPicture: "https://support.apple.com/library/content/dam/edam/applecare/images/en_US/iOS/ios-16-iphone-14-pro-maps-allow-maps-to-access-location-while-using-app.png",
 			safTitle: "Privacy Concerns",
@@ -201,7 +201,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		)
 		
 		// Store sample safety data in a variable or use them as needed
-		let safetyEntries = [safety1, safety2, safety3, safety4, safety5]
+		self.safety = [safety1, safety2, safety3, safety4, safety5]
 	}
 
     

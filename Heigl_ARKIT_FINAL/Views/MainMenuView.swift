@@ -20,7 +20,7 @@ struct MainMenuView: View {
             CustomTitleView() // Enhanced Title in the center
 
             withAnimation(Animation.spring().delay(0.1)) {
-                mainButton(label: "Maps View", images: ["mappin.and.ellipse.circle", "map.fill", "signpost.right.and.left.fill"], destination: MapsView(), colors: [Color.green, Color.blue])
+                mainButton(label: "View Map", images: ["mappin.and.ellipse.circle", "map.fill", "signpost.right.and.left.fill"], destination: MapsView(), colors: [Color.green, Color.blue])
                     .transition(.move(edge: .bottom))
             }
 

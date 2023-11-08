@@ -11,7 +11,7 @@ import CoreLocation
 struct MapsView: View {
 	@StateObject private var locationManager = LocationManager()
 	@State private var cameraPosition: MapCameraPosition = .region(.userRegion)
-	@State private var searchText = " "
+	@State private var searchText = ""
 	@State private var results = [MKMapItem]()
 	@State private var mapSelection: MKMapItem?
 	@State private var showDetails = false
@@ -22,6 +22,9 @@ struct MapsView: View {
 	@State private var route: MKRoute?
 	// Keeps track of route destination
 	@State private var routeDestination: MKMapItem?
+	
+	@State private var isFirstLoad = true
+
 	
 	var body: some View {
 		Map(position: $cameraPosition, selection: $mapSelection){
@@ -61,14 +64,30 @@ struct MapsView: View {
 			}
 		}
 		// Code block that displays search bar at top of view
-		.overlay(alignment: .top){
-			TextField("Search for a location...", text: $searchText)
-				.font(.subheadline)
-				.padding(12)
-				.background(.white)
-				.padding()
-				.shadow(radius: 10)
+		.overlay(alignment: .top) {
+			HStack {
+				TextField("Search for a location...", text: $searchText)
+					.font(.subheadline)
+					.padding(12)
+					.background(Color.black)
+					.cornerRadius(8) // Optional: To give rounded corners to the search bar
+					.shadow(radius: 10)
+					.padding(.horizontal, 40) // Add horizontal padding to TextField
+
+				Spacer() // Pushes the TextField to the left
+			}
+			.padding(.horizontal, 10) // Adjust the HStack's horizontal padding
+			.padding(.top, 5) // Add top padding to create space between the search bar and top of the screen
 		}
+		.onAppear{
+			if let newLocation = locationManager.location {
+				let newRegion = MKCoordinateRegion(center: newLocation.coordinate,
+												   latitudinalMeters: 10000,
+												   longitudinalMeters: 10000)
+				cameraPosition = .region(newRegion)
+			}
+		}
+
 		// Any time user searches from a text field this will be executed
 		.onSubmit(of: .text){
 			print("Search for locations with query:\(searchText)")
@@ -84,14 +103,35 @@ struct MapsView: View {
 			// If the selected value is not nil, show the details to the user
 			showDetails = newValue != nil
 		})
-		.onChange(of: locationManager.location, {oldValue, newValue in
+		.onChange(of: locationManager.location, { oldValue, newValue in
 			if let newLocation = newValue {
-				let newRegion = MKCoordinateRegion(center: newLocation.coordinate,
-												   latitudinalMeters: 10000,
-												   longitudinalMeters: 10000)
-				cameraPosition = .region(newRegion)
+				// If oldValue is nil, distance will default to 0
+				let distance = oldValue?.distance(from: newLocation) ?? 0
+				let thresholdDistance: CLLocationDistance = 100.0  // 100 meters
+
+				// Log old location
+				if let oldLocation = oldValue {
+					print("Old Location: \(oldLocation)")
+				} else {
+					print("Old Location: nil")
+				}
+
+				// Log new location and distance
+				print("New Location: \(newLocation)")
+				print("Distance: \(distance) meters")
+				print("Threshold: \(thresholdDistance) meters")
+
+				// If this is the first load or the distance is greater than the threshold, update the camera position
+				if oldValue == nil || distance > thresholdDistance {
+					print("Updating camera position...")
+					let newRegion = MKCoordinateRegion(center: newLocation.coordinate,
+													   latitudinalMeters: 10000,
+													   longitudinalMeters: 10000)
+					cameraPosition = .region(newRegion)
+				}
 			}
 		})
+
 		// Sheet only displays if showDetails == true
 		.sheet(isPresented: $showDetails, content: {
 			// Load LocationDetailsView
@@ -113,35 +153,56 @@ struct MapsView: View {
 }
 
 extension MapsView{
+	
 	func searchPlaces() async {
 		let request = MKLocalSearch.Request()
 		request.naturalLanguageQuery = searchText
-		request.region = .userRegion
+		
+		// Set request region to the current user's location
+		if let currentLocation = locationManager.location {
+			request.region = MKCoordinateRegion(center: currentLocation.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+		} else {
+			print("Error: User location is nil.")
+			return
+		}
+
 		// Store results of naturalLanguageQuery Requests
 		let results = try? await MKLocalSearch(request: request).start()
 		self.results = results?.mapItems ?? []
 	}
+
 	
 	func fetchRoute() {
-		if let mapSelection {
-			let request = MKDirections.Request()
-			request.source = MKMapItem(placemark: .init(coordinate: .userLocation))
-			request.destination = mapSelection
-			
-			Task {
-				let result = try? await MKDirections(request: request).calculate()
-				route = result?.routes.first
-				routeDestination = mapSelection
-				
-				withAnimation(.snappy){
-					routeDisplaying = true
-					showDetails = false
+		// Ensure that the mapSelection and locationManager's location are not nil
+		guard let mapSelection = mapSelection, let userLocation = locationManager.location else {
+			print("Error: Either the map selection or user location is nil.")
+			return
+		}
+
+		let request = MKDirections.Request()
+		request.source = MKMapItem(placemark: MKPlacemark(coordinate: userLocation.coordinate, addressDictionary: nil))
+		request.destination = mapSelection
+
+		Task {
+			do {
+				let result = try await MKDirections(request: request).calculate()
+				if let firstRoute = result.routes.first {
+					route = firstRoute
+					routeDestination = mapSelection
 					
-					if let rect = route?.polyline.boundingMapRect, routeDisplaying {
-						// Camera position will adjust zoom so entire route is visible on screen
-						cameraPosition = .rect(rect)
+					withAnimation(.snappy){
+						routeDisplaying = true
+						showDetails = false
+						
+						if let rect = route?.polyline.boundingMapRect, routeDisplaying {
+							cameraPosition = .rect(rect)
+						}
 					}
+				} else {
+					print("Error: No routes found.")
 				}
+			} catch {
+				print("Error calculating route: \(error)")
 			}
 		}
 	}
@@ -179,7 +240,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 			return
 		}
 		location = newLocation
-		print("User's location updated: \(newLocation)")
+//		print("User's location updated: \(newLocation)")
 	}
 
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
