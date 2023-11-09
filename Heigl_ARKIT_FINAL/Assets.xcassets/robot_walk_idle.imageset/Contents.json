@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "robot_walk_idle.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

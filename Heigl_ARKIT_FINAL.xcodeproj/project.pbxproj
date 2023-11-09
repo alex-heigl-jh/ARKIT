@@ -43,6 +43,18 @@
 		D06CFF492AF1919800FFC3F7 /* LocationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF482AF1919800FFC3F7 /* LocationDetailsView.swift */; };
 		D06CFF4B2AF294ED00FFC3F7 /* NewsFeedJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF4A2AF294ED00FFC3F7 /* NewsFeedJSON.swift */; };
 		D06CFF552AF2E24600FFC3F7 /* SafetyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF542AF2E24600FFC3F7 /* SafetyJSON.swift */; };
+		D0730C5B2AFC832C00366E8D /* toy_car.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C562AFC832900366E8D /* toy_car.usdz */; };
+		D0730C5C2AFC832C00366E8D /* robot_walk_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C572AFC832A00366E8D /* robot_walk_idle.usdz */; };
+		D0730C5D2AFC832C00366E8D /* pancakes.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C582AFC832B00366E8D /* pancakes.usdz */; };
+		D0730C5E2AFC832C00366E8D /* CosmonautSuit_en.reality in Resources */ = {isa = PBXBuildFile; fileRef = D0730C592AFC832C00366E8D /* CosmonautSuit_en.reality */; };
+		D0730C5F2AFC832C00366E8D /* toy_biplane_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C5A2AFC832C00366E8D /* toy_biplane_idle.usdz */; };
+		D0730C632AFC838A00366E8D /* hab_en.reality in Resources */ = {isa = PBXBuildFile; fileRef = D0730C602AFC838800366E8D /* hab_en.reality */; };
+		D0730C642AFC838A00366E8D /* gramophone.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C612AFC838900366E8D /* gramophone.usdz */; };
+		D0730C652AFC838A00366E8D /* LunarRover_English.reality in Resources */ = {isa = PBXBuildFile; fileRef = D0730C622AFC838A00366E8D /* LunarRover_English.reality */; };
+		D0730C6A2AFC942900366E8D /* flower_tulip.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C662AFC942700366E8D /* flower_tulip.usdz */; };
+		D0730C6B2AFC942900366E8D /* fender_stratocaster.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C672AFC942800366E8D /* fender_stratocaster.usdz */; };
+		D0730C6C2AFC942900366E8D /* toy_drummer_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */; };
+		D0730C6D2AFC942900366E8D /* tv_retro.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C692AFC942900366E8D /* tv_retro.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +115,18 @@
 		D06CFF482AF1919800FFC3F7 /* LocationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsView.swift; sourceTree = "<group>"; };
 		D06CFF4A2AF294ED00FFC3F7 /* NewsFeedJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedJSON.swift; sourceTree = "<group>"; };
 		D06CFF542AF2E24600FFC3F7 /* SafetyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyJSON.swift; sourceTree = "<group>"; };
+		D0730C562AFC832900366E8D /* toy_car.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_car.usdz; sourceTree = "<group>"; };
+		D0730C572AFC832A00366E8D /* robot_walk_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = robot_walk_idle.usdz; sourceTree = "<group>"; };
+		D0730C582AFC832B00366E8D /* pancakes.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pancakes.usdz; sourceTree = "<group>"; };
+		D0730C592AFC832C00366E8D /* CosmonautSuit_en.reality */ = {isa = PBXFileReference; lastKnownFileType = file; path = CosmonautSuit_en.reality; sourceTree = "<group>"; };
+		D0730C5A2AFC832C00366E8D /* toy_biplane_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_biplane_idle.usdz; sourceTree = "<group>"; };
+		D0730C602AFC838800366E8D /* hab_en.reality */ = {isa = PBXFileReference; lastKnownFileType = file; path = hab_en.reality; sourceTree = "<group>"; };
+		D0730C612AFC838900366E8D /* gramophone.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = gramophone.usdz; sourceTree = "<group>"; };
+		D0730C622AFC838A00366E8D /* LunarRover_English.reality */ = {isa = PBXFileReference; lastKnownFileType = file; path = LunarRover_English.reality; sourceTree = "<group>"; };
+		D0730C662AFC942700366E8D /* flower_tulip.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = flower_tulip.usdz; sourceTree = "<group>"; };
+		D0730C672AFC942800366E8D /* fender_stratocaster.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = fender_stratocaster.usdz; sourceTree = "<group>"; };
+		D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_drummer_idle.usdz; sourceTree = "<group>"; };
+		D0730C692AFC942900366E8D /* tv_retro.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = tv_retro.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +264,7 @@
 		D06CFF3C2AF1487200FFC3F7 /* ARTarget */ = {
 			isa = PBXGroup;
 			children = (
+				D0730C552AFC826F00366E8D /* Models */,
 				D06CFF3D2AF14A5700FFC3F7 /* CustomARView.swift */,
 				D06CFF3F2AF14A9B00FFC3F7 /* CustomARViewRepresentable.swift */,
 				D06CFF422AF15C9300FFC3F7 /* ARAction.swift */,
@@ -247,6 +272,25 @@
 				D06CFF462AF1679D00FFC3F7 /* ARContentView.swift */,
 			);
 			path = ARTarget;
+			sourceTree = "<group>";
+		};
+		D0730C552AFC826F00366E8D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D0730C672AFC942800366E8D /* fender_stratocaster.usdz */,
+				D0730C662AFC942700366E8D /* flower_tulip.usdz */,
+				D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */,
+				D0730C692AFC942900366E8D /* tv_retro.usdz */,
+				D0730C612AFC838900366E8D /* gramophone.usdz */,
+				D0730C602AFC838800366E8D /* hab_en.reality */,
+				D0730C622AFC838A00366E8D /* LunarRover_English.reality */,
+				D0730C592AFC832C00366E8D /* CosmonautSuit_en.reality */,
+				D0730C582AFC832B00366E8D /* pancakes.usdz */,
+				D0730C572AFC832A00366E8D /* robot_walk_idle.usdz */,
+				D0730C5A2AFC832C00366E8D /* toy_biplane_idle.usdz */,
+				D0730C562AFC832900366E8D /* toy_car.usdz */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -353,8 +397,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0730C6C2AFC942900366E8D /* toy_drummer_idle.usdz in Resources */,
 				D06CFEDB2AE75A2500FFC3F7 /* Preview Assets.xcassets in Resources */,
+				D0730C6A2AFC942900366E8D /* flower_tulip.usdz in Resources */,
+				D0730C6B2AFC942900366E8D /* fender_stratocaster.usdz in Resources */,
+				D0730C652AFC838A00366E8D /* LunarRover_English.reality in Resources */,
+				D0730C642AFC838A00366E8D /* gramophone.usdz in Resources */,
+				D0730C5C2AFC832C00366E8D /* robot_walk_idle.usdz in Resources */,
+				D0730C5D2AFC832C00366E8D /* pancakes.usdz in Resources */,
+				D0730C632AFC838A00366E8D /* hab_en.reality in Resources */,
+				D0730C5F2AFC832C00366E8D /* toy_biplane_idle.usdz in Resources */,
+				D0730C6D2AFC942900366E8D /* tv_retro.usdz in Resources */,
 				D06CFED82AE75A2500FFC3F7 /* Assets.xcassets in Resources */,
+				D0730C5E2AFC832C00366E8D /* CosmonautSuit_en.reality in Resources */,
+				D0730C5B2AFC832C00366E8D /* toy_car.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
