@@ -8,6 +8,8 @@
 
 import Foundation
 import SwiftUI
+import ARKit
+import FocusEntity
 
 // Making this a struct and UIViewRepresentable so I can use in a swiftUI view
 struct CustomARViewRepresentable: UIViewRepresentable{
@@ -18,8 +20,19 @@ struct CustomARViewRepresentable: UIViewRepresentable{
 		.blue
 	]
     
+	
+//	typealias UIViewType = ARView
+	
+	
     func makeUIView(context: Context) -> CustomARView {
-        // Will call the convenience initializer
+		
+//		let arConfig = ARWorldTrackingConfiguration()
+//		arConfig.planeDetection = [.horizontal, .vertical]
+//		arView.session.run(arConfig)
+//		_ = FocusEntity(on: arView, style: .classic())
+//		return arView
+		
+		// Will call the convenience initializer
         return CustomARView()
     }
     

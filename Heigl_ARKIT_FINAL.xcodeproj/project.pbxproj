@@ -55,6 +55,8 @@
 		D0730C6B2AFC942900366E8D /* fender_stratocaster.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C672AFC942800366E8D /* fender_stratocaster.usdz */; };
 		D0730C6C2AFC942900366E8D /* toy_drummer_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */; };
 		D0730C6D2AFC942900366E8D /* tv_retro.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C692AFC942900366E8D /* tv_retro.usdz */; };
+		D0DFB5E42B0D7EA600019DA6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DFB5E32B0D7EA600019DA6 /* Models.swift */; };
+		D0DFB5E72B0D9BD300019DA6 /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = D0DFB5E62B0D9BD300019DA6 /* FocusEntity */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +129,7 @@
 		D0730C672AFC942800366E8D /* fender_stratocaster.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = fender_stratocaster.usdz; sourceTree = "<group>"; };
 		D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_drummer_idle.usdz; sourceTree = "<group>"; };
 		D0730C692AFC942900366E8D /* tv_retro.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = tv_retro.usdz; sourceTree = "<group>"; };
+		D0DFB5E32B0D7EA600019DA6 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0DFB5E72B0D9BD300019DA6 /* FocusEntity in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +274,7 @@
 				D06CFF422AF15C9300FFC3F7 /* ARAction.swift */,
 				D06CFF442AF15DCD00FFC3F7 /* ARManager.swift */,
 				D06CFF462AF1679D00FFC3F7 /* ARContentView.swift */,
+				D0DFB5E32B0D7EA600019DA6 /* Models.swift */,
 			);
 			path = ARTarget;
 			sourceTree = "<group>";
@@ -309,6 +314,9 @@
 			dependencies = (
 			);
 			name = Heigl_ARKIT_FINAL;
+			packageProductDependencies = (
+				D0DFB5E62B0D9BD300019DA6 /* FocusEntity */,
+			);
 			productName = Heigl_ARKIT_FINAL;
 			productReference = D06CFED02AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL.app */;
 			productType = "com.apple.product-type.application";
@@ -381,6 +389,9 @@
 				Base,
 			);
 			mainGroup = D06CFEC72AE75A2300FFC3F7;
+			packageReferences = (
+				D0DFB5E52B0D9BD300019DA6 /* XCRemoteSwiftPackageReference "FocusEntity" */,
+			);
 			productRefGroup = D06CFED12AE75A2300FFC3F7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -446,6 +457,7 @@
 				D06CFED62AE75A2300FFC3F7 /* ContentView.swift in Sources */,
 				D06CFF0E2AE75AA300FFC3F7 /* NewsFeedView.swift in Sources */,
 				D06CFF222AE7637B00FFC3F7 /* FAQ+CoreData.swift in Sources */,
+				D0DFB5E42B0D7EA600019DA6 /* Models.swift in Sources */,
 				D06CFF2C2AE7652D00FFC3F7 /* Safety+CoreData.swift in Sources */,
 				D06CFEE02AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld in Sources */,
 				D06CFF2E2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift in Sources */,
@@ -803,6 +815,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D0DFB5E52B0D9BD300019DA6 /* XCRemoteSwiftPackageReference "FocusEntity" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maxxfrazer/FocusEntity";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D0DFB5E62B0D9BD300019DA6 /* FocusEntity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0DFB5E52B0D9BD300019DA6 /* XCRemoteSwiftPackageReference "FocusEntity" */;
+			productName = FocusEntity;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		D06CFEDE2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld */ = {

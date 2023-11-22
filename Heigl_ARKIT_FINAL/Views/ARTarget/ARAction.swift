@@ -11,6 +11,7 @@ import SwiftUI
 //ARAction that we want to implement
 enum ARAction{
 	case placeBlock(color: Color)
+	case loadModel(Model)
 	case removeAllAnchors
 }
 

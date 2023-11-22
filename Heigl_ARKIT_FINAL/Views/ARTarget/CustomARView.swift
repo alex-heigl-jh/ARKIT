@@ -10,10 +10,48 @@ import ARKit
 import Combine
 import RealityKit
 import SwiftUI
+import FocusEntity
 
 class CustomARView: ARView {
+	
+	enum FocusStyleChoices {
+		case classic
+		case material
+		case color
+	}
+	
+	let focusStyle: FocusStyleChoices = .classic
+	var focusEntity: FocusEntity?
+	
+	
     required init(frame frameRect: CGRect){
         super.init(frame: frameRect)
+		
+		self.setupConfig()
+
+		switch self.focusStyle {
+		case .color:
+			self.focusEntity = FocusEntity(on: self, focus: .plane)
+		case .material:
+			do {
+				let onColor: MaterialColorParameter = try .texture(.load(named: "Add"))
+				let offColor: MaterialColorParameter = try .texture(.load(named: "Open"))
+				self.focusEntity = FocusEntity(
+					on: self,
+					style: .colored(
+						onColor: onColor, offColor: offColor,
+						nonTrackingColor: offColor
+					)
+				)
+			} catch {
+				self.focusEntity = FocusEntity(on: self, focus: .classic)
+				print("Unable to load plane textures")
+				print(error.localizedDescription)
+			}
+		default:
+			self.focusEntity = FocusEntity(on: self, focus: .classic)
+		}
+		
     }
     
     dynamic required init?(coder decoder: NSCoder){
@@ -23,6 +61,11 @@ class CustomARView: ARView {
 	// This is the init that is actually utilized
     convenience init() {
         self.init(frame: UIScreen.main.bounds)
+		let arView = ARView(frame: .zero)
+		let arConfig = ARWorldTrackingConfiguration()
+		arConfig.planeDetection = [.horizontal, .vertical]
+		arView.session.run(arConfig)
+		_ = FocusEntity(on: arView, style: .classic())
 		
 		subscribeToActionStream()
     }
@@ -38,6 +81,10 @@ class CustomARView: ARView {
 				switch action {
 					case .placeBlock(let color):
 						self?.placeBlock(ofColor: color)
+					
+					case .loadModel(let model):
+						print("Placing model")
+						self?.placeEntity(from: model)
 					
 					case .removeAllAnchors:
 						self?.scene.anchors.removeAll()
@@ -98,6 +145,39 @@ class CustomARView: ARView {
 		
 	}
 	
+	func makeUIView() -> ARView {
+		let arView = ARView(frame: .zero)
+		let config = ARWorldTrackingConfiguration()
+		config.planeDetection = [.horizontal, .vertical]
+		config.environmentTexturing = .automatic
+
+		if ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh){
+			config.sceneReconstruction = .mesh
+		}
+
+		arView.session.run(config)
+
+		return arView
+	}
+	
+	func placeEntity(from model: Model) {
+
+		if let modelEntity = model.modelEntity{
+
+			print("DEBUG: Adding model to scene - \(model.modelName)")
+			// Create an anchor for attaching the entity
+			let anchor = AnchorEntity(plane: .horizontal) // You can choose .vertical or .horizontal based on your requirement
+
+			// Add the loaded entity as a child of the anchor
+			anchor.addChild(modelEntity.clone(recursive: true))
+
+			// Add the anchor to the ARView's scene
+			scene.addAnchor(anchor)
+		} else {
+			print("DEBUG: Unable to load modelEntity for - \(model.modelName)")
+		}
+	}
+	
 	func placeBlock(ofColor color: Color) {
 		
 		let block = MeshResource.generateBox(size: 1)
@@ -112,5 +192,10 @@ class CustomARView: ARView {
 		
 	}
 	
-    
+	func setupConfig() {
+		let config = ARWorldTrackingConfiguration()
+		config.planeDetection = [.horizontal, .vertical]
+		session.run(config)
+	}
+	
 }
