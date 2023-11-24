@@ -25,17 +25,10 @@ struct CustomARViewRepresentable: UIViewRepresentable{
 	
 	
     func makeUIView(context: Context) -> CustomARView {
-		
-//		let arConfig = ARWorldTrackingConfiguration()
-//		arConfig.planeDetection = [.horizontal, .vertical]
-//		arView.session.run(arConfig)
-//		_ = FocusEntity(on: arView, style: .classic())
-//		return arView
-		
-		// Will call the convenience initializer
+				// Will call the convenience initializer
         return CustomARView()
     }
-    
+	
     func updateUIView(_ uiView: CustomARView, context: Context) {}
     
 }

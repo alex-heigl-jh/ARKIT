@@ -5,6 +5,8 @@
 //  Created by Alex Heigl on 10/31/23.
 //
 //  Code initially based off of tutorial from: https://www.youtube.com/watch?v=KbqbU-cCKf4
+//  Additional code taken from FocusEntity example implementation
+//  Code additionally augmented from tutorial from: https://www.youtube.com/watch?v=itGRaAryUxA
 
 import ARKit
 import Combine
@@ -27,31 +29,8 @@ class CustomARView: ARView {
     required init(frame frameRect: CGRect){
         super.init(frame: frameRect)
 		
-		self.setupConfig()
+//		self.setupConfig()
 
-		switch self.focusStyle {
-		case .color:
-			self.focusEntity = FocusEntity(on: self, focus: .plane)
-		case .material:
-			do {
-				let onColor: MaterialColorParameter = try .texture(.load(named: "Add"))
-				let offColor: MaterialColorParameter = try .texture(.load(named: "Open"))
-				self.focusEntity = FocusEntity(
-					on: self,
-					style: .colored(
-						onColor: onColor, offColor: offColor,
-						nonTrackingColor: offColor
-					)
-				)
-			} catch {
-				self.focusEntity = FocusEntity(on: self, focus: .classic)
-				print("Unable to load plane textures")
-				print(error.localizedDescription)
-			}
-		default:
-			self.focusEntity = FocusEntity(on: self, focus: .classic)
-		}
-		
     }
     
     dynamic required init?(coder decoder: NSCoder){
@@ -60,13 +39,14 @@ class CustomARView: ARView {
     
 	// This is the init that is actually utilized
     convenience init() {
-        self.init(frame: UIScreen.main.bounds)
-		let arView = ARView(frame: .zero)
-		let arConfig = ARWorldTrackingConfiguration()
-		arConfig.planeDetection = [.horizontal, .vertical]
-		arView.session.run(arConfig)
-		_ = FocusEntity(on: arView, style: .classic())
 		
+        self.init(frame: UIScreen.main.bounds)
+		
+		self.setupConfig()
+		
+		//: call enableObjectRemoval to enable removal of individual entities from view
+		self.enableObjectRemoval()
+		//: Allows AR view to receive commands from ARContentView
 		subscribeToActionStream()
     }
 	
@@ -83,11 +63,12 @@ class CustomARView: ARView {
 						self?.placeBlock(ofColor: color)
 					
 					case .loadModel(let model):
-						print("Placing model")
+						print("DEBUG: Placing model")
 						self?.placeEntity(from: model)
 					
 					case .removeAllAnchors:
 						self?.scene.anchors.removeAll()
+						self?.setupFocusEntity()
 				}
 				
 			}
@@ -145,57 +126,119 @@ class CustomARView: ARView {
 		
 	}
 	
-	func makeUIView() -> ARView {
-		let arView = ARView(frame: .zero)
-		let config = ARWorldTrackingConfiguration()
-		config.planeDetection = [.horizontal, .vertical]
-		config.environmentTexturing = .automatic
-
-		if ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh){
-			config.sceneReconstruction = .mesh
-		}
-
-		arView.session.run(config)
-
-		return arView
-	}
-	
 	func placeEntity(from model: Model) {
-
-		if let modelEntity = model.modelEntity{
+		if let modelEntity = model.modelEntity?.clone(recursive: true) {  // Clone the model entity
 
 			print("DEBUG: Adding model to scene - \(model.modelName)")
 			// Create an anchor for attaching the entity
-			let anchor = AnchorEntity(plane: .horizontal) // You can choose .vertical or .horizontal based on your requirement
+			let anchor = AnchorEntity(plane: .any) // You can choose .vertical or .horizontal based on your requirement
 
-			// Add the loaded entity as a child of the anchor
-			anchor.addChild(modelEntity.clone(recursive: true))
+			// Add the cloned entity as a child of the anchor
+			anchor.addChild(modelEntity)
 
 			// Add the anchor to the ARView's scene
 			scene.addAnchor(anchor)
+			// Generate collision shapes (needed for gestures)
+			anchor.generateCollisionShapes(recursive: true)
+			// Install gestures
+			installGestures([.translation, .rotation, .scale], for: modelEntity)
 		} else {
 			print("DEBUG: Unable to load modelEntity for - \(model.modelName)")
 		}
 	}
+
 	
 	func placeBlock(ofColor color: Color) {
 		
-		let block = MeshResource.generateBox(size: 1)
+		let block = MeshResource.generateBox(size: 0.5)
 		let material = SimpleMaterial(color: UIColor(color), isMetallic: false)
 		let entity = ModelEntity(mesh: block, materials: [material])
 		
-		let anchor = AnchorEntity(plane: .horizontal)
+		let anchor = AnchorEntity(plane: .any)
 		
 		anchor.addChild(entity)
-		
+		//: Add to scene
 		scene.addAnchor(anchor)
+		//: Generate collision shapes (needed for gestures)
+		anchor.generateCollisionShapes(recursive: true)
+		//:  Install gestures
+//		arView.installGestures([.translation, .rotation, .scale], for: anchor)
+		installGestures([.translation, .rotation, .scale], for: entity)
+
 		
 	}
-	
+	// Function to configure the AR view when the convenience initializer is called
 	func setupConfig() {
+		//		let arView = ARView(frame: .zero)
+		//		let arConfig = ARWorldTrackingConfiguration()
+		//
+		//		arConfig.planeDetection = [.horizontal, .vertical]
+		//		arView.session.run(arConfig)
+		//
+		//		_ = FocusEntity(on: arView, style: .classic())
+		
 		let config = ARWorldTrackingConfiguration()
 		config.planeDetection = [.horizontal, .vertical]
+		config.environmentTexturing = .automatic
+
+		// Check for LiDAR sensor and configure if available
+		if ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
+			config.sceneReconstruction = .mesh
+			print("DEBUG: LiDAR sensor detected, utilizing...")
+		} else {
+			print("DEBUG: LiDAR sensor not detected...")
+		}
+		
+		// Run the session with the configured settings
 		session.run(config)
+		
+		// Other setup operations
+		setupFocusEntity()
+	}
+
+	
+	func setupFocusEntity(){
+		switch self.focusStyle {
+		case .color:
+			self.focusEntity = FocusEntity(on: self, focus: .plane)
+		case .material:
+			do {
+				let onColor: MaterialColorParameter = try .texture(.load(named: "Add"))
+				let offColor: MaterialColorParameter = try .texture(.load(named: "Open"))
+				self.focusEntity = FocusEntity(
+					on: self,
+					style: .colored(
+						onColor: onColor, offColor: offColor,
+						nonTrackingColor: offColor
+					)
+				)
+			} catch {
+				self.focusEntity = FocusEntity(on: self, focus: .classic)
+				print("Unable to load plane textures")
+				print(error.localizedDescription)
+			}
+		default:
+			self.focusEntity = FocusEntity(on: self, focus: .classic)
+		}
+	}
+}
+
+//: Create extension of ARView to enable longPressGesture to delete AR object
+extension ARView {
+	//: Create enableObjectRemoval() function to add longPressGesture recognizer
+	func enableObjectRemoval(){
+		let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(recognizer:)))
+		self.addGestureRecognizer(longPressGestureRecognizer)
 	}
 	
+	//: Create selector to handleLongPress
+	@objc func handleLongPress(recognizer: UILongPressGestureRecognizer) {
+		guard recognizer.state == .began else { return } // Check if the gesture has just begun
+
+		let location = recognizer.location(in: self)
+		if let entity = self.entity(at: location) {
+			entity.removeFromParent() // Directly remove the entity
+			print("DEBUG: Removed entity")
+		}
+	}
 }

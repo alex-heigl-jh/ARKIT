@@ -14,6 +14,8 @@ struct ARContentView: View {
 	//: Variable to control whether scroll view or placement view displayed to the user
 	@State private var isPlacementEnabled = false
 	
+	@State private var isBoxColorSelectEnabled = false
+	
 	@State private var selectedModel: Model?
 	
 	@State private var modelConfirmedForPlacement: Model?
@@ -46,7 +48,7 @@ struct ARContentView: View {
 			CustomARViewRepresentable()
 				.ignoresSafeArea()
 
-			
+			// If the user selected one of
 			if self.isPlacementEnabled {
 				PlacementButtonsView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, modelConfirmedForPlacement: self.$modelConfirmedForPlacement)
 			} else {
@@ -122,6 +124,30 @@ struct ModelPickerView: View {
 	}
 }
 
+// Once user has selected they want to place a box
+struct SelectBoxColorView: View {
+	
+	//: Color Options for the user to select from
+	private let colors: [Color] = [.green, .red, .blue, .orange, .purple, .pink, .gray, .black, .white]
+	
+	var body: some View {
+		HStack{
+			// Display the options for colored boxes
+			ForEach(colors, id: \.self) { color in
+				Button{
+					print("DEBUG: Placing Colored LBock ")
+					ARManager.shared.actionStream.send(.placeBlock(color: color))
+				} label: {
+					color
+						.frame(width: 40, height: 40)
+						.padding()
+						.background(.regularMaterial)
+						.cornerRadius(16)
+				}
+			}
+		}
+	}
+}
 
 struct PlacementButtonsView: View {
 	
@@ -153,13 +179,6 @@ struct PlacementButtonsView: View {
 					
 					ARManager.shared.actionStream.send(.loadModel(model))
 					print("DEBUG: Sent model through actionStream")
-					// Load the actual USDZ file
-//					if let modelURL = Bundle.main.url(forResource: modelName, withExtension: "usdz") {
-//						ARManager.shared.actionStream.send(.loadModel(modelURL))
-//					} else {
-//						print("Error: USDZ file not found for model \(modelName)")
-//					}
-
 				}
 				
 				DispatchQueue.main.async{
