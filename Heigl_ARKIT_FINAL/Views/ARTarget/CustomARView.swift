@@ -25,12 +25,8 @@ class CustomARView: ARView {
 	let focusStyle: FocusStyleChoices = .classic
 	var focusEntity: FocusEntity?
 	
-	
     required init(frame frameRect: CGRect){
         super.init(frame: frameRect)
-		
-//		self.setupConfig()
-
     }
     
     dynamic required init?(coder decoder: NSCoder){
@@ -52,7 +48,18 @@ class CustomARView: ARView {
 	
 	private var cancellables: Set<AnyCancellable> = []
 	
-	// Utilizes Combine framework
+	deinit {
+		print("CustomARView is being deinitialized")
+	}
+	
+	
+	struct ARViewState {
+		var sessionConfiguration: ARWorldTrackingConfiguration
+		var anchors: [AnchorEntity]
+	}
+	
+	
+	// function to subscribe to action stream from ARContentView, Utilizes Combine framework
 	func subscribeToActionStream(){
 		ARManager.shared
 			.actionStream
@@ -75,6 +82,7 @@ class CustomARView: ARView {
 			.store(in: &cancellables)
 	}
 	
+	// AR Configuration examples
 	func configurationExamples() {
 		// Tracks the device relative to its environment
 		let configuration = ARWorldTrackingConfiguration()
@@ -108,6 +116,7 @@ class CustomARView: ARView {
 		let _ = AnchorEntity(.image(group: "group", name: "name"))
 	}
 	
+	// Entity examples
 	func entityExamples() {
 		// Load an entity for a usdz file
 		// usdz file: Apple 3D model that is included in application bundle
@@ -126,6 +135,7 @@ class CustomARView: ARView {
 		
 	}
 	
+	// Function that places a usdz file in the AR view
 	func placeEntity(from model: Model) {
 		if let modelEntity = model.modelEntity?.clone(recursive: true) {  // Clone the model entity
 
@@ -147,10 +157,10 @@ class CustomARView: ARView {
 		}
 	}
 
-	
+	// Function that places a colored block in the AR view
 	func placeBlock(ofColor color: Color) {
 		
-		let block = MeshResource.generateBox(size: 0.5)
+		let block = MeshResource.generateBox(size: 0.25)
 		let material = SimpleMaterial(color: UIColor(color), isMetallic: false)
 		let entity = ModelEntity(mesh: block, materials: [material])
 		
@@ -162,11 +172,11 @@ class CustomARView: ARView {
 		//: Generate collision shapes (needed for gestures)
 		anchor.generateCollisionShapes(recursive: true)
 		//:  Install gestures
-//		arView.installGestures([.translation, .rotation, .scale], for: anchor)
 		installGestures([.translation, .rotation, .scale], for: entity)
 
 		
 	}
+	
 	// Function to configure the AR view when the convenience initializer is called
 	func setupConfig() {
 		//		let arView = ARView(frame: .zero)
@@ -196,7 +206,7 @@ class CustomARView: ARView {
 		setupFocusEntity()
 	}
 
-	
+	// Function to configure the focus entity (box that shows where AR content is to be placed)
 	func setupFocusEntity(){
 		switch self.focusStyle {
 		case .color:
@@ -221,6 +231,35 @@ class CustomARView: ARView {
 			self.focusEntity = FocusEntity(on: self, focus: .classic)
 		}
 	}
+	
+	
+	// Method to pause AR session
+	func pauseSession() {
+		print("Pausing AR Session")
+		self.session.pause()
+	}
+
+	// Method to resume AR sesion
+//	func resumeSession() {
+//		print("Resuming AR Session")
+//		let configuration = ARWorldTrackingConfiguration()
+//		configuration.planeDetection = [.horizontal, .vertical]
+//		configuration.environmentTexturing = .automatic
+//		// Add any other necessary configuration settings
+//		self.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+//	}
+
+//	func saveState() -> ARViewState {
+//		let currentConfiguration = self.session.configuration as? ARWorldTrackingConfiguration ?? ARWorldTrackingConfiguration()
+//		let currentAnchors = self.scene.anchors.compactMap { $0 as? AnchorEntity }
+//		return ARViewState(sessionConfiguration: currentConfiguration, anchors: currentAnchors)
+//	}
+//
+//	func restoreState(_ state: ARViewState) {
+//		self.session.run(state.sessionConfiguration, options: [.resetTracking, .removeExistingAnchors])
+//		state.anchors.forEach { self.scene.addAnchor($0) }
+//	}
+	
 }
 
 //: Create extension of ARView to enable longPressGesture to delete AR object

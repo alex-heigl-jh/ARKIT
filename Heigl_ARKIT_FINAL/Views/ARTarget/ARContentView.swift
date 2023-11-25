@@ -7,69 +7,90 @@
 //  Code initially based off of tutorial from: https://www.youtube.com/watch?v=KbqbU-cCKf4
 //  Code then augmented from tutorial from: https://www.youtube.com/watch?v=9R_G0EI-UoI&t=194s
 
+
+
 import SwiftUI
+import UIKit
+import Photos
 
 struct ARContentView: View {
-	
-	//: Variable to control whether scroll view or placement view displayed to the user
-	@State private var isPlacementEnabled = false
-	
-	@State private var isBoxColorSelectEnabled = false
-	
-	@State private var selectedModel: Model?
-	
-	@State private var modelConfirmedForPlacement: Model?
-	
-	
-	private var models: [Model] = {
-		// Dynamically retrieve our model filenames
+
+	// Function to load USDZ models
+	private static func loadUSDZModels() -> [Model] {
 		let filemanager = FileManager.default
-		
-		// Safely unwrap optional value
-		guard let path = Bundle.main.resourcePath, let files = try? filemanager.contentsOfDirectory(atPath: path) else{
+		guard let path = Bundle.main.resourcePath, let files = try? filemanager.contentsOfDirectory(atPath: path) else {
 			return []
 		}
-		
-		var availableModels: [Model] = []
-		for filename in files where filename.hasSuffix("usdz"){
-			let modelName = filename.replacingOccurrences(of: ".usdz", with: "")
-			
-			let model = Model(modelName: modelName)
-			
-			availableModels.append(model)
+
+		return files.compactMap { filename in
+			filename.hasSuffix("usdz") ? Model(modelName: filename.replacingOccurrences(of: ".usdz", with: "")) : nil
 		}
-		
-		return availableModels
-	}()
-	
+	}
+
+	//: Variable to control if box color selection scroll view is displayed to the user
+	@State private var isBoxColorSelectEnabled = false
+	//: Variable to contol if usdz placement view is displayed to user
+	@State private var isUSDZPlacementEnabled = false
+	//: Variable to control is an image is to be captured on the camera view
+	@State private var isImageCaptureEnabled = false
+	//: Variable to control if a video capture should be started on the camera view
+	@State private var isVideoCaptureEnabled = false
+	//: Variable used to indicate if a video capture should be completed and saved to the users photos
+	@State private var isVideoCaptureOver = false
+	//: TODO --> What is the purpose of this variable?
+	@State private var selectedModel: Model?
+	//: Variable to hold the usdz models
+	@State private var usdzModels: [Model] = loadUSDZModels()
+
+
+
 	var body: some View {
-		
+
 		ZStack(alignment: .bottom){
+
 			CustomARViewRepresentable()
 				.ignoresSafeArea()
 
-			// If the user selected one of
-			if self.isPlacementEnabled {
-				PlacementButtonsView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, modelConfirmedForPlacement: self.$modelConfirmedForPlacement)
-			} else {
-				ModelPickerView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, models: self.models)
+
+			// If the user selects that they would like to place a USDZ model, display scroll menu that allows them to select the desired block
+			if self.isUSDZPlacementEnabled {
+				USDZPlacementButtonsView(selectedModel: self.$selectedModel,
+										 isUSDZPlacementEnabled: self.$isUSDZPlacementEnabled,
+										 models: usdzModels)
 			}
-			
+			// If the user selects that they would like to place a block, display scroll menu that allows them to select the desired block
+			else if self.isBoxColorSelectEnabled {
+				SelectBoxColorView(isBoxColorSelectEnabled: self.$isBoxColorSelectEnabled)
+			}
+			// By default, display ModelPickerView which is gives the user the option of selecting blocks or USDZ models
+			else {
+				ModelPickerView(
+					isBoxColorSelectEnabled: $isBoxColorSelectEnabled,
+					isUSDZPlacementEnabled: $isUSDZPlacementEnabled,
+					isImageCaptureEnabled: $isImageCaptureEnabled,
+					isVideoCaptureEnabled: $isVideoCaptureEnabled)
+			}
+
 		}
+
 	}
+
 }
 
+// Default scroll view at the bottom of the view
 struct ModelPickerView: View {
-	
-	@Binding var isPlacementEnabled: Bool
-	@Binding var selectedModel: Model?
-	
-	@State private var selectedColor: Color = .green
-	
-	var models: [Model]
-	
-	private let colors: [Color] = [.green, .red, .blue]
-	
+
+	@Binding var isBoxColorSelectEnabled: Bool
+	@Binding var isUSDZPlacementEnabled: Bool
+	@Binding var isImageCaptureEnabled: Bool
+	@Binding var isVideoCaptureEnabled: Bool
+
+	let rainbowGradient = LinearGradient(
+		gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .indigo, .purple]),
+		startPoint: .leading,
+		endPoint: .trailing
+	)
+
 	var body: some View {
 		ScrollView(.horizontal, showsIndicators: false){
 			HStack(spacing: 30) {
@@ -84,39 +105,64 @@ struct ModelPickerView: View {
 						.background(.regularMaterial)
 						.cornerRadius(16)
 				}
-				
-				ForEach(colors, id: \.self) { color in
-					Button{
-						print("DEBUG: Placing Colored LBock ")
-						ARManager.shared.actionStream.send(.placeBlock(color: color))
-					} label: {
-						color
-							.frame(width: 40, height: 40)
-							.padding()
-							.background(.regularMaterial)
-							.cornerRadius(16)
-					}
+
+				//: Block selection button
+				Button(action: {
+					print("DEBUG: Box placement selection button selected")
+					isBoxColorSelectEnabled = true
+				}) {
+					Rectangle()
+						.fill(rainbowGradient)
+						.frame(width: 40, height: 40)
+						.cornerRadius(8) // Optional, for rounded corners
 				}
-				
-				//: "Zero up-to but not including"
-				ForEach(0 ..< self.models.count){ index in
-						
-					Button(action: {
-						print("DEBUG: selected model with name \(self.models[index].modelName)")
-						
-						self.selectedModel = self.models[index]
-						
-						self.isPlacementEnabled = true
-					}) {
-						Image(uiImage: self.models[index].image)
-							.resizable() // All of these modifiers only act on the image
-							.frame(height: 80)
-							.aspectRatio(1/1,contentMode: .fit)
-							.background(Color.white)
-							.cornerRadius(12)
-					}
-					.buttonStyle(PlainButtonStyle())
+				.padding()
+				.background(.regularMaterial)
+
+				//: USDZ selection button
+				Button(action: {
+					print("DEBUG: USDZ models placement selection button selected")
+					isUSDZPlacementEnabled = true
+				}) {
+					Image(systemName: "camera.macro")
+						.font(.system(size: 20)) // Adjust the size as needed
+						.frame(width: 40, height: 40) // Set the frame for the button
+						.foregroundColor(.white) // Optional: Change the color of the symbol
+						.padding() // Padding inside the button
+						.background(Color.blue) // Optional: Change the background color of the button
+						.cornerRadius(16) // Rounded corners for the button
 				}
+
+				//: Camera selection button
+				Button(action: {
+					print("DEBUG: Capture image button selected")
+//					captureImageAction()
+					print("DEBUG: captureImage() has been called")
+					isImageCaptureEnabled = true
+				}) {
+					Image(systemName: "camera.circle")
+						.font(.system(size: 20)) // Adjust the size as needed
+						.frame(width: 40, height: 40) // Set the frame for the button
+						.foregroundColor(.white) // Optional: Change the color of the symbol
+						.padding() // Padding inside the button
+						.background(Color.blue) // Optional: Change the background color of the button
+						.cornerRadius(16) // Rounded corners for the button
+				}
+
+				//: Camera selection button
+				Button(action: {
+					print("DEBUG: Capture video button selected")
+					isVideoCaptureEnabled = true
+				}) {
+					Image(systemName: "record.circle")
+						.font(.system(size: 20)) // Adjust the size as needed
+						.frame(width: 40, height: 40) // Set the frame for the button
+						.foregroundColor(.white) // Optional: Change the color of the symbol
+						.padding() // Padding inside the button
+						.background(Color.blue) // Optional: Change the background color of the button
+						.cornerRadius(16) // Rounded corners for the button
+				}
+
 			}
 		}
 		.padding(20)
@@ -126,85 +172,105 @@ struct ModelPickerView: View {
 
 // Once user has selected they want to place a box
 struct SelectBoxColorView: View {
-	
+
+	@Binding var isBoxColorSelectEnabled: Bool
+
 	//: Color Options for the user to select from
 	private let colors: [Color] = [.green, .red, .blue, .orange, .purple, .pink, .gray, .black, .white]
-	
+
 	var body: some View {
-		HStack{
-			// Display the options for colored boxes
-			ForEach(colors, id: \.self) { color in
-				Button{
-					print("DEBUG: Placing Colored LBock ")
-					ARManager.shared.actionStream.send(.placeBlock(color: color))
-				} label: {
-					color
-						.frame(width: 40, height: 40)
-						.padding()
-						.background(.regularMaterial)
-						.cornerRadius(16)
+		ScrollView(.horizontal, showsIndicators: false){
+			HStack{
+				//: Back button
+				Button(action: {
+					print("DEBUG: Box placement back button selected")
+					isBoxColorSelectEnabled = false
+				}){
+					Image(systemName: "arrowshape.turn.up.backward.fill")
+						.frame(width: 60, height: 60)
+						.font(.title)
+						.background(Color.white.opacity(0.75))
+						.cornerRadius(30)
+						.padding(20)
+				}
+
+				// Display the options for colored boxes
+				ForEach(colors, id: \.self) { color in
+					Button{
+						print("DEBUG: Placing Colored LBock with color: \(color)")
+						ARManager.shared.actionStream.send(.placeBlock(color: color))
+					} label: {
+						color
+							.frame(width: 40, height: 40)
+							.padding()
+							.background(.regularMaterial)
+							.cornerRadius(16)
+					}
 				}
 			}
 		}
+		.padding(20)
+		.background(Color.black.opacity(0.5))
 	}
 }
 
-struct PlacementButtonsView: View {
-	
-	@Binding var isPlacementEnabled: Bool
+//: View displayed to the user if the usdz view button is selected
+struct USDZPlacementButtonsView: View {
+
 	@Binding var selectedModel: Model?
-	@Binding var modelConfirmedForPlacement: Model?
-	
-	var body: some View {
-		HStack{
-			//: Cancel button
-			Button(action: {
-				print("DEBUG: Model placement CANCELED")
-				
-				self.resetPlacementParameters()
-			}){
-				Image(systemName: "xmark")
-					.frame(width: 60, height: 60)
-					.font(.title)
-					.background(Color.white.opacity(0.75))
-					.cornerRadius(30)
-					.padding(20)
-			}
+	@Binding var isUSDZPlacementEnabled: Bool
 
-			Button(action: {
-				print("DEBUG: model placement CONFIRMED")
-				self.modelConfirmedForPlacement = self.selectedModel
-				
-				if let model = selectedModel {
-					
-					ARManager.shared.actionStream.send(.loadModel(model))
-					print("DEBUG: Sent model through actionStream")
+	var models: [Model]
+
+	var body: some View {
+		ScrollView(.horizontal, showsIndicators: false){
+			HStack{
+				//: Back button
+				Button(action: {
+					print("DEBUG: usdz placement back button selected")
+					isUSDZPlacementEnabled = false
+				}){
+					Image(systemName: "arrowshape.turn.up.backward.fill")
+						.frame(width: 60, height: 60)
+						.font(.title)
+						.background(Color.white.opacity(0.75))
+						.cornerRadius(30)
+						.padding(20)
 				}
-				
-				DispatchQueue.main.async{
-					self.modelConfirmedForPlacement = nil
+
+				//: "Zero up-to but not including"
+				ForEach(0 ..< self.models.count){ index in
+
+					Button(action: {
+						print("DEBUG: selected model with name \(models[index].modelName)")
+
+						selectedModel = models[index]
+
+						if let model = selectedModel {
+
+							ARManager.shared.actionStream.send(.loadModel(model))
+							print("DEBUG: Sent model through actionStream")
+						}
+
+						DispatchQueue.main.async{
+							selectedModel = nil
+						}
+
+					}) {
+						Image(uiImage: self.models[index].image)
+							.resizable() // All of these modifiers only act on the image
+							.frame(height: 80)
+							.aspectRatio(1/1,contentMode: .fit)
+							.background(Color.white)
+							.cornerRadius(12)
+					}
+					.buttonStyle(PlainButtonStyle())
+					.padding()
 				}
-				
-				self.resetPlacementParameters()
-			}){
-				Image(systemName: "checkmark")
-					.frame(width: 60, height: 60)
-					.font(.title)
-					.background(Color.white.opacity(0.75))
-					.cornerRadius(30)
-					.padding(20)
+
 			}
 		}
+		.padding(20)
+		.background(Color.black.opacity(0.5))
 	}
-	func resetPlacementParameters() {
-		self.isPlacementEnabled = false
-		self.selectedModel = nil
-	}
-}
-
-
-class 
-
-#Preview {
-    ARContentView()
 }

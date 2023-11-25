@@ -57,6 +57,7 @@
 		D0730C6D2AFC942900366E8D /* tv_retro.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C692AFC942900366E8D /* tv_retro.usdz */; };
 		D0DFB5E42B0D7EA600019DA6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DFB5E32B0D7EA600019DA6 /* Models.swift */; };
 		D0DFB5E72B0D9BD300019DA6 /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = D0DFB5E62B0D9BD300019DA6 /* FocusEntity */; };
+		D0DFB5E92B11760800019DA6 /* ARViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DFB5E82B11760800019DA6 /* ARViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +131,7 @@
 		D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_drummer_idle.usdz; sourceTree = "<group>"; };
 		D0730C692AFC942900366E8D /* tv_retro.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = tv_retro.usdz; sourceTree = "<group>"; };
 		D0DFB5E32B0D7EA600019DA6 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		D0DFB5E82B11760800019DA6 /* ARViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +277,7 @@
 				D06CFF442AF15DCD00FFC3F7 /* ARManager.swift */,
 				D06CFF462AF1679D00FFC3F7 /* ARContentView.swift */,
 				D0DFB5E32B0D7EA600019DA6 /* Models.swift */,
+				D0DFB5E82B11760800019DA6 /* ARViewModel.swift */,
 			);
 			path = ARTarget;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				D06CFF2C2AE7652D00FFC3F7 /* Safety+CoreData.swift in Sources */,
 				D06CFEE02AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld in Sources */,
 				D06CFF2E2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift in Sources */,
+				D0DFB5E92B11760800019DA6 /* ARViewModel.swift in Sources */,
 				D06CFF492AF1919800FFC3F7 /* LocationDetailsView.swift in Sources */,
 				D06CFF062AE75A6100FFC3F7 /* LoginView.swift in Sources */,
 				D06CFF352AEF029400FFC3F7 /* IAP+CoreData.swift in Sources */,
@@ -645,9 +649,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Heigl-ARKIT-FINAL-Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Needed to show AR View";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Needed to enable the AR View!";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Needed to display your location on the map!";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Needed to display your location on the map!";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Needed to save \U0010captured AR Photos to your library! ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -678,9 +683,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Heigl-ARKIT-FINAL-Info.plist";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Needed to show AR View";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Needed to enable the AR View!";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Needed to display your location on the map!";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Needed to display your location on the map!";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Needed to save \U0010captured AR Photos to your library! ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

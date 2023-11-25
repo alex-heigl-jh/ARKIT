@@ -9,26 +9,18 @@
 import Foundation
 import SwiftUI
 import ARKit
-import FocusEntity
 
-// Making this a struct and UIViewRepresentable so I can use in a swiftUI view
-struct CustomARViewRepresentable: UIViewRepresentable{
+
+struct CustomARViewRepresentable: UIViewRepresentable {
+//	var viewModel: ARViewModel
 	
-	@State private var colors: [Color] = [
-		.green,
-		.red,
-		.blue
-	]
-    
-	
-//	typealias UIViewType = ARView
-	
-	
-    func makeUIView(context: Context) -> CustomARView {
-				// Will call the convenience initializer
-        return CustomARView()
-    }
-	
-    func updateUIView(_ uiView: CustomARView, context: Context) {}
-    
+	// Calls the convenience initializer in CustomARView
+	func makeUIView(context: Context) -> CustomARView {
+		let view = CustomARView()
+//		view.viewModel = viewModel
+//		viewModel.customARView = view // Set the reference
+		return view
+	}
+
+	func updateUIView(_ uiView: CustomARView, context: Context) {}
 }

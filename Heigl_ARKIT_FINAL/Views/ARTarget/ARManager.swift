@@ -6,8 +6,6 @@
 //
 //  Code initially based off of tutorial from: https://www.youtube.com/watch?v=KbqbU-cCKf4
 
-import Combine
-
 /* 
 //: Declaring as a singleton pattern so that only one instance of this class will be allowed
 
@@ -20,6 +18,9 @@ import Combine
  //: Publisher publishes value, subscriber receives the published data
  
  */
+
+import Combine
+
 class ARManager{
 	static let shared = ARManager()
 	// Only ARManager can call the initializer
