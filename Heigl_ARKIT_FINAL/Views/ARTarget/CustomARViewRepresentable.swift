@@ -9,18 +9,26 @@
 import Foundation
 import SwiftUI
 import ARKit
-
+import ReplayKit
 
 struct CustomARViewRepresentable: UIViewRepresentable {
-//	var viewModel: ARViewModel
-	
-	// Calls the convenience initializer in CustomARView
 	func makeUIView(context: Context) -> CustomARView {
-		let view = CustomARView()
-//		view.viewModel = viewModel
-//		viewModel.customARView = view // Set the reference
-		return view
+		return CustomARView()
 	}
 
 	func updateUIView(_ uiView: CustomARView, context: Context) {}
+
+	func makeCoordinator() -> Coordinator {
+		return Coordinator(self)
+	}
+
+	class Coordinator: NSObject {
+		var parent: CustomARViewRepresentable
+
+		init(_ parent: CustomARViewRepresentable) {
+			self.parent = parent
+		}
+
+		// Coordinator code here if needed
+	}
 }

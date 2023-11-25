@@ -4,6 +4,10 @@
 <dict>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>Needed to record audio during video recordings!</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Needed to export AR Media to your photos library!</string>
 		<key>NSPhotoLibraryAddUsageDescription</key>
 		<string>Needed to save photos to your library! </string>
 		<key>NSExceptionDomains</key>

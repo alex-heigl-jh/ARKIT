@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D04F82092B129060008484B8 /* ARVideoKit in Frameworks */ = {isa = PBXBuildFile; productRef = D04F82082B129060008484B8 /* ARVideoKit */; };
 		D06CFED42AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFED32AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift */; };
 		D06CFED62AE75A2300FFC3F7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFED52AE75A2300FFC3F7 /* ContentView.swift */; };
 		D06CFED82AE75A2500FFC3F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D06CFED72AE75A2500FFC3F7 /* Assets.xcassets */; };
@@ -57,7 +58,6 @@
 		D0730C6D2AFC942900366E8D /* tv_retro.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C692AFC942900366E8D /* tv_retro.usdz */; };
 		D0DFB5E42B0D7EA600019DA6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DFB5E32B0D7EA600019DA6 /* Models.swift */; };
 		D0DFB5E72B0D9BD300019DA6 /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = D0DFB5E62B0D9BD300019DA6 /* FocusEntity */; };
-		D0DFB5E92B11760800019DA6 /* ARViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DFB5E82B11760800019DA6 /* ARViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +76,19 @@
 			remoteInfo = Heigl_ARKIT_FINAL;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D04F82012B126FA1008484B8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		D06CFED02AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Heigl_ARKIT_FINAL.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,7 +144,6 @@
 		D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_drummer_idle.usdz; sourceTree = "<group>"; };
 		D0730C692AFC942900366E8D /* tv_retro.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = tv_retro.usdz; sourceTree = "<group>"; };
 		D0DFB5E32B0D7EA600019DA6 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		D0DFB5E82B11760800019DA6 /* ARViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D04F82092B129060008484B8 /* ARVideoKit in Frameworks */,
 				D0DFB5E72B0D9BD300019DA6 /* FocusEntity in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,6 +173,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D04F81FE2B126FA0008484B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D06CFEC72AE75A2300FFC3F7 = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +187,7 @@
 				D06CFEE82AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests */,
 				D06CFEF22AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests */,
 				D06CFED12AE75A2300FFC3F7 /* Products */,
+				D04F81FE2B126FA0008484B8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -277,7 +298,6 @@
 				D06CFF442AF15DCD00FFC3F7 /* ARManager.swift */,
 				D06CFF462AF1679D00FFC3F7 /* ARContentView.swift */,
 				D0DFB5E32B0D7EA600019DA6 /* Models.swift */,
-				D0DFB5E82B11760800019DA6 /* ARViewModel.swift */,
 			);
 			path = ARTarget;
 			sourceTree = "<group>";
@@ -311,6 +331,7 @@
 				D06CFECC2AE75A2300FFC3F7 /* Sources */,
 				D06CFECD2AE75A2300FFC3F7 /* Frameworks */,
 				D06CFECE2AE75A2300FFC3F7 /* Resources */,
+				D04F82012B126FA1008484B8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -319,6 +340,7 @@
 			name = Heigl_ARKIT_FINAL;
 			packageProductDependencies = (
 				D0DFB5E62B0D9BD300019DA6 /* FocusEntity */,
+				D04F82082B129060008484B8 /* ARVideoKit */,
 			);
 			productName = Heigl_ARKIT_FINAL;
 			productReference = D06CFED02AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL.app */;
@@ -394,6 +416,7 @@
 			mainGroup = D06CFEC72AE75A2300FFC3F7;
 			packageReferences = (
 				D0DFB5E52B0D9BD300019DA6 /* XCRemoteSwiftPackageReference "FocusEntity" */,
+				D04F82072B129060008484B8 /* XCLocalSwiftPackageReference "../ARVideoKit-1.6.0" */,
 			);
 			productRefGroup = D06CFED12AE75A2300FFC3F7 /* Products */;
 			projectDirPath = "";
@@ -464,7 +487,6 @@
 				D06CFF2C2AE7652D00FFC3F7 /* Safety+CoreData.swift in Sources */,
 				D06CFEE02AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld in Sources */,
 				D06CFF2E2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift in Sources */,
-				D0DFB5E92B11760800019DA6 /* ARViewModel.swift in Sources */,
 				D06CFF492AF1919800FFC3F7 /* LocationDetailsView.swift in Sources */,
 				D06CFF062AE75A6100FFC3F7 /* LoginView.swift in Sources */,
 				D06CFF352AEF029400FFC3F7 /* IAP+CoreData.swift in Sources */,
@@ -822,6 +844,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		D04F82072B129060008484B8 /* XCLocalSwiftPackageReference "../ARVideoKit-1.6.0" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../ARVideoKit-1.6.0";
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		D0DFB5E52B0D9BD300019DA6 /* XCRemoteSwiftPackageReference "FocusEntity" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -834,6 +863,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D04F82082B129060008484B8 /* ARVideoKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ARVideoKit;
+		};
 		D0DFB5E62B0D9BD300019DA6 /* FocusEntity */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D0DFB5E52B0D9BD300019DA6 /* XCRemoteSwiftPackageReference "FocusEntity" */;

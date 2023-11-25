@@ -18,13 +18,14 @@
 
 import ARKit
 import Combine
-import RealityKit
-import SwiftUI
 import FocusEntity
-import AVFoundation
 import Photos
+import RealityKit
+import ReplayKit
+import SwiftUI
 
-class CustomARView: ARView {
+
+class CustomARView: RealityKit.ARView {
 	
 	enum FocusStyleChoices {
 		case classic
@@ -40,6 +41,11 @@ class CustomARView: ARView {
 	var lastTime:TimeInterval = 0
 	var isRecording:Bool = false;
 
+	private let screenRecorder = RPScreenRecorder.shared()
+//	weak var delegate: CustomARViewDelegate?
+	var coordinator: CustomARViewRepresentable.Coordinator?
+	var showPreviewController: Binding<Bool>?
+	var previewController: Binding<RPPreviewViewController?>?
 	
     required init(frame frameRect: CGRect){
         super.init(frame: frameRect)
@@ -106,7 +112,7 @@ class CustomARView: ARView {
 					// Capture a video the current AR view
 					case .captureVideo(let startCapture):
 						print("DEBUG: capture video command received with startCapture: \(startCapture)")
-					self?.captureVideoFromCamera(startCapture: startCapture)
+//					self?.captureVideoFromCamera(startCapture: startCapture)
 				}
 				
 			}
@@ -291,61 +297,10 @@ class CustomARView: ARView {
 			print("DEBUG: Photo saved successfully")
 		}
 	}
-	
-	func captureVideoFromCamera(startCapture: Bool) {
-		print("DEBUG: entering captureVideoFromCamera() with startCapture set to: \(startCapture)")
-		
-		if startCapture {
-			// Setup and start AVCaptureSession and AVAssetWriter
-			startRecording()
-		} else {
-			// Stop recording and finalize video
-			stopRecording()
-		}
-	}
-	func startRecording() {
-		self.lastTime = 0;
-		self.isRecording = true;
-	}
-
-	func stopRecording() {
-		self.isRecording = false;
-//		self.saveVideo(withName: "test", imageArray: self.snapshotArray, fps: 30, size: CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height));
-	}
-	
-//	public func didUpdateAtTime(time: TimeInterval) {
-//		
-//		if self.isRecording {
-//			if self.lastTime == 0 || (self.lastTime + 1/31) < time {
-//				DispatchQueue.main.async { [weak self] () -> Void in
-//					
-//					print("UPDATE AT TIME : \(time)");
-//					guard self != nil else { return }
-//					self!.lastTime = time;
-//					let snapshot:UIImage = self!.sceneView.snapshot()
-//					
-//					let scale = CMTimeScale(NSEC_PER_SEC)
-//					
-//					self!.snapshotArray.append([
-//						"image":snapshot,
-//						"time": CMTime(value: CMTimeValue((self?.sceneView.session.currentFrame!.timestamp)! * Double(scale)), timescale: scale)
-//					]);
-//					
-//				}
-//			}
-//		}
-//	}
-
-//	func stopVideoRecordingSession() {
-//		// Code to stop AVCaptureSession, finalize and save video file
-//	}
-
-	
-	
 }
 
 //: Create extension of ARView to enable longPressGesture to delete AR object
-extension ARView {
+extension RealityKit.ARView {
 	//: Create enableObjectRemoval() function to add longPressGesture recognizer
 	func enableObjectRemoval(){
 		let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(recognizer:)))
@@ -364,3 +319,9 @@ extension ARView {
 	}
 }
 
+
+extension CustomARView: RPPreviewViewControllerDelegate {
+	func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
+		previewController.dismiss(animated: true)
+	}
+}

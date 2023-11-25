@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ARVideoKit
 
 @main
 struct Heigl_ARKIT_FINAL: App {
