@@ -5,8 +5,7 @@
 //  Created by Alex Heigl on 10/31/23.
 //
 //  Code initially based off of tutorial from: https://www.youtube.com/watch?v=KbqbU-cCKf4
-//  Code then augmented from tutorial from: https://www.youtube.com/watch?v=9R_G0EI-UoI&t=194s
-
+//  Code then augmented with tutorial from: https://www.youtube.com/watch?v=9R_G0EI-UoI&t=194s
 
 
 import SwiftUI
@@ -31,8 +30,6 @@ struct ARContentView: View {
 	@State private var isBoxColorSelectEnabled = false
 	//: Variable to contol if usdz placement view is displayed to user
 	@State private var isUSDZPlacementEnabled = false
-	//: Variable to control is an image is to be captured on the camera view
-	@State private var isImageCaptureEnabled = false
 	//: Variable to control if a video capture should be started on the camera view
 	@State private var isVideoCaptureEnabled = false
 	//: Variable used to indicate if a video capture should be completed and saved to the users photos
@@ -43,14 +40,13 @@ struct ARContentView: View {
 	@State private var usdzModels: [Model] = loadUSDZModels()
 
 
-
 	var body: some View {
 
 		ZStack(alignment: .bottom){
-
+			
+			// The ARView
 			CustomARViewRepresentable()
 				.ignoresSafeArea()
-
 
 			// If the user selects that they would like to place a USDZ model, display scroll menu that allows them to select the desired block
 			if self.isUSDZPlacementEnabled {
@@ -67,14 +63,10 @@ struct ARContentView: View {
 				ModelPickerView(
 					isBoxColorSelectEnabled: $isBoxColorSelectEnabled,
 					isUSDZPlacementEnabled: $isUSDZPlacementEnabled,
-					isImageCaptureEnabled: $isImageCaptureEnabled,
 					isVideoCaptureEnabled: $isVideoCaptureEnabled)
 			}
-
 		}
-
 	}
-
 }
 
 // Default scroll view at the bottom of the view
@@ -82,8 +74,11 @@ struct ModelPickerView: View {
 
 	@Binding var isBoxColorSelectEnabled: Bool
 	@Binding var isUSDZPlacementEnabled: Bool
-	@Binding var isImageCaptureEnabled: Bool
 	@Binding var isVideoCaptureEnabled: Bool
+	
+	// Used to control camera button animation used to indicate an image has been captured
+	@State private var buttonColor = Color.blue
+
 
 	let rainbowGradient = LinearGradient(
 		gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .indigo, .purple]),
@@ -125,42 +120,50 @@ struct ModelPickerView: View {
 					isUSDZPlacementEnabled = true
 				}) {
 					Image(systemName: "camera.macro")
-						.font(.system(size: 20)) // Adjust the size as needed
-						.frame(width: 40, height: 40) // Set the frame for the button
-						.foregroundColor(.white) // Optional: Change the color of the symbol
-						.padding() // Padding inside the button
-						.background(Color.blue) // Optional: Change the background color of the button
-						.cornerRadius(16) // Rounded corners for the button
+						.font(.system(size: 30)) 		// Adjust the size as needed
+						.frame(width: 40, height: 40) 	// Set the frame for the button
+						.foregroundColor(.white) 		// Change the color of the symbol
+						.padding() 						// Padding inside the button
+						.background(Color.blue) 		// Change the background color of the button
+						.cornerRadius(16) 				// Rounded corners for the button
 				}
 
 				//: Camera selection button
 				Button(action: {
 					print("DEBUG: Capture image button selected")
-//					captureImageAction()
-					print("DEBUG: captureImage() has been called")
-					isImageCaptureEnabled = true
+					ARManager.shared.actionStream.send(.captureImage)
+
+					// Change the color to indicate capture
+					buttonColor = Color.green // Change to your preferred 'capture' color
+
+					// Revert the color back after a short delay
+					DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+						buttonColor = Color.blue // Revert to original color
+					}
 				}) {
 					Image(systemName: "camera.circle")
-						.font(.system(size: 20)) // Adjust the size as needed
-						.frame(width: 40, height: 40) // Set the frame for the button
-						.foregroundColor(.white) // Optional: Change the color of the symbol
-						.padding() // Padding inside the button
-						.background(Color.blue) // Optional: Change the background color of the button
-						.cornerRadius(16) // Rounded corners for the button
+						.font(.system(size: 30))        // Adjust the size as needed
+						.frame(width: 40, height: 40)   // Set the frame for the button
+						.foregroundColor(.white)        // Change the color of the symbol
+						.padding()                      // Padding inside the button
+						.background(buttonColor)        // Use the dynamic background color
+						.cornerRadius(16)               // Rounded corners for the button
 				}
 
 				//: Camera selection button
 				Button(action: {
 					print("DEBUG: Capture video button selected")
-					isVideoCaptureEnabled = true
+					isVideoCaptureEnabled.toggle() // Toggle the recording state
+					ARManager.shared.actionStream.send(.captureVideo(isVideoCaptureEnabled))
 				}) {
-					Image(systemName: "record.circle")
-						.font(.system(size: 20)) // Adjust the size as needed
-						.frame(width: 40, height: 40) // Set the frame for the button
-						.foregroundColor(.white) // Optional: Change the color of the symbol
-						.padding() // Padding inside the button
-						.background(Color.blue) // Optional: Change the background color of the button
-						.cornerRadius(16) // Rounded corners for the button
+					// Toggle the image based on whether video is being captured
+					Image(systemName: isVideoCaptureEnabled ? "record.circle.fill" : "record.circle")
+						.font(.system(size: 30))        // Adjust the size as needed
+						.frame(width: 40, height: 40)   // Set the frame for the button
+						.foregroundColor(.white)       // Change the color of the symbol
+						.padding()                      // Padding inside the button
+						.background(isVideoCaptureEnabled ? Color.red : Color.blue) // Dynamic background color
+						.cornerRadius(16)               // Rounded corners for the button
 				}
 
 			}

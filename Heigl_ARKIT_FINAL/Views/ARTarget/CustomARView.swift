@@ -7,12 +7,22 @@
 //  Code initially based off of tutorial from: https://www.youtube.com/watch?v=KbqbU-cCKf4
 //  Additional code taken from FocusEntity example implementation
 //  Code additionally augmented from tutorial from: https://www.youtube.com/watch?v=itGRaAryUxA
+//  Video recording code taken from tutorial from: https://medium.com/ar-tips-and-tricks/arkit-how-to-record-and-save-video-in-swift-73cd899c21c7
+
+/*
+ 
+ This file handles the actual AR actions, it takes its queue from an action stream
+ that originates in ARContentView.swift.
+ 
+ */
 
 import ARKit
 import Combine
 import RealityKit
 import SwiftUI
 import FocusEntity
+import AVFoundation
+import Photos
 
 class CustomARView: ARView {
 	
@@ -24,6 +34,12 @@ class CustomARView: ARView {
 	
 	let focusStyle: FocusStyleChoices = .classic
 	var focusEntity: FocusEntity?
+	
+	// Variables necessary for video capture of AR view
+	var snapshotArray:[[String:Any]] = [[String:Any]]()
+	var lastTime:TimeInterval = 0
+	var isRecording:Bool = false;
+
 	
     required init(frame frameRect: CGRect){
         super.init(frame: frameRect)
@@ -66,16 +82,31 @@ class CustomARView: ARView {
 		// Whenever an action is sent through action stream .sink will run 
 			.sink { [weak self] action in
 				switch action {
+					
+					// Place a block in the AR view
 					case .placeBlock(let color):
 						self?.placeBlock(ofColor: color)
 					
+					// Load a usdz model into the ARview
 					case .loadModel(let model):
 						print("DEBUG: Placing model")
 						self?.placeEntity(from: model)
 					
+					// Remove all entities from the AR view
 					case .removeAllAnchors:
 						self?.scene.anchors.removeAll()
 						self?.setupFocusEntity()
+					
+					// Capture an image of the current ARview
+					case .captureImage:
+						print("DEBUG: Capture image command received in CustomARView")
+						self?.captureImageFromCamera()
+						print("DEBUG: Completed captureImageFromCamera()")
+					
+					// Capture a video the current AR view
+					case .captureVideo(let startCapture):
+						print("DEBUG: capture video command received with startCapture: \(startCapture)")
+					self?.captureVideoFromCamera(startCapture: startCapture)
 				}
 				
 			}
@@ -235,30 +266,81 @@ class CustomARView: ARView {
 	
 	// Method to pause AR session
 	func pauseSession() {
-		print("Pausing AR Session")
+		print("DEBUG: Pausing AR Session")
 		self.session.pause()
 	}
+	
+	func captureImageFromCamera() {
+		print("Entering captureImageFromCamera()")
+		// Use the instance method to take a snapshot
+		self.snapshot(saveToHDR: false) { [weak self] image in
+			guard let self = self, let snapshot = image else { return }
+			// Use the snapshot, which is a UIImage
+			// Save it to the photo library
+			UIImageWriteToSavedPhotosAlbum(snapshot, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+		}
+	}
 
-	// Method to resume AR sesion
-//	func resumeSession() {
-//		print("Resuming AR Session")
-//		let configuration = ARWorldTrackingConfiguration()
-//		configuration.planeDetection = [.horizontal, .vertical]
-//		configuration.environmentTexturing = .automatic
-//		// Add any other necessary configuration settings
-//		self.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+	// Callback method after saving image
+	@objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+		if let error = error {
+			// Handle any errors
+			print("ERROR: Error saving photo: \(error.localizedDescription)")
+		} else {
+			// Image saved successfully
+			print("DEBUG: Photo saved successfully")
+		}
+	}
+	
+	func captureVideoFromCamera(startCapture: Bool) {
+		print("DEBUG: entering captureVideoFromCamera() with startCapture set to: \(startCapture)")
+		
+		if startCapture {
+			// Setup and start AVCaptureSession and AVAssetWriter
+			startRecording()
+		} else {
+			// Stop recording and finalize video
+			stopRecording()
+		}
+	}
+	func startRecording() {
+		self.lastTime = 0;
+		self.isRecording = true;
+	}
+
+	func stopRecording() {
+		self.isRecording = false;
+//		self.saveVideo(withName: "test", imageArray: self.snapshotArray, fps: 30, size: CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height));
+	}
+	
+//	public func didUpdateAtTime(time: TimeInterval) {
+//		
+//		if self.isRecording {
+//			if self.lastTime == 0 || (self.lastTime + 1/31) < time {
+//				DispatchQueue.main.async { [weak self] () -> Void in
+//					
+//					print("UPDATE AT TIME : \(time)");
+//					guard self != nil else { return }
+//					self!.lastTime = time;
+//					let snapshot:UIImage = self!.sceneView.snapshot()
+//					
+//					let scale = CMTimeScale(NSEC_PER_SEC)
+//					
+//					self!.snapshotArray.append([
+//						"image":snapshot,
+//						"time": CMTime(value: CMTimeValue((self?.sceneView.session.currentFrame!.timestamp)! * Double(scale)), timescale: scale)
+//					]);
+//					
+//				}
+//			}
+//		}
 //	}
 
-//	func saveState() -> ARViewState {
-//		let currentConfiguration = self.session.configuration as? ARWorldTrackingConfiguration ?? ARWorldTrackingConfiguration()
-//		let currentAnchors = self.scene.anchors.compactMap { $0 as? AnchorEntity }
-//		return ARViewState(sessionConfiguration: currentConfiguration, anchors: currentAnchors)
+//	func stopVideoRecordingSession() {
+//		// Code to stop AVCaptureSession, finalize and save video file
 //	}
-//
-//	func restoreState(_ state: ARViewState) {
-//		self.session.run(state.sessionConfiguration, options: [.resetTracking, .removeExistingAnchors])
-//		state.anchors.forEach { self.scene.addAnchor($0) }
-//	}
+
+	
 	
 }
 
@@ -281,3 +363,4 @@ extension ARView {
 		}
 	}
 }
+

@@ -10,9 +10,12 @@ import SwiftUI
 
 //ARAction that we want to implement
 enum ARAction{
-	case placeBlock(color: Color)
+	case captureImage
+	case captureVideo(Bool)
 	case loadModel(Model)
+	case placeBlock(color: Color)
 	case removeAllAnchors
+	
 }
 
 
