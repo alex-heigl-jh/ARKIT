@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		D04F82092B129060008484B8 /* ARVideoKit in Frameworks */ = {isa = PBXBuildFile; productRef = D04F82082B129060008484B8 /* ARVideoKit */; };
+		D04F820B2B12FEC7008484B8 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F820A2B12FEC7008484B8 /* InputView.swift */; };
+		D04F820D2B1305EA008484B8 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F820C2B1305EA008484B8 /* RegistrationView.swift */; };
+		D04F820F2B130C3B008484B8 /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F820E2B130C3B008484B8 /* SettingsRowView.swift */; };
+		D04F82112B130F1F008484B8 /* HomeUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F82102B130F1F008484B8 /* HomeUser.swift */; };
+		D04F82132B1316D6008484B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D04F82122B1316D6008484B8 /* GoogleService-Info.plist */; };
+		D04F82162B1317CB008484B8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D04F82152B1317CB008484B8 /* FirebaseAuth */; };
+		D04F82182B1317CB008484B8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D04F82172B1317CB008484B8 /* FirebaseFirestore */; };
+		D04F821A2B1317CB008484B8 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D04F82192B1317CB008484B8 /* FirebaseFirestoreSwift */; };
 		D06CFED42AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFED32AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift */; };
 		D06CFED62AE75A2300FFC3F7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFED52AE75A2300FFC3F7 /* ContentView.swift */; };
 		D06CFED82AE75A2500FFC3F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D06CFED72AE75A2500FFC3F7 /* Assets.xcassets */; };
@@ -91,6 +99,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D04F820A2B12FEC7008484B8 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		D04F820C2B1305EA008484B8 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		D04F820E2B130C3B008484B8 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
+		D04F82102B130F1F008484B8 /* HomeUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUser.swift; sourceTree = "<group>"; };
+		D04F82122B1316D6008484B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D06CFED02AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Heigl_ARKIT_FINAL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D06CFED32AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heigl_ARKIT_FINALApp.swift; sourceTree = "<group>"; };
 		D06CFED52AE75A2300FFC3F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -151,7 +164,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D04F821A2B1317CB008484B8 /* FirebaseFirestoreSwift in Frameworks */,
 				D04F82092B129060008484B8 /* ARVideoKit in Frameworks */,
+				D04F82182B1317CB008484B8 /* FirebaseFirestore in Frameworks */,
+				D04F82162B1317CB008484B8 /* FirebaseAuth in Frameworks */,
 				D0DFB5E72B0D9BD300019DA6 /* FocusEntity in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -211,6 +227,7 @@
 				D06CFED32AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift */,
 				D06CFED52AE75A2300FFC3F7 /* ContentView.swift */,
 				D06CFED72AE75A2500FFC3F7 /* Assets.xcassets */,
+				D04F82122B1316D6008484B8 /* GoogleService-Info.plist */,
 				D06CFEDC2AE75A2500FFC3F7 /* Persistence.swift */,
 				D06CFEDE2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld */,
 				D06CFED92AE75A2500FFC3F7 /* Preview Content */,
@@ -248,6 +265,9 @@
 			children = (
 				D06CFF3C2AF1487200FFC3F7 /* ARTarget */,
 				D06CFF052AE75A6100FFC3F7 /* LoginView.swift */,
+				D04F820A2B12FEC7008484B8 /* InputView.swift */,
+				D04F820C2B1305EA008484B8 /* RegistrationView.swift */,
+				D04F820E2B130C3B008484B8 /* SettingsRowView.swift */,
 				D06CFF072AE75A7200FFC3F7 /* LoadingView.swift */,
 				D06CFF092AE75A7C00FFC3F7 /* MainMenuView.swift */,
 				D06CFF0B2AE75A8800FFC3F7 /* MapsView.swift */,
@@ -262,8 +282,9 @@
 			isa = PBXGroup;
 			children = (
 				D06CFF042AE75A4300FFC3F7 /* CoreData */,
-				D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */,
 				D06CFF172AE75B7100FFC3F7 /* InitialDataIngestor.swift */,
+				D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */,
+				D04F82102B130F1F008484B8 /* HomeUser.swift */,
 				D06CFF3A2AF0834400FFC3F7 /* UsersJSON.swift */,
 				D06CFF4A2AF294ED00FFC3F7 /* NewsFeedJSON.swift */,
 				D06CFF542AF2E24600FFC3F7 /* SafetyJSON.swift */,
@@ -341,6 +362,9 @@
 			packageProductDependencies = (
 				D0DFB5E62B0D9BD300019DA6 /* FocusEntity */,
 				D04F82082B129060008484B8 /* ARVideoKit */,
+				D04F82152B1317CB008484B8 /* FirebaseAuth */,
+				D04F82172B1317CB008484B8 /* FirebaseFirestore */,
+				D04F82192B1317CB008484B8 /* FirebaseFirestoreSwift */,
 			);
 			productName = Heigl_ARKIT_FINAL;
 			productReference = D06CFED02AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL.app */;
@@ -417,6 +441,7 @@
 			packageReferences = (
 				D0DFB5E52B0D9BD300019DA6 /* XCRemoteSwiftPackageReference "FocusEntity" */,
 				D04F82072B129060008484B8 /* XCLocalSwiftPackageReference "../ARVideoKit-1.6.0" */,
+				D04F82142B1317CB008484B8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = D06CFED12AE75A2300FFC3F7 /* Products */;
 			projectDirPath = "";
@@ -436,6 +461,7 @@
 			files = (
 				D0730C6C2AFC942900366E8D /* toy_drummer_idle.usdz in Resources */,
 				D06CFEDB2AE75A2500FFC3F7 /* Preview Assets.xcassets in Resources */,
+				D04F82132B1316D6008484B8 /* GoogleService-Info.plist in Resources */,
 				D0730C6A2AFC942900366E8D /* flower_tulip.usdz in Resources */,
 				D0730C6B2AFC942900366E8D /* fender_stratocaster.usdz in Resources */,
 				D0730C652AFC838A00366E8D /* LunarRover_English.reality in Resources */,
@@ -477,6 +503,7 @@
 				D06CFF0A2AE75A7C00FFC3F7 /* MainMenuView.swift in Sources */,
 				D06CFF452AF15DCD00FFC3F7 /* ARManager.swift in Sources */,
 				D06CFF182AE75B7100FFC3F7 /* InitialDataIngestor.swift in Sources */,
+				D04F820D2B1305EA008484B8 /* RegistrationView.swift in Sources */,
 				D06CFF4B2AF294ED00FFC3F7 /* NewsFeedJSON.swift in Sources */,
 				D06CFF552AF2E24600FFC3F7 /* SafetyJSON.swift in Sources */,
 				D06CFF242AE763B800FFC3F7 /* MapsData+CoreData.swift in Sources */,
@@ -498,10 +525,13 @@
 				D06CFF332AEEFF4700FFC3F7 /* CoreDataHelper.swift in Sources */,
 				D06CFF162AE75B5500FFC3F7 /* UserAuth.swift in Sources */,
 				D06CFF472AF1679D00FFC3F7 /* ARContentView.swift in Sources */,
+				D04F820F2B130C3B008484B8 /* SettingsRowView.swift in Sources */,
 				D06CFF262AE763DA00FFC3F7 /* NewsFeed+CoreData.swift in Sources */,
 				D06CFF082AE75A7200FFC3F7 /* LoadingView.swift in Sources */,
 				D06CFF3E2AF14A5700FFC3F7 /* CustomARView.swift in Sources */,
 				D06CFF282AE763FE00FFC3F7 /* Notifications+CoreData.swift in Sources */,
+				D04F82112B130F1F008484B8 /* HomeUser.swift in Sources */,
+				D04F820B2B12FEC7008484B8 /* InputView.swift in Sources */,
 				D06CFF432AF15C9300FFC3F7 /* ARAction.swift in Sources */,
 				D06CFF402AF14A9B00FFC3F7 /* CustomARViewRepresentable.swift in Sources */,
 			);
@@ -852,6 +882,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D04F82142B1317CB008484B8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.18.0;
+			};
+		};
 		D0DFB5E52B0D9BD300019DA6 /* XCRemoteSwiftPackageReference "FocusEntity" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/maxxfrazer/FocusEntity";
@@ -866,6 +904,21 @@
 		D04F82082B129060008484B8 /* ARVideoKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ARVideoKit;
+		};
+		D04F82152B1317CB008484B8 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D04F82142B1317CB008484B8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		D04F82172B1317CB008484B8 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D04F82142B1317CB008484B8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		D04F82192B1317CB008484B8 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D04F82142B1317CB008484B8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 		D0DFB5E62B0D9BD300019DA6 /* FocusEntity */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -12,7 +12,7 @@ struct SettingsPreferencesSafetyView: View {
     @State private var dummyText: String = "Dummy Text"
     @State private var selectedSection: Int = 0
     
-    private let sections = ["Settings", "FAQ", "Safety"]
+    private let sections = ["Profile", "Settings", "FAQ", "Safety"]
 
     var body: some View {
         VStack(spacing: 20) {
@@ -30,11 +30,13 @@ struct SettingsPreferencesSafetyView: View {
                     Divider()
 
                     switch selectedSection {
-                    case 0:
+					case 0:
+						ProfileView()
+					case 1:
                         SettingsView()
-                    case 1:
-                        FAQView()
                     case 2:
+                        FAQView()
+                    case 3:
                         SafetyView()
                     default:
                         EmptyView()
@@ -45,6 +47,67 @@ struct SettingsPreferencesSafetyView: View {
         .padding()
     }
 }
+
+struct ProfileView: View {
+	var body: some View {
+		List {
+			Section {
+				HStack{
+					Text(HomeUser.MOCK_USER.initials)
+						.font(.title)
+						.fontWeight(.semibold)
+						.foregroundColor(.white)
+						.frame(width: 72, height: 72)
+						.background(Color(.systemGray3))
+						.clipShape(Circle())
+					
+					VStack(alignment: .leading, spacing: 4) {
+						Text(HomeUser.MOCK_USER.fullname)
+							.font(.subheadline)
+							.fontWeight(.semibold)
+							.padding(.top, 4)
+						
+						Text(HomeUser.MOCK_USER.email)
+							.font(.footnote)
+							.foregroundColor(.gray)
+					}
+				}
+			}
+			
+			Section("General") {
+				HStack {
+					SettingsRowView(imageName: "gear",
+									title: "Version",
+									tintColor: Color(.systemGray))
+					Spacer()
+					
+					Text("1.0.0")
+						.font(.subheadline)
+						.foregroundColor(.gray)
+				}
+
+			}
+			
+			Section("Account") {
+				Button {
+					print("Sign out..")
+				} label: {
+					SettingsRowView(imageName: "arrow.left.circle.view",
+									title: "Sign Out",
+									tintColor: Color(.red))
+				}
+				Button {
+					print("Delete account..")
+				} label: {
+					SettingsRowView(imageName: "xmark.circle.view",
+									title: "Delete Account",
+									tintColor: Color(.red))
+				}
+			}
+		}
+	}
+}
+
 
 // Settings Content View
 struct SettingsView: View {

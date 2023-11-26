@@ -7,7 +7,7 @@
 //  Code initially based off of tutorial from: https://www.youtube.com/watch?v=KbqbU-cCKf4
 //  Code then augmented with tutorial from: https://www.youtube.com/watch?v=9R_G0EI-UoI&t=194s
 
-
+import AVFoundation
 import Photos
 import ReplayKit
 import SwiftUI
@@ -81,18 +81,23 @@ struct ARContentView: View {
 		}
 	}
 	// Start screen recording
+	// Start screen recording with microphone audio
 	func startScreenRecording() {
 		let screenRecorder = RPScreenRecorder.shared()
 		guard screenRecorder.isAvailable else {
 			print("Screen recording is not available")
 			return
 		}
-		
-		screenRecorder.startRecording { error in
-			if let error = error {
-				print("Failed to start recording: \(error.localizedDescription)")
-			} else {
-				print("Screen recording started successfully")
+
+		// Delay the recording start by 1 second
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+			screenRecorder.isMicrophoneEnabled = true
+			screenRecorder.startRecording { error in
+				if let error = error {
+					print("Failed to start recording: \(error.localizedDescription)")
+				} else {
+					print("Screen recording started successfully")
+				}
 			}
 		}
 	}

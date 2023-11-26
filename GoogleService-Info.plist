@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBkPgCNLpxhzXX07SdQMVe_er2ecyZ_TE0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>724183738473</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>edu.jhu.ep.Heigl-ARKIT-FINAL</string>
+	<key>PROJECT_ID</key>
+	<string>arcreatorsocialapp</string>
+	<key>STORAGE_BUCKET</key>
+	<string>arcreatorsocialapp.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:724183738473:ios:007243a938be1901c65af8</string>
+</dict>
+</plist>

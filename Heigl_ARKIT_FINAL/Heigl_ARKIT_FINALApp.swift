@@ -10,15 +10,17 @@ import ARVideoKit
 
 @main
 struct Heigl_ARKIT_FINAL: App {
-  let persistenceController = PersistenceController.shared
+	@StateObject var viewModel = UserAuth()
+	
+	let persistenceController = PersistenceController.shared
   
-  var body: some Scene {
-    WindowGroup {
-      NavigationStack {
-        LoginView()
-          .environment(\.managedObjectContext, persistenceController.container.viewContext)
-          .environmentObject(UserAuth())
-      }
-    }
-  }
+	var body: some Scene {
+		WindowGroup {
+			NavigationStack {
+				LoginView()
+					.environment(\.managedObjectContext, persistenceController.container.viewContext)
+					.environmentObject(UserAuth())
+			}
+		}
+	}
 }
