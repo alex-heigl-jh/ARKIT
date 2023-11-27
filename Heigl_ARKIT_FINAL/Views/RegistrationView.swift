@@ -4,6 +4,7 @@
 //
 //  Created by Alex Heigl on 11/25/23.
 //
+//  Code created using tutorial from: https://www.youtube.com/watch?v=QJHmhLGv-_0&t=161s
 
 import SwiftUI
 
@@ -13,6 +14,8 @@ struct RegistrationView: View {
 	@State private var password = ""
 	@State private var confirmPassword = ""
 	@Environment(\.dismiss) var dismiss
+	@EnvironmentObject var viewModel: UserAuth
+	
 	
 	var body: some View {
 		VStack{
@@ -38,17 +41,39 @@ struct RegistrationView: View {
 						  placeholder: "Enter your password",
 						  isSecureField: true)
 				
-				InputView(text: $confirmPassword,
-						  title: "Confirm Password",
-						  placeholder: "Confirm your Password",
-						  isSecureField: true)
+				ZStack(alignment: .trailing){
+					InputView(text: $confirmPassword,
+							  title: "Confirm Password",
+							  placeholder: "Confirm your Password",
+							  isSecureField: true)
+					
+					if !password.isEmpty && !confirmPassword.isEmpty {
+						if password == confirmPassword{
+							Image(systemName: "checkmark.circle.fill")
+								.imageScale(.large)
+								.fontWeight(.bold)
+								.foregroundColor(Color(.systemGreen))
+						} else {
+							Image(systemName: "xmark.circle.fill")
+								.imageScale(.large)
+								.fontWeight(.bold)
+								.foregroundColor(Color(.systemRed))
+						}
+					}
+				}
 			}
 			.padding(.horizontal)
 			.padding(.top, 12)
 			
 			// Sign in button
 			Button {
-				print("Sign user up..")
+				print("DEBUG: Sign user up button selected")
+				Task{
+					try await viewModel.createUser(withEmail: email,
+												   password: password,
+												   fullname: fullname)
+					dismiss()
+				}
 			} label: {
 				HStack {
 					Text("SIGN UP")
@@ -56,6 +81,8 @@ struct RegistrationView: View {
 					Image(systemName: "arrow.right")
 				}
 				.foregroundColor(.white)
+				.disabled(!formIsValid)
+				.opacity(formIsValid ? 1.0 : 0.5)
 				.frame(width: UIScreen.main.bounds.width - 32, height: 48)
 			}
 			.background(Color(.systemBlue))
@@ -77,6 +104,21 @@ struct RegistrationView: View {
 		}
 
     }
+}
+
+
+//: MARK - AuthenticationFormProtocol
+
+extension RegistrationView: AuthenticationFormProtocol {
+	var formIsValid: Bool {
+		return !email.isEmpty
+		&& email.contains("@")
+		&& !password.isEmpty
+		&& password.count > 5
+		&& confirmPassword == password
+		&& !fullname.isEmpty
+		
+	}
 }
 
 #Preview {

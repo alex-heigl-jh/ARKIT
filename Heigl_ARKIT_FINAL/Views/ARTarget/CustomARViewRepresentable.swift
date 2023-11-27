@@ -28,7 +28,5 @@ struct CustomARViewRepresentable: UIViewRepresentable {
 		init(_ parent: CustomARViewRepresentable) {
 			self.parent = parent
 		}
-
-		// Coordinator code here if needed
 	}
 }

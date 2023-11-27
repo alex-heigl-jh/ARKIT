@@ -64,6 +64,7 @@
 		D0730C6B2AFC942900366E8D /* fender_stratocaster.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C672AFC942800366E8D /* fender_stratocaster.usdz */; };
 		D0730C6C2AFC942900366E8D /* toy_drummer_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */; };
 		D0730C6D2AFC942900366E8D /* tv_retro.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C692AFC942900366E8D /* tv_retro.usdz */; };
+		D09525872B14486E00143F29 /* SharedusdzModelLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09525862B14486E00143F29 /* SharedusdzModelLoader.swift */; };
 		D0DFB5E42B0D7EA600019DA6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DFB5E32B0D7EA600019DA6 /* Models.swift */; };
 		D0DFB5E72B0D9BD300019DA6 /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = D0DFB5E62B0D9BD300019DA6 /* FocusEntity */; };
 /* End PBXBuildFile section */
@@ -156,6 +157,7 @@
 		D0730C672AFC942800366E8D /* fender_stratocaster.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = fender_stratocaster.usdz; sourceTree = "<group>"; };
 		D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_drummer_idle.usdz; sourceTree = "<group>"; };
 		D0730C692AFC942900366E8D /* tv_retro.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = tv_retro.usdz; sourceTree = "<group>"; };
+		D09525862B14486E00143F29 /* SharedusdzModelLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedusdzModelLoader.swift; sourceTree = "<group>"; };
 		D0DFB5E32B0D7EA600019DA6 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -288,6 +290,7 @@
 				D06CFF3A2AF0834400FFC3F7 /* UsersJSON.swift */,
 				D06CFF4A2AF294ED00FFC3F7 /* NewsFeedJSON.swift */,
 				D06CFF542AF2E24600FFC3F7 /* SafetyJSON.swift */,
+				D09525862B14486E00143F29 /* SharedusdzModelLoader.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				D06CFF182AE75B7100FFC3F7 /* InitialDataIngestor.swift in Sources */,
 				D04F820D2B1305EA008484B8 /* RegistrationView.swift in Sources */,
 				D06CFF4B2AF294ED00FFC3F7 /* NewsFeedJSON.swift in Sources */,
+				D09525872B14486E00143F29 /* SharedusdzModelLoader.swift in Sources */,
 				D06CFF552AF2E24600FFC3F7 /* SafetyJSON.swift in Sources */,
 				D06CFF242AE763B800FFC3F7 /* MapsData+CoreData.swift in Sources */,
 				D06CFED62AE75A2300FFC3F7 /* ContentView.swift in Sources */,
