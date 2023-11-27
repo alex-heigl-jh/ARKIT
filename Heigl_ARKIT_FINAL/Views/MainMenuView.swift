@@ -31,7 +31,6 @@ struct MainMenuView: View {
 
             CustomTitleView() // Enhanced Title in the center
 
-
 			mainButton(label: "View Map", images: ["mappin.and.ellipse.circle", "map.fill", "signpost.right.and.left.fill"], destination: MapsView(), colors: [Color.green, Color.blue])
 				.transition(.move(edge: .bottom))
             
@@ -40,12 +39,13 @@ struct MainMenuView: View {
 				.transition(.move(edge: .bottom))
 
 
-			mainButton(label: "News Feed", images: ["figure.socialdance", "newspaper.fill", "captions.bubble"], destination: NewsFeedView(), colors: [Color.purple, Color.pink])
+			// Inside MainMenuView
+			mainButton(label: "News Feed", images: ["figure.socialdance", "newspaper.fill", "captions.bubble"], destination: NewsFeedView().environment(\.managedObjectContext, managedObjectContext), colors: [Color.purple, Color.pink])
 				.transition(.move(edge: .bottom))
+				.environmentObject(viewModel)
             
 
 			mainButton(label: "Settings, FAQ, and Safety", images: ["gearshape", "person.fill.questionmark", "exclamationmark.triangle.fill"], destination: SettingsPreferencesSafetyView().environment(\.managedObjectContext, managedObjectContext), colors: [Color.teal, Color.cyan])
-
 				.transition(.move(edge: .bottom))
 				.environmentObject(viewModel)
             
@@ -94,54 +94,15 @@ struct MainMenuView: View {
     }
 	private func setupDestinationView<T: View>(_ destination: T) -> some View {
 		if let destinationView = destination as? NewsFeedView {
-			// Assuming NewsFeedView requires a managedObjectContext
-			return AnyView(destinationView.environment(\.managedObjectContext, self.managedObjectContext))
+			// Pass both the managedObjectContext and viewModel to the NewsFeedView
+			return AnyView(destinationView
+				.environment(\.managedObjectContext, self.managedObjectContext)
+				.environmentObject(viewModel))
 		} else {
+			// For other views, just pass the viewModel
 			return AnyView(destination.environmentObject(viewModel))
 		}
 	}
-//	func mainButton<T: View>(label: String, images: [String], destination: T, colors: [Color]) -> some View {
-//		if let destinationView = destination as? ARContentView {
-//			return AnyView(
-//				NavigationLink(destination: destinationView.environmentObject(viewModel).environmentObject(modelData)) {
-//					ButtonView(label: label, images: images, colors: colors)
-//				}
-//			)
-//		} else {
-//			return AnyView(
-//				NavigationLink(destination: destination.environmentObject(viewModel)) {
-//					ButtonView(label: label, images: images, colors: colors)
-//				}
-//			)
-//		}
-//	}
-//
-//	private func ButtonView(label: String, images: [String], colors: [Color]) -> some View {
-//		VStack {
-//			HStack {
-//				ForEach(images, id: \.self) { imageName in
-//					Image(systemName: imageName)
-//						.resizable()
-//						.aspectRatio(contentMode: .fit)
-//						.frame(width: (UIScreen.main.bounds.width - 40) / 3)
-//						.foregroundColor(colors[1])
-//				}
-//			}
-//			.frame(height: 50)
-//
-//			Text(label)
-//				.font(.headline)
-//				.frame(maxWidth: .infinity, alignment: .center)
-//				.padding()
-//				.background(LinearGradient(gradient: Gradient(colors: colors), startPoint: .leading, endPoint: .trailing))
-//				.foregroundColor(.white)
-//				.cornerRadius(10)
-//		}
-//		.padding(10)
-//		.overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.gray, lineWidth: 2))
-//	}
-
-
     struct CustomTitleView: View {
         var body: some View {
             Text("Main Menu")
@@ -196,9 +157,6 @@ extension Color {
 
 		return Color(red: red, green: green, blue: blue, opacity: alpha)
 	}
-}
-
-extension Color {
 	var components: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)? {
 		var red: CGFloat = 0
 		var green: CGFloat = 0

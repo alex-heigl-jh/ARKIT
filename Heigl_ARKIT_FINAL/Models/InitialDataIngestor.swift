@@ -32,11 +32,11 @@ class InitialDataIngestor: NSObject, ObservableObject {
 	//MARK: -- Hardcoded Data
 	func loadSampleUsers() throws {
 		// Generate sample users
-		let user1 = UserJSON(uuid: UUID(), firstName: "John", lastName: "Doe", username: "johndoe", password: "password123", userID: UUID(), profilePicURL: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&q=80&w=3270&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
-		let user2 = UserJSON(uuid: UUID(), firstName: "Jane", lastName: "Smith", username: "janesmith", password: "password456", userID: UUID(), profilePicURL: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=3388&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
-		let user3 = UserJSON(uuid: UUID(), firstName: "Alice", lastName: "Johnson", username: "alicejohnson", password: "password789", userID: UUID(), profilePicURL: "https://images.unsplash.com/photo-1491349174775-aaafddd81942?auto=format&fit=crop&q=80&w=3387&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
-		let user4 = UserJSON(uuid: UUID(), firstName: "Bob", lastName: "Williams", username: "bobwilliams", password: "password012", userID: UUID(), profilePicURL: "https://plus.unsplash.com/premium_photo-1674777843203-da3ebb9fbca0?auto=format&fit=crop&q=80&w=2473&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
-		let user5 = UserJSON(uuid: UUID(), firstName: "Charlie", lastName: "Brown", username: "charliebrown", password: "password345", userID: UUID(), profilePicURL: "https://i.pinimg.com/564x/8a/9f/e1/8a9fe1802c659be4edfed58f778ae2b5.jpg")
+		let user1 = UserJSON(firstName: "John", lastName: "Doe", userID: "abcdefg", profilePicURL: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&q=80&w=3270&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+		let user2 = UserJSON(firstName: "Jane", lastName: "Smith", userID: "hijklmn", profilePicURL: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=3388&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+		let user3 = UserJSON(firstName: "Alice", lastName: "Johnson", userID: "dfkjhdfkj", profilePicURL: "https://images.unsplash.com/photo-1491349174775-aaafddd81942?auto=format&fit=crop&q=80&w=3387&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+		let user4 = UserJSON(firstName: "Bob", lastName: "Williams", userID: "dfkhjdf", profilePicURL: "https://plus.unsplash.com/premium_photo-1674777843203-da3ebb9fbca0?auto=format&fit=crop&q=80&w=2473&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+		let user5 = UserJSON(firstName: "Charlie", lastName: "Brown", userID: "djdkjfdkj", profilePicURL: "https://i.pinimg.com/564x/8a/9f/e1/8a9fe1802c659be4edfed58f778ae2b5.jpg")
 		
 		// Store sample users in the published variable
 		self.users = [user1, user2, user3, user4, user5]
@@ -53,110 +53,90 @@ class InitialDataIngestor: NSObject, ObservableObject {
 			newsContent: "Enjoying a delicious cheeseburger at AJ Bombers in Milwaukee. The cheese curds here are to die for!",
 			newsCreatedOn: dateOffsetBy(minutes: 10 * 0),
 			newsID: UUID(),
-			newsPicture: "https://pbs.twimg.com/media/FA4Lh22XsAgzsBN?format=jpg&name=large",
-			newsPosterID: users[0].userID,
-			newsTitle: "Cheeseburger Heaven",
-			newsType: "Food",
-			newsVideo: nil
+			mediaURL: "https://pbs.twimg.com/media/FA4Lh22XsAgzsBN?format=jpg&name=large",
+			mediaType: "image",
+			newsPosterID: users[0].userID
 		)
 		
 		let news2 = NewsFeedJSON(
 			newsContent: "Exploring the beautiful Milwaukee Art Museum and its stunning architecture. A must-visit for art lovers!",
 			newsCreatedOn: dateOffsetBy(minutes: 10 * 1),
 			newsID: UUID(),
-			newsPicture: "https://lp-cms-production.imgix.net/2022-03/United%20States%20Milwaukee%20Izzet%20Keribar%20GettyImages-525734479%20RFE%20crop.jpg",
-			newsPosterID: users[1].userID,
-			newsTitle: "Art Museum Exploration",
-			newsType: "Art",
-			newsVideo: nil
+			mediaURL: "https://lp-cms-production.imgix.net/2022-03/United%20States%20Milwaukee%20Izzet%20Keribar%20GettyImages-525734479%20RFE%20crop.jpg",
+			mediaType: "image",
+			newsPosterID: users[1].userID
 		)
 		
 		let news3 = NewsFeedJSON(
 			newsContent: "Biking along the Oak Leaf Trail on a sunny day in Milwaukee. The scenery is breathtaking!",
 			newsCreatedOn: dateOffsetBy(minutes: 10 * 2),
 			newsID: UUID(),
-			newsPicture: "https://www.railstotrails.org/media/550728/oak-leaf-trail-06559-courtesy-wisconsin-bike-fed-copy.jpg?crop=0,0,0.3559420289855072,0&cropmode=percentage&width=880&height=460&rnd=131613518230000000",
-			newsPosterID: users[2].userID,
-			newsTitle: "Scenic Bike Ride",
-			newsType: "Outdoor",
-			newsVideo: nil
+			mediaURL: "https://www.railstotrails.org/media/550728/oak-leaf-trail-06559-courtesy-wisconsin-bike-fed-copy.jpg?crop=0,0,0.3559420289855072,0&cropmode=percentage&width=880&height=460&rnd=131613518230000000",
+			mediaType: "image",
+			newsPosterID: users[2].userID
 		)
 		
 		let news4 = NewsFeedJSON(
 			newsContent: "Milwaukee Bucks showing how to actually trust a process at Fiserv Forum tonight - Meanwhile, the 76ers are still processing... Bucks in 6!!",
 			newsCreatedOn: dateOffsetBy(minutes: 10 * 3),
 			newsID: UUID(),
-			newsPicture: "https://phantom-marca.unidadeditorial.es/e89728cbbdf7774ffa2c09d2bada05e5/resize/828/f/jpg/assets/multimedia/imagenes/2023/10/27/16983751324397.jpg",
-			newsPosterID: users[3].userID,
-			newsTitle: "Bucks Game Night",
-			newsType: "Sports",
-			newsVideo: nil
+			mediaURL: "https://phantom-marca.unidadeditorial.es/e89728cbbdf7774ffa2c09d2bada05e5/resize/828/f/jpg/assets/multimedia/imagenes/2023/10/27/16983751324397.jpg",
+			mediaType: "image",
+			newsPosterID: users[3].userID
 		)
 		
 		let news5 = NewsFeedJSON(
 			newsContent: "Visiting the Harley-Davidson Museum and admiring the iconic motorcycles. A piece of American history!",
 			newsCreatedOn: dateOffsetBy(minutes: 10 * 4),
 			newsID: UUID(),
-			newsPicture: "https://www.harley-davidson.com/content/dam/h-d/images/content-images/short-hero/museum-night-short-hero.jpg",
-			newsPosterID: users[4].userID,
-			newsTitle: "Harley-Davidson Museum Visit",
-			newsType: "Museum",
-			newsVideo: nil
+			mediaURL: "https://www.harley-davidson.com/content/dam/h-d/images/content-images/short-hero/museum-night-short-hero.jpg",
+			mediaType: "image",
+			newsPosterID: users[4].userID
 		)
 		
 		let news6 = NewsFeedJSON(
 			newsContent: "Savoring some custard at Kopp's Frozen Custard. Best dessert in Milwaukee!",
 			newsCreatedOn: dateOffsetBy(minutes: 10 * 5),
 			newsID: UUID(),
-			newsPicture: "https://kopps.com/wp-content/uploads/2023/02/Greenfield.jpg",
-			newsPosterID: users[0].userID,
-			newsTitle: "Custard Delight",
-			newsType: "Food",
-			newsVideo: nil
+			mediaURL: "https://kopps.com/wp-content/uploads/2023/02/Greenfield.jpg",
+			mediaType: "image",
+			newsPosterID: users[0].userID
 		)
 		
 		let news7 = NewsFeedJSON(
 			newsContent: "Exploring the Milwaukee County Zoo and meeting some amazing animals.",
 			newsCreatedOn: dateOffsetBy(minutes: 10 * 6),
 			newsID: UUID(),
-			newsPicture: "https://www.travelwisconsin.com/uploads/places/4f/4ff458ad-e148-486a-ad43-9ba9312166bf-elephants-in-pool-07-2021-37-e.jpg",
-			newsPosterID: users[1].userID,
-			newsTitle: "Zoo Adventure",
-			newsType: "Adventure",
-			newsVideo: nil
+			mediaURL: "https://www.travelwisconsin.com/uploads/places/4f/4ff458ad-e148-486a-ad43-9ba9312166bf-elephants-in-pool-07-2021-37-e.jpg",
+			mediaType: "image",
+			newsPosterID: users[1].userID
 		)
 		
 		let news8 = NewsFeedJSON(
 			newsContent: "Hiking at Kettle Moraine State Forest. The trails offer a peaceful escape from the city.",
 			newsCreatedOn: dateOffsetBy(minutes: 10 * 7),
 			newsID: UUID(),
-			newsPicture: "https://emke.uwm.edu/wp-content/uploads/2018/04/KettleMoraine_01.jpg",
-			newsPosterID: users[2].userID,
-			newsTitle: "Nature Hike",
-			newsType: "Outdoor",
-			newsVideo: nil
+			mediaURL: "https://emke.uwm.edu/wp-content/uploads/2018/04/KettleMoraine_01.jpg",
+			mediaType: "image",
+			newsPosterID: users[2].userID
 		)
 		
 		let news9 = NewsFeedJSON(
 			newsContent: "Exploring the historic Pabst Brewery in Milwaukee. Cheers to local beer!",
 			newsCreatedOn: dateOffsetBy(minutes: 10 * 8),
 			newsID: UUID(),
-			newsPicture: "https://www.jsonline.com/gcdn/-mm-/1fecae5856e58374cc9e1c0fd6dcc3c6aae79d4e/c=0-293-5760-3547/local/-/media/2018/05/06/WIGroup/Milwaukee/636612474576008288-sunset-pabst-jesu-desisti-sisti-3237.JPG",
-			newsPosterID: users[3].userID,
-			newsTitle: "Brewery Tour",
-			newsType: "Brewery",
-			newsVideo: nil
+			mediaURL: "https://www.jsonline.com/gcdn/-mm-/1fecae5856e58374cc9e1c0fd6dcc3c6aae79d4e/c=0-293-5760-3547/local/-/media/2018/05/06/WIGroup/Milwaukee/636612474576008288-sunset-pabst-jesu-desisti-sisti-3237.JPG",
+			mediaType: "image",
+			newsPosterID: users[3].userID
 		)
 		
 		let news10 = NewsFeedJSON(
 			newsContent: "Dancing the night away at Summerfest, Milwaukee's biggest music festival.",
 			newsCreatedOn: dateOffsetBy(minutes: 10 * 9),
 			newsID: UUID(),
-			newsPicture: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/df/b4/7e/summerfest-grounds.jpg?w=1200&h=-1&s=1",
-			newsPosterID: users[4].userID,
-			newsTitle: "Summerfest Party",
-			newsType: "Music",
-			newsVideo: nil
+			mediaURL: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/df/b4/7e/summerfest-grounds.jpg?w=1200&h=-1&s=1",
+			mediaType: "image",
+			newsPosterID: users[4].userID
 		)
 		
 		self.newsFeed = [news1, news2, news3, news4, news5, news6, news7, news8, news9, news10]
@@ -237,8 +217,6 @@ class InitialDataIngestor: NSObject, ObservableObject {
         users.forEach { user in
             User.createWith(firstName: user.firstName,
                             lastName: user.lastName,
-                            username: user.username,
-                            password: user.password,
                             userID: user.userID,
                             profilePicURL: user.profilePicURL,
                             in: backgroundContext)
@@ -253,11 +231,9 @@ class InitialDataIngestor: NSObject, ObservableObject {
 				newsContent: news.newsContent,
 				newsCreatedOn: news.newsCreatedOn,
 				newsID: news.newsID,
-				newsPicture: news.newsPicture ?? "nil",
+				mediaURL: news.mediaURL ?? "nil",
+				mediaType: news.mediaType ?? "nil",
 				newsPosterID: news.newsPosterID,
-				newsTitle: news.newsTitle,
-				newsType: news.newsType,
-				newsVideo: news.newsVideo ?? "nil",
 				in: backgroundContext
 			)
 		}

@@ -13,9 +13,7 @@ extension User {
   static func createWith(
 	firstName: String,
 	lastName: String,
-	username: String,
-	password: String,
-	userID: UUID,
+	userID: String,
 	profilePicURL: String,
 	in context: NSManagedObjectContext
   ) {
@@ -23,8 +21,6 @@ extension User {
 	  let item = User(context: context)
 	  item.firstName = firstName
 	  item.lastName = lastName
-	  item.username = username
-	  item.password = password
 	  item.profilePicURL = profilePicURL
 	  item.userID = userID
 	  print("User \(firstName) \(lastName) created.")
@@ -37,7 +33,7 @@ extension User {
   }
 
   // Function to fetch a user by userID
-  static func fetchUserBy(userID: UUID, in context: NSManagedObjectContext) -> User? {
+  static func fetchUserBy(userID: String, in context: NSManagedObjectContext) -> User? {
 	let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
 	fetchRequest.predicate = NSPredicate(format: "userID == %@", userID as CVarArg)
 	fetchRequest.fetchLimit = 1

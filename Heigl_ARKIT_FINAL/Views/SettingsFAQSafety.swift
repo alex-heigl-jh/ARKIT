@@ -139,7 +139,7 @@ struct ProfileSettingsView: View {
 							HStack {
 								Image(systemName: "xmark.circle")
 									.foregroundColor(Color.red)
-								Text("Delete Account... Not yet implemented :)")
+								Text("Delete Account... Coming Soon :)")
 									.foregroundColor(.black)
 							}
 							.padding(.horizontal) // Apply padding to the content
@@ -156,16 +156,6 @@ struct ProfileSettingsView: View {
 			}
 		}
 	}
-}
-
-// Settings Content View
-struct SettingsView: View {
-    var body: some View {
-        VStack {
-            Text("Settings Content")
-            // Add more UI components specific to settings here
-        }
-    }
 }
 
 // FAQ Content View
@@ -213,17 +203,30 @@ struct SafetyCardView: View {
 		VStack {
 			Text(safetyEntry.safTitle ?? "No Title")
 				.font(.headline)
+				.multilineTextAlignment(.center)
+				.frame(maxWidth: .infinity) // Use the full width available
+				.foregroundColor(.black) // Ensure the text is visible on a light background
+
 			URLImage(url: safetyEntry.safPicture ?? "")
+				.frame(width: 150, height: 150) // Adjust the size as needed
+				.cornerRadius(10)
+				.padding(.bottom, 10) // Space between image and text
+
 			Text(safetyEntry.safContent ?? "No Content")
 				.font(.body)
+				.multilineTextAlignment(.center)
 				.padding()
+				.frame(maxWidth: .infinity) // Use the full width available
+				.foregroundColor(.black)
 		}
 		.padding()
+		.frame(width: UIScreen.main.bounds.width - 40, alignment: .center)
 		.background(Color.white)
 		.cornerRadius(10)
 		.shadow(radius: 5)
 	}
 }
+
 
 struct URLImage: View {
 	var url: String
@@ -234,21 +237,23 @@ struct URLImage: View {
 			if let imageData = imageData, let uiImage = UIImage(data: imageData) {
 				Image(uiImage: uiImage)
 					.resizable()
-					.scaledToFit()
+					.scaledToFill()
+					.frame(width: 150, height: 150) // Set a fixed frame for the image
+					.clipped() // Ensure the image does not exceed the frame
 			} else {
 				Image(systemName: "photo") // Placeholder image
 					.resizable()
 					.scaledToFit()
+					.frame(width: 150, height: 150)
+					.foregroundColor(.gray)
 			}
 		}
-		.frame(height: 200)
 		.cornerRadius(10)
-		.padding()
 		.onAppear {
 			loadImage()
 		}
 	}
-
+	
 	private func loadImage() {
 		guard let url = URL(string: url) else {
 			print("Invalid URL")

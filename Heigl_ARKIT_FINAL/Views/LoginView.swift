@@ -9,39 +9,37 @@
 import SwiftUI
 
 struct LoginView: View {
-	
-	// EnivornmentObjects only get initialized once
 	@EnvironmentObject var viewModel: UserAuth
-	
 	@State private var networkDataLoaded: Bool = false
+	@State private var secondLogin = false // Make it @State to be mutable
+
 	let dataModel: InitialDataIngestor
-	private var secondLogin = true
 
 	init() {
 		dataModel = InitialDataIngestor()
 	}
-	
-  var body: some View {
-    viewToDisplay
-  }
 
-  @ViewBuilder
-  private var viewToDisplay: some View {
-	// If there isn't a user session saved in memory then display the login
-    if viewModel.userSession == nil {
-		LoginEntryView()
-			.environmentObject(viewModel)
-    } else {
-		if networkDataLoaded == false {
-			LoadingView(dataModel: dataModel, networkDataLoaded: $networkDataLoaded)
+	var body: some View {
+		viewToDisplay
+	}
 
-	} else {
-		MainMenuView()
-			.environmentObject(viewModel)
-      }
-    }
-  }
+	@ViewBuilder
+	private var viewToDisplay: some View {
+		if viewModel.userSession == nil {
+			LoginEntryView()
+				.environmentObject(viewModel)
+		} else {
+			if !networkDataLoaded {
+				LoadingView(dataModel: dataModel, networkDataLoaded: $networkDataLoaded)
+
+			} else {
+				MainMenuView()
+					.environmentObject(viewModel)
+			}
+		}
+	}
 }
+
 
 struct LoginEntryView: View {
 	@State private var email = ""

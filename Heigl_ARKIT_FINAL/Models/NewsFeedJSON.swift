@@ -8,14 +8,11 @@
 import Foundation
 
 struct NewsFeedJSON: Codable {
-	
 	var newsContent: String
 	var newsCreatedOn: Date
 	var newsID: UUID
-	var newsPicture: String?
-	var newsPosterID: UUID
-	var newsTitle: String
-	var newsType: String
-	var newsVideo: String?
-	
+	var mediaURL: String? // Can be an image or video URL
+	var mediaType: String? // "image" or "video"
+	var newsPosterID: String
 }
+

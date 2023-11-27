@@ -8,11 +8,8 @@
 import Foundation
 
 struct UserJSON: Codable {
-    var uuid: UUID?
     var firstName: String
     var lastName: String
-    var username: String
-    var password: String
-    var userID: UUID
+    var userID: String
     var profilePicURL: String
 }
