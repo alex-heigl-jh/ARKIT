@@ -16,7 +16,9 @@ struct NewsFeedView: View {
 	// Needed for HomeUser Context
 	@EnvironmentObject var viewModel: UserAuth
 	
-	@State private var showingAddPostSheet = false // 1. State property for sheet presentation
+	@State private var showingAddPostSheet = false // State property for sheet presentation
+	
+	@State private var player = AVPlayer()
 
 	@FetchRequest(
 		entity: NewsFeed.entity(),
@@ -91,9 +93,13 @@ struct NewsFeedView: View {
 									}, placeholder: {
 										Text("Loading news image...")
 									})
-								} else if mediaType == "video" {
-									// Load and display the video
-									// You will need a custom video player view here
+								} else if mediaType == "video", let videoURL = URL(string: mediaURLString) {
+									VideoPlayerView(url: videoURL)
+										 .frame(height: 200) // Adjust the height as needed
+										 .cornerRadius(10)
+										 .onAppear {
+											 player.play()
+										 }
 								}
 							}
 						}
@@ -332,5 +338,24 @@ struct VideoThumbnailView: View {
 		} catch {
 			return nil
 		}
+	}
+}
+
+struct VideoPlayerView: View {
+	var url: URL
+	@State private var player: AVPlayer?
+
+	var body: some View {
+		VideoPlayer(player: player)
+			.onAppear {
+				player = AVPlayer(url: url)
+				player?.play()
+			}
+			.onDisappear {
+				player?.pause()
+				player = nil
+			}
+			.frame(height: 200) // Set a fixed height for the player
+			.cornerRadius(10)
 	}
 }

@@ -23,7 +23,7 @@ struct MainMenuView: View {
 //	@StateObject private var modelData = SharedModelData()
 
 	// Timer to change the color
-	let timer = Timer.publish(every: 2.5, on: .main, in: .common).autoconnect()
+	let timer = Timer.publish(every: 1.5, on: .main, in: .common).autoconnect()
 
     var body: some View {
         VStack(spacing: 30) {
@@ -59,9 +59,6 @@ struct MainMenuView: View {
 //			withAnimation(.linear(duration: 5)) {
 //				colorTransitionProgress += 1
 //			}
-//		}
-//		.onAppear {
-//			modelData.loadModels()
 //		}
 	}
 
