@@ -19,11 +19,7 @@
     </entity>
     <entity name="MapsData" representedClassName="MapsData" syncable="YES" codeGenerationType="class">
         <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="landmarkID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="lastModified" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="locationType" optional="YES" attributeType="String"/>
         <attribute name="sceneLocation" optional="YES" attributeType="String"/>
-        <attribute name="userID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <entity name="NewsFeed" representedClassName="NewsFeed" syncable="YES" codeGenerationType="class">
         <attribute name="mediaType" optional="YES" attributeType="String"/>

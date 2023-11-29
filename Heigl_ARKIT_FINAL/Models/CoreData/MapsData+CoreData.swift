@@ -9,29 +9,28 @@ import Foundation
 import CoreData
 
 extension MapsData {
-
-  static func createWith(
-    dateAdded: Date,
-    landmarkID: UUID,
-    lastModified: Date,
-    locationType: String,
-    sceneLocation: String,
-    userID: UUID,
-    in context: NSManagedObjectContext
-  ) {
-    context.perform {
-        let item = MapsData(context: context)
-        item.dateAdded = dateAdded
-        item.landmarkID = landmarkID
-        item.lastModified = lastModified
-        item.locationType = locationType
-        item.sceneLocation = sceneLocation
-        item.userID = userID
-      do {
-        try context.save()
-      } catch {
-        fatalError("Problem saving MapsData to CoreData")
-      }
-    }
-  }
+	static func createWith(
+		dateAdded: Date,
+		sceneLocation: String,
+		in context: NSManagedObjectContext
+	) {
+		context.perform {
+			let item = MapsData(context: context)
+			item.dateAdded = dateAdded
+			item.sceneLocation = sceneLocation
+			do {
+				try context.save()
+				print("Successfully saved location to CoreData: \(sceneLocation) on \(dateAdded)")
+			} catch {
+				print("Error saving MapsData to CoreData: \(error.localizedDescription)")
+				if let detailedErrors = error as NSError? {
+					if let underlyingErrors = detailedErrors.userInfo[NSDetailedErrorsKey] as? [NSError] {
+						for underlyingError in underlyingErrors {
+							print("Underlying error: \(underlyingError.localizedDescription)")
+						}
+					}
+				}
+			}
+		}
+	}
 }

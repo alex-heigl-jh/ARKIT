@@ -11,7 +11,7 @@ import SwiftUI
 //ARAction that we want to implement
 enum ARAction{
 	case captureImage
-	case captureVideo(Bool)
+	case disableEnableFocusEntity(Bool)
 	case loadModel(Model)
 	case placeBlock(color: Color)
 	case removeAllAnchors

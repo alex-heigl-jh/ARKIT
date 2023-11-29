@@ -5,7 +5,6 @@
 //  Created by Alex Heigl on 10/23/23.
 //
 
-
 import SwiftUI
 import CoreData
 
@@ -31,11 +30,11 @@ struct MainMenuView: View {
 
             CustomTitleView() // Enhanced Title in the center
 
-			mainButton(label: "View Map", images: ["mappin.and.ellipse.circle", "map.fill", "signpost.right.and.left.fill"], destination: MapsView(), colors: [Color.green, Color.blue])
+			mainButton(label: "View Map", images: ["mappin.and.ellipse.circle", "map.fill", "signpost.right.and.left.fill"], destination: MapsView().environment(\.managedObjectContext, managedObjectContext), colors: [Color.green, Color.blue])
 				.transition(.move(edge: .bottom))
             
 
-			mainButton(label: "Augmented Reality", images: ["camera.metering.matrix", "arkit", "figure.walk"], destination: ARContentView(), colors: [Color.orange, Color.red])
+			mainButton(label: "Augmented Reality", images: ["camera.metering.matrix", "arkit", "figure.walk"], destination: ARContentView().environment(\.managedObjectContext, managedObjectContext), colors: [Color.orange, Color.red])
 				.transition(.move(edge: .bottom))
 
 
@@ -100,20 +99,22 @@ struct MainMenuView: View {
 			return AnyView(destination.environmentObject(viewModel))
 		}
 	}
-    struct CustomTitleView: View {
-        var body: some View {
-            Text("Main Menu")
-                .font(Font.system(size: 32, weight: .bold, design: .rounded))
-                .padding(.bottom, 10)
-                .background(
-                    LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]), startPoint: .leading, endPoint: .trailing) // Using a gradient that matches the style
-                        .frame(width: 250, height: 60)
-                        .cornerRadius(10)
-                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
-                )
-                .foregroundColor(.white)
-        }
-    }
+	struct CustomTitleView: View {
+		var body: some View {
+			Image(systemName: "house.circle") // Replace with your desired SF symbol
+				.resizable()
+				.aspectRatio(contentMode: .fit)
+				.frame(width: 50, height: 50) // Adjust size as needed
+				.padding()
+				.background(
+					LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]), startPoint: .leading, endPoint: .trailing)
+						.frame(width: 100, height: 100) // Adjust frame size as needed
+						.cornerRadius(50) // Makes it fully rounded
+						.shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
+				)
+				.foregroundColor(.white)
+		}
+	}
 
 }
 

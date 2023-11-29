@@ -109,12 +109,10 @@ class CustomARView: RealityKit.ARView {
 						self?.captureImageFromCamera()
 						print("DEBUG: Completed captureImageFromCamera()")
 					
-					// Capture a video the current AR view
-					case .captureVideo(let startCapture):
-						print("DEBUG: capture video command received with startCapture: \(startCapture)")
-//					self?.captureVideoFromCamera(startCapture: startCapture)
-				}
-				
+					case .disableEnableFocusEntity(let focusEntityEnable):
+						print("DEBUG: User set focusEntity display to \(focusEntityEnable)")
+						self?.toggleFocusEntity(isEnabled: focusEntityEnable)
+					}
 			}
 			.store(in: &cancellables)
 	}
@@ -295,6 +293,20 @@ class CustomARView: RealityKit.ARView {
 		} else {
 			// Image saved successfully
 			print("DEBUG: Photo saved successfully")
+		}
+	}
+	
+	func toggleFocusEntity(isEnabled: Bool) {
+		if isEnabled {
+			// If focus entity is to be enabled
+			if focusEntity == nil {
+				// If focusEntity is not already created, create it
+				setupFocusEntity()
+			}
+			focusEntity?.isEnabled = true // Enable the focus entity
+		} else {
+			// If focus entity is to be disabled
+			focusEntity?.isEnabled = false // Disable the focus entity
 		}
 	}
 }

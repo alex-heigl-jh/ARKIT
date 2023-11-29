@@ -13,6 +13,8 @@ import Photos
 import ReplayKit
 import SwiftUI
 import UIKit
+import CoreLocation
+import CoreData
 
 struct ARContentView: View {
 
@@ -27,6 +29,12 @@ struct ARContentView: View {
 			filename.hasSuffix("usdz") ? Model(modelName: filename.replacingOccurrences(of: ".usdz", with: "")) : nil
 		}
 	}
+	
+	@StateObject private var locationManager = LocationManager()
+	
+	@Environment(\.presentationMode) var presentationMode
+	
+	@Environment(\.managedObjectContext) var managedObjectContext
 
 	//: Variable to control if box color selection scroll view is displayed to the user
 	@State private var isBoxColorSelectEnabled = false
@@ -40,6 +48,8 @@ struct ARContentView: View {
 	@State private var selectedModel: Model?
 	//: Variable to hold the usdz models
 	@State private var usdzModels: [Model] = loadUSDZModels()
+	
+	@State private var isFocusEntityEnabled = true
 	
 	@State private var showPreviewController = false
 	@State private var previewController: RPPreviewViewController?
@@ -69,10 +79,15 @@ struct ARContentView: View {
 					isBoxColorSelectEnabled: $isBoxColorSelectEnabled,
 					isUSDZPlacementEnabled: $isUSDZPlacementEnabled,
 					isVideoCaptureEnabled: $isVideoCaptureEnabled,
+					isFocusEntityEnabled: $isFocusEntityEnabled,
+					presentationMode: _presentationMode,
+					locationManager: locationManager,
+					managedObjectContext: managedObjectContext,
 					startRecording: startScreenRecording,
 					stopRecording: stopScreenRecording)
 			}
 		}
+		.navigationBarHidden(true)
 		.sheet(isPresented: $showPreviewController) {
 			if let controller = previewController {
 				PreviewControllerWrapper(previewController: controller) {
@@ -131,6 +146,11 @@ struct ModelPickerView: View {
 	@Binding var isBoxColorSelectEnabled: Bool
 	@Binding var isUSDZPlacementEnabled: Bool
 	@Binding var isVideoCaptureEnabled: Bool
+	@Binding var isFocusEntityEnabled: Bool
+	@Environment(\.presentationMode) var presentationMode
+	
+	var locationManager: LocationManager
+	var managedObjectContext: NSManagedObjectContext
 	
 	// Used to control camera button animation used to indicate an image has been captured
 	@State private var buttonColor = Color.blue
@@ -149,15 +169,32 @@ struct ModelPickerView: View {
 	var body: some View {
 		ScrollView(.horizontal, showsIndicators: false){
 			HStack(spacing: 30) {
-				Button{
-					ARManager.shared.actionStream.send(.removeAllAnchors)
-				} label:{
-					Image(systemName: "trash")
+				Button {
+					print("Home button selected")
+					self.presentationMode.wrappedValue.dismiss()
+				} label: {
+					Image(systemName: "house.circle")
 						.resizable()
 						.scaledToFit()
 						.frame(width: 40, height: 40)
 						.padding()
-						.background(.regularMaterial)
+						.foregroundColor(.white)
+						.background(Color.blue)
+						.cornerRadius(16)
+				}
+				
+				Button {
+					print("disableEnableTarget button selected")
+					isFocusEntityEnabled.toggle()
+					ARManager.shared.actionStream.send(.disableEnableFocusEntity(isFocusEntityEnabled))
+				} label: {
+					Image(systemName: "scope")
+						.resizable()
+						.scaledToFit()
+						.frame(width: 40, height: 40)
+						.padding()
+						.foregroundColor(.white)
+						.background(isFocusEntityEnabled ? Color.green : Color.red)
 						.cornerRadius(16)
 				}
 				
@@ -172,7 +209,8 @@ struct ModelPickerView: View {
 						.cornerRadius(8) // Optional, for rounded corners
 				}
 				.padding()
-				.background(.regularMaterial)
+				.background(Color.blue)
+				.cornerRadius(16)
 				
 				//: USDZ selection button
 				Button(action: {
@@ -186,6 +224,25 @@ struct ModelPickerView: View {
 						.padding() 						// Padding inside the button
 						.background(Color.blue) 		// Change the background color of the button
 						.cornerRadius(16) 				// Rounded corners for the button
+				}
+				
+				Button{
+					print("Mark location button")
+					if let currentLocation = locationManager.location {
+						let locationString = "\(currentLocation.coordinate.latitude), \(currentLocation.coordinate.longitude)"
+						let currentDate = Date()
+						// Ensure you have access to the managedObjectContext here
+						MapsData.createWith(dateAdded: currentDate, sceneLocation: locationString, in: managedObjectContext)
+					}
+				} label:{
+					Image(systemName: "location.viewfinder")
+						.resizable()
+						.scaledToFit()
+						.frame(width: 40, height: 40)
+						.padding()
+						.foregroundColor(.white)
+						.background(Color.blue)
+						.cornerRadius(16)
 				}
 				
 				//: Camera selection button
@@ -234,6 +291,18 @@ struct ModelPickerView: View {
 						.padding()                      // Padding inside the button
 						.background(isVideoCaptureEnabled ? Color.red : Color.blue) // Dynamic background color
 						.cornerRadius(16)               // Rounded corners for the button
+				}
+				Button{
+					ARManager.shared.actionStream.send(.removeAllAnchors)
+				} label:{
+					Image(systemName: "trash")
+						.resizable()
+						.scaledToFit()
+						.frame(width: 40, height: 40)
+						.padding()
+						.background(Color.blue)
+						.foregroundColor(.white)
+						.cornerRadius(16)
 				}
 			}
 		}

@@ -41,7 +41,7 @@ struct NewsFeedView: View {
 								if let poster = feed.poster, let urlString = poster.profilePicURL, let url = URL(string: urlString) {
 									AsyncImage(url: url, content: { image in
 										image
-											.resizable()
+									 		.resizable()
 											.scaledToFit()
 											.frame(width: 60, height: 60)
 											.clipShape(Circle())

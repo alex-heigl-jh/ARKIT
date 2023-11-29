@@ -7,8 +7,17 @@
 import SwiftUI
 import MapKit
 import CoreLocation
+import CoreData
+
 
 struct MapsView: View {
+	
+	@FetchRequest(
+		entity: MapsData.entity(),
+		sortDescriptors: [NSSortDescriptor(keyPath: \MapsData.dateAdded, ascending: true)]
+	) var storedLocations: FetchedResults<MapsData>
+
+	
 	@StateObject private var locationManager = LocationManager()
 	@State private var cameraPosition: MapCameraPosition = .region(.userRegion)
 	@State private var searchText = ""
@@ -28,7 +37,15 @@ struct MapsView: View {
 	
 	var body: some View {
 		Map(position: $cameraPosition, selection: $mapSelection){
-
+			
+//			ForEach(storedLocations, id: \.self) { location in
+//				if let coordinate = CLLocationCoordinate2D(location.sceneLocation) {
+//					Annotation(coordinate: coordinate) {
+//						LocationAnnotationView(location: location)
+//					}
+//				}
+//			}
+			
 //			UserAnnotation()
 			if let userCoordinate = locationManager.location?.coordinate{
 				
@@ -208,6 +225,19 @@ extension MapsView{
 	}
 }
 
+struct LocationAnnotationView: View {
+	var location: MapsData
+
+	var body: some View {
+		// Custom view for the annotation
+		Circle()
+			.strokeBorder(Color.blue, lineWidth: 2)
+			.background(Circle().foregroundColor(Color.blue.opacity(0.5)))
+			.frame(width: 30, height: 30)
+	}
+}
+
+
 extension CLLocationCoordinate2D {
 	static var userLocation: CLLocationCoordinate2D {
 		return LocationManager().location?.coordinate ?? CLLocationCoordinate2D(latitude: 25.7602, longitude: -80.1959)
@@ -216,7 +246,7 @@ extension CLLocationCoordinate2D {
 
 extension MKCoordinateRegion {
 	static var userRegion: MKCoordinateRegion {
-		return .init(center: .userLocation, 
+		return .init(center: .userLocation,
 					 latitudinalMeters: 10000,
 					 longitudinalMeters: 10000)
 	}
@@ -250,8 +280,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
 
 struct MapsView_Previews: PreviewProvider {
-    static var previews: some View {
-        // Here we provide a mock value for the goBack binding
-        MapsView()
-    }
+	static var previews: some View {
+		// Here we provide a mock value for the goBack binding
+		MapsView()
+	}
 }
