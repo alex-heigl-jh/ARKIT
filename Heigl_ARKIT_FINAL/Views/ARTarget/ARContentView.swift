@@ -9,22 +9,24 @@
 
 
 import AVFoundation
+import AVKit
 import Photos
 import ReplayKit
 import SwiftUI
 import UIKit
 import CoreLocation
 import CoreData
+import Photos
 
 struct ARContentView: View {
-
+	
 	// Function to load USDZ models
 	private static func loadUSDZModels() -> [Model] {
 		let filemanager = FileManager.default
 		guard let path = Bundle.main.resourcePath, let files = try? filemanager.contentsOfDirectory(atPath: path) else {
 			return []
 		}
-
+		
 		return files.compactMap { filename in
 			filename.hasSuffix("usdz") ? Model(modelName: filename.replacingOccurrences(of: ".usdz", with: "")) : nil
 		}
@@ -35,7 +37,7 @@ struct ARContentView: View {
 	@Environment(\.presentationMode) var presentationMode
 	
 	@Environment(\.managedObjectContext) var managedObjectContext
-
+	
 	//: Variable to control if box color selection scroll view is displayed to the user
 	@State private var isBoxColorSelectEnabled = false
 	//: Variable to contol if usdz placement view is displayed to user
@@ -53,16 +55,16 @@ struct ARContentView: View {
 	
 	@State private var showPreviewController = false
 	@State private var previewController: RPPreviewViewController?
-
-
+	
+	
 	var body: some View {
-
+		
 		ZStack(alignment: .bottom){
 			
 			// The ARView
 			CustomARViewRepresentable()
 				.ignoresSafeArea()
-
+			
 			// If the user selects that they would like to place a USDZ model, display scroll menu that allows them to select the desired block
 			if self.isUSDZPlacementEnabled {
 				USDZPlacementButtonsView(selectedModel: self.$selectedModel,
@@ -97,22 +99,35 @@ struct ARContentView: View {
 		}
 	}
 	// Start screen recording
-	// Start screen recording with microphone audio
 	func startScreenRecording() {
 		let screenRecorder = RPScreenRecorder.shared()
 		guard screenRecorder.isAvailable else {
 			print("Screen recording is not available")
 			return
 		}
-
-		// Delay the recording start by 1 second
-		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-			screenRecorder.isMicrophoneEnabled = true
+		
+		// Set up the audio session
+		let audioSession = AVAudioSession.sharedInstance()
+		do {
+			try audioSession.setCategory(.playAndRecord, mode: .default)
+			try audioSession.setActive(true)
+			print("Audio session set to play and record")
+		} catch {
+			print("Failed to set audio session category. Error: \(error)")
+			return // If setting up the audio session fails, return early.
+		}
+		
+		// Enable the microphone
+		screenRecorder.isMicrophoneEnabled = true
+		print("Microphone is enabled for recording")
+		
+		// Delay the recording start
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
 			screenRecorder.startRecording { error in
 				if let error = error {
 					print("Failed to start recording: \(error.localizedDescription)")
 				} else {
-					print("Screen recording started successfully")
+					print("Screen recording started successfully with microphone")
 				}
 			}
 		}
@@ -138,7 +153,12 @@ struct ARContentView: View {
 			}
 		}
 	}
+
 }
+
+
+
+
 
 // Default scroll view at the bottom of the view
 struct ModelPickerView: View {
@@ -169,19 +189,6 @@ struct ModelPickerView: View {
 	var body: some View {
 		ScrollView(.horizontal, showsIndicators: false){
 			HStack(spacing: 30) {
-				Button {
-					print("Home button selected")
-					self.presentationMode.wrappedValue.dismiss()
-				} label: {
-					Image(systemName: "house.circle")
-						.resizable()
-						.scaledToFit()
-						.frame(width: 40, height: 40)
-						.padding()
-						.foregroundColor(.white)
-						.background(Color.blue)
-						.cornerRadius(16)
-				}
 				
 				Button {
 					print("disableEnableTarget button selected")
@@ -226,15 +233,11 @@ struct ModelPickerView: View {
 						.cornerRadius(16) 				// Rounded corners for the button
 				}
 				
-				Button{
+				Button {
 					print("Mark location button")
-					if let currentLocation = locationManager.location {
-						let locationString = "\(currentLocation.coordinate.latitude), \(currentLocation.coordinate.longitude)"
-						let currentDate = Date()
-						// Ensure you have access to the managedObjectContext here
-						MapsData.createWith(dateAdded: currentDate, sceneLocation: locationString, in: managedObjectContext)
-					}
-				} label:{
+					markCurrentLocation()
+		
+				} label: {
 					Image(systemName: "location.viewfinder")
 						.resizable()
 						.scaledToFit()
@@ -244,7 +247,8 @@ struct ModelPickerView: View {
 						.background(Color.blue)
 						.cornerRadius(16)
 				}
-				
+
+
 				//: Camera selection button
 				Button(action: {
 					print("DEBUG: Capture image button selected")
@@ -304,10 +308,45 @@ struct ModelPickerView: View {
 						.foregroundColor(.white)
 						.cornerRadius(16)
 				}
+				Button {
+					print("Home button selected")
+					self.presentationMode.wrappedValue.dismiss()
+				} label: {
+					Image(systemName: "house.circle")
+						.resizable()
+						.scaledToFit()
+						.frame(width: 40, height: 40)
+						.padding()
+						.foregroundColor(.white)
+						.background(Color.blue)
+						.cornerRadius(16)
+				}
 			}
 		}
 		.padding(20)
 		.background(Color.black.opacity(0.5))
+	}
+	func markCurrentLocation() {
+	  Task {
+		  do {
+			  // Fetch current coordinates
+			  guard let currentLocation = locationManager.location else {
+				  print("Current location is unavailable.")
+				  return
+			  }
+			  let coordinates = currentLocation.coordinate
+
+			  // Optionally, convert coordinates to address string
+			  // let addressString = await convertCoordinatesToAddress(coordinates)
+
+			  // Save to CoreData
+			  MapsData.createWith(dateAdded: Date(),
+								  sceneLocation: "\(coordinates.latitude), \(coordinates.longitude)",
+								  in: managedObjectContext)
+		  } catch {
+			  print("Error marking location: \(error)")
+		  }
+		}
 	}
 }
 

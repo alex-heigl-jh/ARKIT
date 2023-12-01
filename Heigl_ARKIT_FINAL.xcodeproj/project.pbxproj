@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D01699922B181B0D0066FE61 /* CoreLocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01699912B181B0D0066FE61 /* CoreLocationHelper.swift */; };
 		D04F82092B129060008484B8 /* ARVideoKit in Frameworks */ = {isa = PBXBuildFile; productRef = D04F82082B129060008484B8 /* ARVideoKit */; };
 		D04F820B2B12FEC7008484B8 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F820A2B12FEC7008484B8 /* InputView.swift */; };
 		D04F820D2B1305EA008484B8 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F820C2B1305EA008484B8 /* RegistrationView.swift */; };
@@ -100,6 +101,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D01699912B181B0D0066FE61 /* CoreLocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationHelper.swift; sourceTree = "<group>"; };
 		D04F820A2B12FEC7008484B8 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		D04F820C2B1305EA008484B8 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		D04F820E2B130C3B008484B8 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				D06CFF4A2AF294ED00FFC3F7 /* NewsFeedJSON.swift */,
 				D06CFF542AF2E24600FFC3F7 /* SafetyJSON.swift */,
 				D09525862B14486E00143F29 /* SharedusdzModelLoader.swift */,
+				D01699912B181B0D0066FE61 /* CoreLocationHelper.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				D06CFF102AE75AD000FFC3F7 /* SettingsFAQSafety.swift in Sources */,
 				D06CFF3B2AF0834400FFC3F7 /* UsersJSON.swift in Sources */,
 				D06CFED42AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift in Sources */,
+				D01699922B181B0D0066FE61 /* CoreLocationHelper.swift in Sources */,
 				D06CFF332AEEFF4700FFC3F7 /* CoreDataHelper.swift in Sources */,
 				D06CFF162AE75B5500FFC3F7 /* UserAuth.swift in Sources */,
 				D06CFF472AF1679D00FFC3F7 /* ARContentView.swift in Sources */,

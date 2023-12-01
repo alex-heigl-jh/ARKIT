@@ -33,22 +33,16 @@ struct MapsView: View {
 	@State private var routeDestination: MKMapItem?
 	
 	@State private var isFirstLoad = true
-
+	
+	@State private var testDisplay = false
+	
+	@State private var arItemLocations: [ARItemLocation] = []
 	
 	var body: some View {
 		Map(position: $cameraPosition, selection: $mapSelection){
 			
-//			ForEach(storedLocations, id: \.self) { location in
-//				if let coordinate = CLLocationCoordinate2D(location.sceneLocation) {
-//					Annotation(coordinate: coordinate) {
-//						LocationAnnotationView(location: location)
-//					}
-//				}
-//			}
-			
 //			UserAnnotation()
 			if let userCoordinate = locationManager.location?.coordinate{
-				
 				Annotation("My Location", coordinate: userCoordinate){
 					ZStack {
 						Circle()
@@ -63,6 +57,7 @@ struct MapsView: View {
 					}
 				}
 			}
+
 			ForEach(results, id: \.self){ item in
 				if routeDisplaying{
 					if item == routeDestination {
@@ -75,10 +70,18 @@ struct MapsView: View {
 				}
 
 			}
+				
+
 			if let route {
 				MapPolyline(route.polyline)
 					.stroke(.blue, lineWidth: 6)
 			}
+//			// Annotations for stored locations
+//			ForEach(arItemLocations, id: \.id) { arItemLocation in
+//				Annotation(arItemLocation.item.title ?? "Unknown", coordinate: arItemLocation.coordinate) {
+//					print("Hit")
+//				}
+//			}
 		}
 		// Code block that displays search bar at top of view
 		.overlay(alignment: .top) {
@@ -97,6 +100,7 @@ struct MapsView: View {
 			.padding(.top, 5) // Add top padding to create space between the search bar and top of the screen
 		}
 		.onAppear{
+			loadARItemLocations()
 			if let newLocation = locationManager.location {
 				let newRegion = MKCoordinateRegion(center: newLocation.coordinate,
 												   latitudinalMeters: 10000,
@@ -167,6 +171,20 @@ struct MapsView: View {
 			MapUserLocationButton()
 		}
 	}
+	func loadARItemLocations() {
+		arItemLocations = storedLocations.compactMap { mapsData in
+			guard let coordinate = (mapsData.sceneLocation ?? "").toCoordinate() else { return nil }
+			return ARItemLocation(item: mapsData, coordinate: coordinate)
+		}
+	}
+}
+
+extension String {
+	func toCoordinate() -> CLLocationCoordinate2D? {
+		let components = self.split(separator: ",").compactMap { Double($0.trimmingCharacters(in: .whitespaces)) }
+		guard components.count == 2 else { return nil }
+		return CLLocationCoordinate2D(latitude: components[0], longitude: components[1])
+	}
 }
 
 extension MapsView{
@@ -222,18 +240,6 @@ extension MapsView{
 				print("Error calculating route: \(error)")
 			}
 		}
-	}
-}
-
-struct LocationAnnotationView: View {
-	var location: MapsData
-
-	var body: some View {
-		// Custom view for the annotation
-		Circle()
-			.strokeBorder(Color.blue, lineWidth: 2)
-			.background(Circle().foregroundColor(Color.blue.opacity(0.5)))
-			.frame(width: 30, height: 30)
 	}
 }
 
