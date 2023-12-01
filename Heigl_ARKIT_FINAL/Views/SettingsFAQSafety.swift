@@ -54,6 +54,9 @@ struct SettingsPreferencesSafetyView: View {
 
 struct ProfileSettingsView: View {
 	@EnvironmentObject var viewModel: UserAuth
+	@Environment(\.managedObjectContext) private var viewContext
+//	@EnvironmentObject var iapDelegate: IAPViewDelegate // Provided through the environment
+		
 	
 	var body: some View {
 		if let user = viewModel.currentUser {
@@ -151,6 +154,50 @@ struct ProfileSettingsView: View {
 					.background(Color.white)
 					.cornerRadius(10)
 					.shadow(radius: 1)
+					
+					// IAP Section
+					VStack(spacing: 8) {
+						Text("In-App Purchases") // Title for IAP Section
+							.font(.headline)
+							.foregroundColor(.black)
+							.frame(maxWidth: .infinity, alignment: .leading)
+							.padding(.horizontal)
+						
+						Divider() // Optional: To visually separate the title from the buttons
+
+						Button(action: {
+							print("Remove Banners Ads Button Selected")
+							
+						}) {
+							HStack {
+								Image(systemName: "xmark.circle")
+									.foregroundColor(Color.red)
+								Text("Remove Banner Ads")
+									.foregroundColor(.black)
+							}
+							.padding(.horizontal)
+						}
+						.frame(maxWidth: .infinity, alignment: .leading)
+						
+						Button(action: {
+							// Action to purchase AR Model Pack
+							print("Unlock AR Model Pack Button Selected")
+						}) {
+							HStack {
+								Image(systemName: "cube.box")
+									.foregroundColor(Color.green)
+								Text("Unlock AR Model Pack")
+									.foregroundColor(.black)
+							}
+							.padding(.horizontal)
+						}
+						.frame(maxWidth: .infinity, alignment: .leading)
+					}
+					.padding(.vertical)
+					.background(Color.white)
+					.cornerRadius(10)
+					.shadow(radius: 1)
+					
 				}
 				.padding(.horizontal)
 			}
@@ -175,9 +222,6 @@ struct SafetyView: View {
 
 	var body: some View {
 		VStack {
-			Text("Safety Content")
-				.font(.title)
-//			Text("Is Context Connected: \(String(describing: viewContext.persistentStoreCoordinator != nil))")
 			ScrollView {
 				LazyVStack {
 					ForEach(safetyEntries, id: \.self) { entry in

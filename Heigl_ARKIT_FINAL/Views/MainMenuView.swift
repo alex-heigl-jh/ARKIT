@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import StoreKit
 
 struct MainMenuView: View {
 	@State private var selectedView: Int? = nil
@@ -22,43 +23,65 @@ struct MainMenuView: View {
 //	@StateObject private var modelData = SharedModelData()
 
 	// Timer to change the color
-	let timer = Timer.publish(every: 1.5, on: .main, in: .common).autoconnect()
+//	let timer = Timer.publish(every: 1.5, on: .main, in: .common).autoconnect()
+	
+	@State private var showAd = true // State to control ad visibility
+	@State private var adBannerHeight: CGFloat = 100 // Variable to adjust ad banner height
 
-    var body: some View {
-        VStack(spacing: 30) {
-            Spacer()  // Pushes content downwards
-
-            CustomTitleView() // Enhanced Title in the center
-
-			mainButton(label: "View Map", images: ["mappin.and.ellipse.circle", "map.fill", "signpost.right.and.left.fill"], destination: MapsView().environment(\.managedObjectContext, managedObjectContext), colors: [Color.green, Color.blue])
-				.transition(.move(edge: .bottom))
-            
-
-			mainButton(label: "Augmented Reality", images: ["camera.metering.matrix", "arkit", "figure.walk"], destination: ARContentView().environment(\.managedObjectContext, managedObjectContext), colors: [Color.orange, Color.red])
-				.transition(.move(edge: .bottom))
-
-
-			// Inside MainMenuView
-			mainButton(label: "News Feed", images: ["figure.socialdance", "newspaper.fill", "captions.bubble"], destination: NewsFeedView().environment(\.managedObjectContext, managedObjectContext), colors: [Color.purple, Color.pink])
-				.transition(.move(edge: .bottom))
-				.environmentObject(viewModel)
-            
-
-			mainButton(label: "Settings, FAQ, and Safety", images: ["gearshape", "person.fill.questionmark", "exclamationmark.triangle.fill"], destination: SettingsPreferencesSafetyView().environment(\.managedObjectContext, managedObjectContext), colors: [Color.teal, Color.cyan])
-				.transition(.move(edge: .bottom))
-				.environmentObject(viewModel)
-            
-
-            Spacer()  // Pushes content upwards
-        }
-		.padding()
-//		.modifier(BackgroundColorModifier(progress: colorTransitionProgress, colors: colors))
+	// Banner Ad View
+	var adBanner: some View {
+		VStack {
+			Spacer()
+			Text("SwiftUI Challenges?\nConnect with a Tutor Now!")
+				.foregroundColor(.white)
+				.font(.system(size: 24, weight: .bold, design: .default)) // Set font size and weight
+				.multilineTextAlignment(.center) // Center the text
+				.lineLimit(2) // Limit text to two lines
+				.frame(maxWidth: .infinity, maxHeight: adBannerHeight)
+				.background(Color.red)
+				.onTapGesture {
+					openAdURL()
+				}
+				.onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+					checkIAPStatus()
+				}
+		}
+		.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
 		.edgesIgnoringSafeArea(.all)
-//		.onReceive(timer) { _ in
-//			withAnimation(.linear(duration: 5)) {
-//				colorTransitionProgress += 1
-//			}
-//		}
+	}
+
+
+	var body: some View {
+		ZStack {
+			VStack(spacing: 30) {
+				Spacer()  // Pushes content upwards
+
+				CustomTitleView() // Enhanced Title in the center
+
+				mainButton(label: "View Map", images: ["mappin.and.ellipse.circle", "map.fill", "signpost.right.and.left.fill"], destination: MapsView().environment(\.managedObjectContext, managedObjectContext), colors: [Color.green, Color.blue])
+					.transition(.move(edge: .bottom))
+
+				mainButton(label: "Augmented Reality", images: ["camera.metering.matrix", "arkit", "figure.walk"], destination: ARContentView().environment(\.managedObjectContext, managedObjectContext), colors: [Color.orange, Color.red])
+					.transition(.move(edge: .bottom))
+
+				mainButton(label: "News Feed", images: ["figure.socialdance", "newspaper.fill", "captions.bubble"], destination: NewsFeedView().environment(\.managedObjectContext, managedObjectContext), colors: [Color.purple, Color.pink])
+					.transition(.move(edge: .bottom))
+					.environmentObject(viewModel)
+
+				mainButton(label: "Settings, FAQ, and Safety", images: ["gearshape", "person.fill.questionmark", "exclamationmark.triangle.fill"], destination: SettingsPreferencesSafetyView().environment(\.managedObjectContext, managedObjectContext), colors: [Color.teal, Color.cyan])
+					.transition(.move(edge: .bottom))
+					.environmentObject(viewModel)
+
+				Spacer()  // Pushes content downwards
+			}
+			.padding()
+			.edgesIgnoringSafeArea(.top)
+
+			// Ad Banner positioned absolutely at the bottom
+			if showAd {
+				adBanner
+			}
+		}
 	}
 
     // Updated mainButton function
@@ -99,6 +122,24 @@ struct MainMenuView: View {
 			return AnyView(destination.environmentObject(viewModel))
 		}
 	}
+	
+	// Function to open the ad URL
+	private func openAdURL() {
+		if let url = URL(string: "https://www.linkedin.com/in/alex-heigl-939452b1/") {
+			UIApplication.shared.open(url)
+		}
+	}
+
+	// Function to check IAP status
+	private func checkIAPStatus() {
+		// Here you should check if the user has purchased the IAP to disable ads
+		// For now, it's just a placeholder
+		// You'll replace this with your actual IAP checking logic
+		let hasPurchasedRemoveAds = UserDefaults.standard.bool(forKey: "removeAdsPurchased")
+		showAd = !hasPurchasedRemoveAds
+	}
+	
+	
 	struct CustomTitleView: View {
 		var body: some View {
 			Image(systemName: "house.circle") // Replace with your desired SF symbol

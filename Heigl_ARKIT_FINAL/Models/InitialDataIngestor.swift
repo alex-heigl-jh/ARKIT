@@ -23,10 +23,25 @@ class InitialDataIngestor: NSObject, ObservableObject {
     @Published var users: [UserJSON]?
 	@Published var newsFeed: [NewsFeedJSON]?
 	@Published var safety: [SafetyJSON]?
+	@Published var iaps: [IAPJSON]?
     
-	// Function for generating dates at different offsets
-	func dateOffsetBy(minutes: Int) -> Date {
-		return Calendar.current.date(byAdding: .minute, value: -minutes, to: Date())!
+	// Function for generating random dates in November
+	func randomDateInNovember() -> Date {
+		let year = 2023 // Assuming you want dates for November 2023
+		let day = Int.random(in: 1...30) // Random day in November
+		let hour = Int.random(in: 0...23) // Random hour
+		let minute = Int.random(in: 0...59) // Random minute
+		let second = Int.random(in: 0...59) // Random second
+
+		var dateComponents = DateComponents()
+		dateComponents.year = year
+		dateComponents.month = 11 // November
+		dateComponents.day = day
+		dateComponents.hour = hour
+		dateComponents.minute = minute
+		dateComponents.second = second
+
+		return Calendar.current.date(from: dateComponents)!
 	}
 
 	//MARK: -- Hardcoded Data
@@ -51,7 +66,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		
 		let news1 = NewsFeedJSON(
 			newsContent: "Enjoying a delicious cheeseburger at AJ Bombers in Milwaukee. The cheese curds here are to die for!",
-			newsCreatedOn: dateOffsetBy(minutes: 10 * 0),
+			newsCreatedOn: randomDateInNovember(),
 			newsID: UUID(),
 			mediaURL: "https://pbs.twimg.com/media/FA4Lh22XsAgzsBN?format=jpg&name=large",
 			mediaType: "image",
@@ -60,7 +75,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		
 		let news2 = NewsFeedJSON(
 			newsContent: "Exploring the beautiful Milwaukee Art Museum and its stunning architecture. A must-visit for art lovers!",
-			newsCreatedOn: dateOffsetBy(minutes: 10 * 1),
+			newsCreatedOn: randomDateInNovember(),
 			newsID: UUID(),
 			mediaURL: "https://lp-cms-production.imgix.net/2022-03/United%20States%20Milwaukee%20Izzet%20Keribar%20GettyImages-525734479%20RFE%20crop.jpg",
 			mediaType: "image",
@@ -69,7 +84,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		
 		let news3 = NewsFeedJSON(
 			newsContent: "Biking along the Oak Leaf Trail on a sunny day in Milwaukee. The scenery is breathtaking!",
-			newsCreatedOn: dateOffsetBy(minutes: 10 * 2),
+			newsCreatedOn: randomDateInNovember(),
 			newsID: UUID(),
 			mediaURL: "https://www.railstotrails.org/media/550728/oak-leaf-trail-06559-courtesy-wisconsin-bike-fed-copy.jpg?crop=0,0,0.3559420289855072,0&cropmode=percentage&width=880&height=460&rnd=131613518230000000",
 			mediaType: "image",
@@ -78,7 +93,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		
 		let news4 = NewsFeedJSON(
 			newsContent: "Milwaukee Bucks showing how to actually trust a process at Fiserv Forum tonight - Meanwhile, the 76ers are still processing... Bucks in 6!!",
-			newsCreatedOn: dateOffsetBy(minutes: 10 * 3),
+			newsCreatedOn: randomDateInNovember(),
 			newsID: UUID(),
 			mediaURL: "https://phantom-marca.unidadeditorial.es/e89728cbbdf7774ffa2c09d2bada05e5/resize/828/f/jpg/assets/multimedia/imagenes/2023/10/27/16983751324397.jpg",
 			mediaType: "image",
@@ -87,7 +102,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		
 		let news5 = NewsFeedJSON(
 			newsContent: "Visiting the Harley-Davidson Museum and admiring the iconic motorcycles. A piece of American history!",
-			newsCreatedOn: dateOffsetBy(minutes: 10 * 4),
+			newsCreatedOn: randomDateInNovember(),
 			newsID: UUID(),
 			mediaURL: "https://www.harley-davidson.com/content/dam/h-d/images/content-images/short-hero/museum-night-short-hero.jpg",
 			mediaType: "image",
@@ -96,7 +111,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		
 		let news6 = NewsFeedJSON(
 			newsContent: "Savoring some custard at Kopp's Frozen Custard. Best dessert in Milwaukee!",
-			newsCreatedOn: dateOffsetBy(minutes: 10 * 5),
+			newsCreatedOn: randomDateInNovember(),
 			newsID: UUID(),
 			mediaURL: "https://kopps.com/wp-content/uploads/2023/02/Greenfield.jpg",
 			mediaType: "image",
@@ -105,7 +120,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		
 		let news7 = NewsFeedJSON(
 			newsContent: "Exploring the Milwaukee County Zoo and meeting some amazing animals.",
-			newsCreatedOn: dateOffsetBy(minutes: 10 * 6),
+			newsCreatedOn: randomDateInNovember(),
 			newsID: UUID(),
 			mediaURL: "https://www.travelwisconsin.com/uploads/places/4f/4ff458ad-e148-486a-ad43-9ba9312166bf-elephants-in-pool-07-2021-37-e.jpg",
 			mediaType: "image",
@@ -114,7 +129,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		
 		let news8 = NewsFeedJSON(
 			newsContent: "Hiking at Kettle Moraine State Forest. The trails offer a peaceful escape from the city.",
-			newsCreatedOn: dateOffsetBy(minutes: 10 * 7),
+			newsCreatedOn: randomDateInNovember(),
 			newsID: UUID(),
 			mediaURL: "https://emke.uwm.edu/wp-content/uploads/2018/04/KettleMoraine_01.jpg",
 			mediaType: "image",
@@ -123,7 +138,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		
 		let news9 = NewsFeedJSON(
 			newsContent: "Exploring the historic Pabst Brewery in Milwaukee. Cheers to local beer!",
-			newsCreatedOn: dateOffsetBy(minutes: 10 * 8),
+			newsCreatedOn: randomDateInNovember(),
 			newsID: UUID(),
 			mediaURL: "https://www.jsonline.com/gcdn/-mm-/1fecae5856e58374cc9e1c0fd6dcc3c6aae79d4e/c=0-293-5760-3547/local/-/media/2018/05/06/WIGroup/Milwaukee/636612474576008288-sunset-pabst-jesu-desisti-sisti-3237.JPG",
 			mediaType: "image",
@@ -132,7 +147,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		
 		let news10 = NewsFeedJSON(
 			newsContent: "Dancing the night away at Summerfest, Milwaukee's biggest music festival.",
-			newsCreatedOn: dateOffsetBy(minutes: 10 * 9),
+			newsCreatedOn: randomDateInNovember(),
 			newsID: UUID(),
 			mediaURL: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/df/b4/7e/summerfest-grounds.jpg?w=1200&h=-1&s=1",
 			mediaType: "image",
@@ -182,6 +197,14 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		
 		// Store sample safety data in a variable or use them as needed
 		self.safety = [safety1, safety2, safety3, safety4, safety5]
+	}
+	
+	func loadSampleIAPs() throws {
+		let iap1 = IAPJSON(name: "Disable Ads", desc: "Unlock to disable banner advertisements", price: 1.99, purchased: false)
+		let iap2 = IAPJSON(name: "AR Model Pack", desc: "Unlock a pack of augmented reality models", price: 4.99, purchased: false)
+
+		// Store sample IAPs in a variable or use them as needed
+		self.iaps = [iap1, iap2]
 	}
 
     
@@ -261,6 +284,27 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		}
 	}
 	
+	func storeIAPsInDatabase(iaps: [IAPJSON]) {
+		print("Storing \(iaps.count) IAPs in database...")
+		let backgroundContext = PersistenceController.shared.newTaskContext()
+		iaps.forEach { iap in
+			IAP.createWith(
+				name: iap.name,
+				desc: iap.desc,
+				price: iap.price,
+				purchased: iap.purchased,
+				in: backgroundContext
+			)
+		}
+
+		// Save context
+		do {
+			try backgroundContext.save()
+		} catch {
+			print("Error saving IAP data to CoreData:", error)
+		}
+	}
+	
     //MARK: -- SINGLE METHOD TO LOAD DATA FROM A GIVEN SOURCE
     func loadAllData(from: LoadingType, isLoaded: Binding<Bool>) async {
         CoreDataHelper.emptyDB()
@@ -270,6 +314,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
                 try loadSampleUsers()
 				try loadSampleNewsFeed()
 				try loadSafetyData()
+				try loadSampleIAPs()
                 print("Loading Samples Locally")
             case .LocalJSON:
                 print("Local JSON Option selected, laoding from this not functional at this time")
@@ -281,6 +326,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
             storeUsersInDatabase(users: users ?? [])
 			storeNewsFeedInDatabase(newsFeeds: newsFeed ?? [])
 			storeSafetyInDatabase(safety: safety ?? [])
+			storeIAPsInDatabase(iaps: iaps ?? [])
             
             try PersistenceController.shared.container.viewContext.save()
             

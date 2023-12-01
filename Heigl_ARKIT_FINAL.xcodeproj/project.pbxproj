@@ -66,6 +66,9 @@
 		D0730C6C2AFC942900366E8D /* toy_drummer_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */; };
 		D0730C6D2AFC942900366E8D /* tv_retro.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C692AFC942900366E8D /* tv_retro.usdz */; };
 		D09525872B14486E00143F29 /* SharedusdzModelLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09525862B14486E00143F29 /* SharedusdzModelLoader.swift */; };
+		D0BA2DFA2B19676100F9FB93 /* IAPViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BA2DF92B19676100F9FB93 /* IAPViewDelegate.swift */; };
+		D0BA2DFC2B19682500F9FB93 /* IAPJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BA2DFB2B19682500F9FB93 /* IAPJSON.swift */; };
+		D0BA2DFE2B196EBF00F9FB93 /* InAppPurchases.storekit in Resources */ = {isa = PBXBuildFile; fileRef = D0BA2DFD2B196EBE00F9FB93 /* InAppPurchases.storekit */; };
 		D0DFB5E42B0D7EA600019DA6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DFB5E32B0D7EA600019DA6 /* Models.swift */; };
 		D0DFB5E72B0D9BD300019DA6 /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = D0DFB5E62B0D9BD300019DA6 /* FocusEntity */; };
 /* End PBXBuildFile section */
@@ -160,6 +163,9 @@
 		D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_drummer_idle.usdz; sourceTree = "<group>"; };
 		D0730C692AFC942900366E8D /* tv_retro.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = tv_retro.usdz; sourceTree = "<group>"; };
 		D09525862B14486E00143F29 /* SharedusdzModelLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedusdzModelLoader.swift; sourceTree = "<group>"; };
+		D0BA2DF92B19676100F9FB93 /* IAPViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPViewDelegate.swift; sourceTree = "<group>"; };
+		D0BA2DFB2B19682500F9FB93 /* IAPJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPJSON.swift; sourceTree = "<group>"; };
+		D0BA2DFD2B196EBE00F9FB93 /* InAppPurchases.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = InAppPurchases.storekit; sourceTree = "<group>"; };
 		D0DFB5E32B0D7EA600019DA6 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -231,6 +237,7 @@
 				D06CFED32AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift */,
 				D06CFED52AE75A2300FFC3F7 /* ContentView.swift */,
 				D06CFED72AE75A2500FFC3F7 /* Assets.xcassets */,
+				D0BA2DFD2B196EBE00F9FB93 /* InAppPurchases.storekit */,
 				D04F82122B1316D6008484B8 /* GoogleService-Info.plist */,
 				D06CFEDC2AE75A2500FFC3F7 /* Persistence.swift */,
 				D06CFEDE2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld */,
@@ -289,11 +296,13 @@
 				D06CFF172AE75B7100FFC3F7 /* InitialDataIngestor.swift */,
 				D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */,
 				D04F82102B130F1F008484B8 /* HomeUser.swift */,
+				D0BA2DFB2B19682500F9FB93 /* IAPJSON.swift */,
 				D06CFF3A2AF0834400FFC3F7 /* UsersJSON.swift */,
 				D06CFF4A2AF294ED00FFC3F7 /* NewsFeedJSON.swift */,
 				D06CFF542AF2E24600FFC3F7 /* SafetyJSON.swift */,
 				D09525862B14486E00143F29 /* SharedusdzModelLoader.swift */,
 				D01699912B181B0D0066FE61 /* CoreLocationHelper.swift */,
+				D0BA2DF92B19676100F9FB93 /* IAPViewDelegate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -465,6 +474,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0BA2DFE2B196EBF00F9FB93 /* InAppPurchases.storekit in Resources */,
 				D0730C6C2AFC942900366E8D /* toy_drummer_idle.usdz in Resources */,
 				D06CFEDB2AE75A2500FFC3F7 /* Preview Assets.xcassets in Resources */,
 				D04F82132B1316D6008484B8 /* GoogleService-Info.plist in Resources */,
@@ -523,6 +533,7 @@
 				D06CFF2E2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift in Sources */,
 				D06CFF492AF1919800FFC3F7 /* LocationDetailsView.swift in Sources */,
 				D06CFF062AE75A6100FFC3F7 /* LoginView.swift in Sources */,
+				D0BA2DFA2B19676100F9FB93 /* IAPViewDelegate.swift in Sources */,
 				D06CFF352AEF029400FFC3F7 /* IAP+CoreData.swift in Sources */,
 				D06CFF202AE7636900FFC3F7 /* ARObject+CoreData.swift in Sources */,
 				D06CFF302AE768D100FFC3F7 /* Users+CoreData.swift in Sources */,
@@ -531,6 +542,7 @@
 				D06CFED42AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift in Sources */,
 				D01699922B181B0D0066FE61 /* CoreLocationHelper.swift in Sources */,
 				D06CFF332AEEFF4700FFC3F7 /* CoreDataHelper.swift in Sources */,
+				D0BA2DFC2B19682500F9FB93 /* IAPJSON.swift in Sources */,
 				D06CFF162AE75B5500FFC3F7 /* UserAuth.swift in Sources */,
 				D06CFF472AF1679D00FFC3F7 /* ARContentView.swift in Sources */,
 				D04F820F2B130C3B008484B8 /* SettingsRowView.swift in Sources */,
