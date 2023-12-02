@@ -200,8 +200,8 @@ class InitialDataIngestor: NSObject, ObservableObject {
 	}
 	
 	func loadSampleIAPs() throws {
-		let iap1 = IAPJSON(name: "Disable Ads", desc: "Unlock to disable banner advertisements", price: 1.99, purchased: false)
-		let iap2 = IAPJSON(name: "AR Model Pack", desc: "Unlock a pack of augmented reality models", price: 4.99, purchased: false)
+		let iap1 = IAPJSON(name: "edu.jhu.ep.ARKit.DisableAds", desc: "Unlock to disable banner advertisements", price: 1.99, purchased: false)
+		let iap2 = IAPJSON(name: "edu.jhu.ep.ARKit.ARPack", desc: "Unlock a pack of augmented reality models", price: 4.99, purchased: false)
 
 		// Store sample IAPs in a variable or use them as needed
 		self.iaps = [iap1, iap2]

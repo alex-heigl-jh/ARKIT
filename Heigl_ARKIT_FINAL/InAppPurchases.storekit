@@ -1,17 +1,17 @@
 {
-  "identifier" : "25FCF637",
+  "identifier" : "641E8E42",
   "nonRenewingSubscriptions" : [
 
   ],
   "products" : [
     {
-      "displayPrice" : "1.99",
+      "displayPrice" : "100.0",
       "familyShareable" : false,
-      "internalID" : "18098B38",
+      "internalID" : "69962EB2",
       "localizations" : [
         {
-          "description" : "Disables ads on the main screen",
-          "displayName" : "Disable Ads",
+          "description" : "",
+          "displayName" : "",
           "locale" : "en_US"
         }
       ],
@@ -22,17 +22,17 @@
     {
       "displayPrice" : "4.99",
       "familyShareable" : false,
-      "internalID" : "8DF0AA53",
+      "internalID" : "818A0888",
       "localizations" : [
         {
-          "description" : "Disables ads on the main screen",
-          "displayName" : "Disable Ads",
+          "description" : "",
+          "displayName" : "",
           "locale" : "en_US"
         }
       ],
-      "productID" : "edu.jhu.ep.ARKit.ARPack",
-      "referenceName" : "ARPack",
-      "type" : "NonConsumable"
+      "productID" : "edu.jhu.ep.ARKit.ARModels",
+      "referenceName" : "ARModels",
+      "type" : "Consumable"
     }
   ],
   "settings" : {

@@ -81,6 +81,9 @@ struct MainMenuView: View {
 			if showAd {
 				adBanner
 			}
+		}		
+		.onAppear(){
+			checkIAPStatus()
 		}
 	}
 
@@ -137,6 +140,7 @@ struct MainMenuView: View {
 		// You'll replace this with your actual IAP checking logic
 		let hasPurchasedRemoveAds = UserDefaults.standard.bool(forKey: "removeAdsPurchased")
 		showAd = !hasPurchasedRemoveAds
+		print("showAd set to \(showAd)")
 	}
 	
 	

@@ -60,6 +60,8 @@ struct ProfileSettingsView: View {
 	@State var showIAP = false
 	var iapDelegate: IAPViewDelegate = IAPViewDelegate()
 	@State private var isResearchKitShowing: Bool = false
+	@State private var isAdRemoved: Bool = UserDefaults.standard.bool(forKey: "removeAdsPurchased")
+
 	
 	@FetchRequest(
 	  sortDescriptors: [SortDescriptor(\.name)]
@@ -125,7 +127,7 @@ struct ProfileSettingsView: View {
 					VStack(spacing: 8) {
 						Button(action: {
 							print("Sign out..")
-							printFetchedIAPs()
+							
 							viewModel.signOut()
 						}) {
 							HStack {
@@ -176,34 +178,35 @@ struct ProfileSettingsView: View {
 						
 						Divider() // Optional: To visually separate the title from the buttons
 
-						Button(action: {
-							print("Remove Banners Ads Button Selected")
-							self.showIAP.toggle()
-							
-						}) {
-							HStack {
-								Image(systemName: "xmark.circle")
-									.foregroundColor(Color.red)
-								Text("Remove Banner Ads")
-									.foregroundColor(.black)
+						if !isAdRemoved {
+							Button(action: {
+								print("Remove Banners Ads Button Selected")
+								self.showIAP.toggle()
+							}) {
+								HStack {
+									Image(systemName: "xmark.circle")
+										.foregroundColor(Color.red)
+									Text("Remove Banner Ads")
+										.foregroundColor(.black)
+								}
+								.padding(.horizontal)
 							}
-							.padding(.horizontal)
+							.frame(maxWidth: .infinity, alignment: .leading)
 						}
-						.frame(maxWidth: .infinity, alignment: .leading)
 						
-						Button(action: {
-							// Action to purchase AR Model Pack
-							print("Unlock AR Model Pack Button Selected")
-						}) {
-							HStack {
-								Image(systemName: "cube.box")
-									.foregroundColor(Color.green)
-								Text("Unlock AR Model Pack")
-									.foregroundColor(.black)
-							}
-							.padding(.horizontal)
-						}
-						.frame(maxWidth: .infinity, alignment: .leading)
+//						Button(action: {
+//							// Action to purchase AR Model Pack
+//							print("Unlock AR Model Pack Button Selected")
+//						}) {
+//							HStack {
+//								Image(systemName: "cube.box")
+//									.foregroundColor(Color.green)
+//								Text("Unlock AR Model Pack")
+//									.foregroundColor(.black)
+//							}
+//							.padding(.horizontal)
+//						}
+//						.frame(maxWidth: .infinity, alignment: .leading)
 					}
 					.padding(.vertical)
 					.background(Color.white)
@@ -215,20 +218,12 @@ struct ProfileSettingsView: View {
 			}
 			
 			.sheet(isPresented: $showIAP, content: {
-
-			  NavigationView {
-				IAPListing(delegate: self.iapDelegate)
-				  .navigationBarTitle("In App Purchases")
-				  .navigationBarItems(trailing: Button("Done"){self.showIAP = false})
-			  }
+				NavigationView {
+					IAPListing(delegate: self.iapDelegate, context: self.viewContext)
+						.navigationBarTitle("In App Purchases")
+						.navigationBarItems(trailing: Button("Done"){self.showIAP = false})
+				}
 			})
-		}
-	}
-	// Additional print statement to log fetched IAPs
-	private func printFetchedIAPs() {
-		print("printFetchedIAPs() entered")
-		for iap in allIAP {
-			print("Fetched IAP: \(iap.name ?? "Unknown"), Purchased: \(iap.purchased)")
 		}
 	}
 }

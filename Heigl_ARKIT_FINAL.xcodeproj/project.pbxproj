@@ -68,7 +68,6 @@
 		D09525872B14486E00143F29 /* SharedusdzModelLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09525862B14486E00143F29 /* SharedusdzModelLoader.swift */; };
 		D0BA2DFA2B19676100F9FB93 /* IAPViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BA2DF92B19676100F9FB93 /* IAPViewDelegate.swift */; };
 		D0BA2DFC2B19682500F9FB93 /* IAPJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BA2DFB2B19682500F9FB93 /* IAPJSON.swift */; };
-		D0BA2DFE2B196EBF00F9FB93 /* InAppPurchases.storekit in Resources */ = {isa = PBXBuildFile; fileRef = D0BA2DFD2B196EBE00F9FB93 /* InAppPurchases.storekit */; };
 		D0BA2E002B1987A800F9FB93 /* IAPListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BA2DFF2B1987A800F9FB93 /* IAPListing.swift */; };
 		D0DFB5E42B0D7EA600019DA6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DFB5E32B0D7EA600019DA6 /* Models.swift */; };
 		D0DFB5E72B0D9BD300019DA6 /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = D0DFB5E62B0D9BD300019DA6 /* FocusEntity */; };
@@ -166,8 +165,8 @@
 		D09525862B14486E00143F29 /* SharedusdzModelLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedusdzModelLoader.swift; sourceTree = "<group>"; };
 		D0BA2DF92B19676100F9FB93 /* IAPViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPViewDelegate.swift; sourceTree = "<group>"; };
 		D0BA2DFB2B19682500F9FB93 /* IAPJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPJSON.swift; sourceTree = "<group>"; };
-		D0BA2DFD2B196EBE00F9FB93 /* InAppPurchases.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = InAppPurchases.storekit; sourceTree = "<group>"; };
 		D0BA2DFF2B1987A800F9FB93 /* IAPListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPListing.swift; sourceTree = "<group>"; };
+		D0BA2E012B1ABEF500F9FB93 /* InAppPurchases.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = InAppPurchases.storekit; sourceTree = "<group>"; };
 		D0DFB5E32B0D7EA600019DA6 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -239,11 +238,11 @@
 				D06CFED32AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift */,
 				D06CFED52AE75A2300FFC3F7 /* ContentView.swift */,
 				D06CFED72AE75A2500FFC3F7 /* Assets.xcassets */,
-				D0BA2DFD2B196EBE00F9FB93 /* InAppPurchases.storekit */,
 				D04F82122B1316D6008484B8 /* GoogleService-Info.plist */,
 				D06CFEDC2AE75A2500FFC3F7 /* Persistence.swift */,
 				D06CFEDE2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld */,
 				D06CFED92AE75A2500FFC3F7 /* Preview Content */,
+				D0BA2E012B1ABEF500F9FB93 /* InAppPurchases.storekit */,
 			);
 			path = Heigl_ARKIT_FINAL;
 			sourceTree = "<group>";
@@ -477,7 +476,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0BA2DFE2B196EBF00F9FB93 /* InAppPurchases.storekit in Resources */,
 				D0730C6C2AFC942900366E8D /* toy_drummer_idle.usdz in Resources */,
 				D06CFEDB2AE75A2500FFC3F7 /* Preview Assets.xcassets in Resources */,
 				D04F82132B1316D6008484B8 /* GoogleService-Info.plist in Resources */,

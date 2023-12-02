@@ -73,6 +73,9 @@
             ReferencedContainer = "container:Heigl_ARKIT_FINAL.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <StoreKitConfigurationFileReference
+         identifier = "../../Heigl_ARKIT_FINAL/InAppPurchases.storekit">
+      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
