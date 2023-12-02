@@ -18,6 +18,21 @@
       "productID" : "edu.jhu.ep.ARKit.DisableAds",
       "referenceName" : "DisableAds",
       "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "8DF0AA53",
+      "localizations" : [
+        {
+          "description" : "Disables ads on the main screen",
+          "displayName" : "Disable Ads",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "edu.jhu.ep.ARKit.ARPack",
+      "referenceName" : "ARPack",
+      "type" : "NonConsumable"
     }
   ],
   "settings" : {

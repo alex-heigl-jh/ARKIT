@@ -97,7 +97,7 @@ struct MainMenuView: View {
                             .foregroundColor(colors[1]) // Set the color of the SF Symbol
                     }
                 }
-                .frame(height: 50) // You can adjust this based on your needs
+                .frame(height: 50)
 
                 Text(label)
                     .font(.headline)
@@ -145,7 +145,7 @@ struct MainMenuView: View {
 			Image(systemName: "house.circle") // Replace with your desired SF symbol
 				.resizable()
 				.aspectRatio(contentMode: .fit)
-				.frame(width: 50, height: 50) // Adjust size as needed
+				.frame(width: 50, height: 50) 
 				.padding()
 				.background(
 					LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]), startPoint: .leading, endPoint: .trailing)

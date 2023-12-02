@@ -34,6 +34,7 @@ struct SettingsPreferencesSafetyView: View {
 						case 0:
 							ProfileSettingsView()
 								.environmentObject(viewModel)
+								.environment(\.managedObjectContext, managedObjectContext)
 						case 1:
 							FAQView()
 						case 2:
@@ -55,7 +56,16 @@ struct SettingsPreferencesSafetyView: View {
 struct ProfileSettingsView: View {
 	@EnvironmentObject var viewModel: UserAuth
 	@Environment(\.managedObjectContext) private var viewContext
-//	@EnvironmentObject var iapDelegate: IAPViewDelegate // Provided through the environment
+	
+	@State var showIAP = false
+	var iapDelegate: IAPViewDelegate = IAPViewDelegate()
+	@State private var isResearchKitShowing: Bool = false
+	
+	@FetchRequest(
+	  sortDescriptors: [SortDescriptor(\.name)]
+	) var allIAP: FetchedResults<IAP>
+	
+//	@FetchRequest(entity: Safety.entity(), sortDescriptors: [])
 		
 	
 	var body: some View {
@@ -115,6 +125,7 @@ struct ProfileSettingsView: View {
 					VStack(spacing: 8) {
 						Button(action: {
 							print("Sign out..")
+							printFetchedIAPs()
 							viewModel.signOut()
 						}) {
 							HStack {
@@ -167,6 +178,7 @@ struct ProfileSettingsView: View {
 
 						Button(action: {
 							print("Remove Banners Ads Button Selected")
+							self.showIAP.toggle()
 							
 						}) {
 							HStack {
@@ -201,6 +213,22 @@ struct ProfileSettingsView: View {
 				}
 				.padding(.horizontal)
 			}
+			
+			.sheet(isPresented: $showIAP, content: {
+
+			  NavigationView {
+				IAPListing(delegate: self.iapDelegate)
+				  .navigationBarTitle("In App Purchases")
+				  .navigationBarItems(trailing: Button("Done"){self.showIAP = false})
+			  }
+			})
+		}
+	}
+	// Additional print statement to log fetched IAPs
+	private func printFetchedIAPs() {
+		print("printFetchedIAPs() entered")
+		for iap in allIAP {
+			print("Fetched IAP: \(iap.name ?? "Unknown"), Purchased: \(iap.purchased)")
 		}
 	}
 }
@@ -232,6 +260,7 @@ struct SafetyView: View {
 		}
 	}
 }
+
 
 struct SettingsPreferencesSafetyView_Previews: PreviewProvider {
     static var previews: some View {

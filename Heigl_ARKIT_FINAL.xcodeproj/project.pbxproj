@@ -69,6 +69,7 @@
 		D0BA2DFA2B19676100F9FB93 /* IAPViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BA2DF92B19676100F9FB93 /* IAPViewDelegate.swift */; };
 		D0BA2DFC2B19682500F9FB93 /* IAPJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BA2DFB2B19682500F9FB93 /* IAPJSON.swift */; };
 		D0BA2DFE2B196EBF00F9FB93 /* InAppPurchases.storekit in Resources */ = {isa = PBXBuildFile; fileRef = D0BA2DFD2B196EBE00F9FB93 /* InAppPurchases.storekit */; };
+		D0BA2E002B1987A800F9FB93 /* IAPListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BA2DFF2B1987A800F9FB93 /* IAPListing.swift */; };
 		D0DFB5E42B0D7EA600019DA6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DFB5E32B0D7EA600019DA6 /* Models.swift */; };
 		D0DFB5E72B0D9BD300019DA6 /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = D0DFB5E62B0D9BD300019DA6 /* FocusEntity */; };
 /* End PBXBuildFile section */
@@ -166,6 +167,7 @@
 		D0BA2DF92B19676100F9FB93 /* IAPViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPViewDelegate.swift; sourceTree = "<group>"; };
 		D0BA2DFB2B19682500F9FB93 /* IAPJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPJSON.swift; sourceTree = "<group>"; };
 		D0BA2DFD2B196EBE00F9FB93 /* InAppPurchases.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = InAppPurchases.storekit; sourceTree = "<group>"; };
+		D0BA2DFF2B1987A800F9FB93 /* IAPListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPListing.swift; sourceTree = "<group>"; };
 		D0DFB5E32B0D7EA600019DA6 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -285,6 +287,7 @@
 				D06CFF482AF1919800FFC3F7 /* LocationDetailsView.swift */,
 				D06CFF0D2AE75AA300FFC3F7 /* NewsFeedView.swift */,
 				D06CFF0F2AE75AD000FFC3F7 /* SettingsFAQSafety.swift */,
+				D0BA2DFF2B1987A800F9FB93 /* IAPListing.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 				D06CFF182AE75B7100FFC3F7 /* InitialDataIngestor.swift in Sources */,
 				D04F820D2B1305EA008484B8 /* RegistrationView.swift in Sources */,
 				D06CFF4B2AF294ED00FFC3F7 /* NewsFeedJSON.swift in Sources */,
+				D0BA2E002B1987A800F9FB93 /* IAPListing.swift in Sources */,
 				D09525872B14486E00143F29 /* SharedusdzModelLoader.swift in Sources */,
 				D06CFF552AF2E24600FFC3F7 /* SafetyJSON.swift in Sources */,
 				D06CFF242AE763B800FFC3F7 /* MapsData+CoreData.swift in Sources */,
