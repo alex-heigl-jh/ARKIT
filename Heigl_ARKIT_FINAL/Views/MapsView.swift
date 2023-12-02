@@ -76,12 +76,17 @@ struct MapsView: View {
 				MapPolyline(route.polyline)
 					.stroke(.blue, lineWidth: 6)
 			}
-//			// Annotations for stored locations
-//			ForEach(arItemLocations, id: \.id) { arItemLocation in
-//				Annotation(arItemLocation.item.title ?? "Unknown", coordinate: arItemLocation.coordinate) {
-//					print("Hit")
-//				}
-//			}
+			
+			
+			// Annotations for stored locations
+			ForEach(arItemLocations, id: \.id) { arItemLocation in
+				Annotation("AR Item Location", coordinate: arItemLocation.coordinate) {
+					Image(systemName: "flag.checkered")
+					.font(.title) // Adjust the size as needed
+					.foregroundColor(.blue)
+				}
+			}
+
 		}
 		// Code block that displays search bar at top of view
 		.overlay(alignment: .top) {
@@ -291,3 +296,5 @@ struct MapsView_Previews: PreviewProvider {
 		MapsView()
 	}
 }
+
+

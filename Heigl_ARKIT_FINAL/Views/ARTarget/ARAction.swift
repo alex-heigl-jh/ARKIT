@@ -15,7 +15,6 @@ enum ARAction{
 	case loadModel(Model)
 	case placeBlock(color: Color)
 	case removeAllAnchors
-	
 }
 
 

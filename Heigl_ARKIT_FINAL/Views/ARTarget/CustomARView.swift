@@ -33,6 +33,8 @@ class CustomARView: RealityKit.ARView {
 		case color
 	}
 	
+	var lastPlayedAnimationIndex: [ModelEntity: Int] = [:]
+	
 	let focusStyle: FocusStyleChoices = .classic
 	var focusEntity: FocusEntity?
 	
@@ -56,17 +58,32 @@ class CustomARView: RealityKit.ARView {
     }
     
 	// This is the init that is actually utilized
-    convenience init() {
-		
-        self.init(frame: UIScreen.main.bounds)
+//    convenience init() {
+//		
+//        self.init(frame: UIScreen.main.bounds)
+//		
+//		self.setupConfig()
+//		
+//		//: call enableObjectRemoval to enable removal of individual entities from view
+//		self.enableObjectRemoval()
+//		//: Allows AR view to receive commands from ARContentView
+//		subscribeToActionStream()
+//    }
+	
+	convenience init() {
+		self.init(frame: UIScreen.main.bounds)
 		
 		self.setupConfig()
 		
-		//: call enableObjectRemoval to enable removal of individual entities from view
+		// call enableObjectRemoval to enable removal of individual entities from view
 		self.enableObjectRemoval()
-		//: Allows AR view to receive commands from ARContentView
-		subscribeToActionStream()
-    }
+		// Allows AR view to receive commands from ARContentView
+		self.subscribeToActionStream()
+
+		// Add tap gesture recognizer
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(recognizer:)))
+		self.addGestureRecognizer(tapGestureRecognizer)
+	}
 	
 	private var cancellables: Set<AnyCancellable> = []
 	
@@ -88,31 +105,33 @@ class CustomARView: RealityKit.ARView {
 		// Whenever an action is sent through action stream .sink will run 
 			.sink { [weak self] action in
 				switch action {
-					
 					// Place a block in the AR view
 					case .placeBlock(let color):
 						self?.placeBlock(ofColor: color)
-					
+						
 					// Load a usdz model into the ARview
 					case .loadModel(let model):
 						print("DEBUG: Placing model")
 						self?.placeEntity(from: model)
-					
+						
 					// Remove all entities from the AR view
 					case .removeAllAnchors:
 						self?.scene.anchors.removeAll()
 						self?.setupFocusEntity()
-					
+						
 					// Capture an image of the current ARview
 					case .captureImage:
 						print("DEBUG: Capture image command received in CustomARView")
 						self?.captureImageFromCamera()
 						print("DEBUG: Completed captureImageFromCamera()")
-					
+		
+					// Disable the focus entity
 					case .disableEnableFocusEntity(let focusEntityEnable):
 						print("DEBUG: User set focusEntity display to \(focusEntityEnable)")
 						self?.toggleFocusEntity(isEnabled: focusEntityEnable)
-					}
+					
+				}
+
 			}
 			.store(in: &cancellables)
 	}
@@ -309,6 +328,18 @@ class CustomARView: RealityKit.ARView {
 			focusEntity?.isEnabled = false // Disable the focus entity
 		}
 	}
+	
+	
+	@objc func handleTap(recognizer: UITapGestureRecognizer) {
+		let location = recognizer.location(in: self)
+		if let entity = self.entity(at: location) as? ModelEntity {
+			// Assuming you want to play the first animation available
+			if let firstAnimation = entity.availableAnimations.first {
+				entity.playAnimation(firstAnimation.repeat(duration: .infinity), transitionDuration: 0.5, startsPaused: false)
+			}
+		}
+	}
+
 }
 
 //: Create extension of ARView to enable longPressGesture to delete AR object

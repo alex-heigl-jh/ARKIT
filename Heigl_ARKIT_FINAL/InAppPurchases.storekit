@@ -10,8 +10,8 @@
       "internalID" : "69962EB2",
       "localizations" : [
         {
-          "description" : "",
-          "displayName" : "",
+          "description" : "Disable Ads on the Main Menu Screen",
+          "displayName" : "Disable Ads",
           "locale" : "en_US"
         }
       ],

@@ -22,7 +22,8 @@ struct IAPListing: View {
 
 	var body: some View {
 		List(iapDelegate.productsArray.filter { !purchasedIAPs.contains($0.productIdentifier) }, id: \.self) { item in
-			Text("\(item.localizedTitle)Remove Ads Price: (\(item.price))$" ).onTapGesture {
+			// \(item.localizedTitle)
+			Text("\(item.localizedTitle) (\(item.price)$)" ).onTapGesture {
 				guard self.iapDelegate.transactionInProgress == false else { return }
 				self.alertIsShowing = true
 			}.alert(isPresented: $alertIsShowing, content: {

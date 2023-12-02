@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D00D58662B1BC340000EF8ED /* BONUS_Camero.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D58652B1BC340000EF8ED /* BONUS_Camero.usdz */; };
+		D00D586A2B1BC69B000EF8ED /* BONUS_Snowspeeder.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D58692B1BC69A000EF8ED /* BONUS_Snowspeeder.usdz */; };
+		D00D58702B1BCA8E000EF8ED /* BONUS_Sci-fi_Girl_v.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D586F2B1BCA8E000EF8ED /* BONUS_Sci-fi_Girl_v.usdz */; };
+		D00D58742B1BD0F4000EF8ED /* BONUS_Candles_set.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D58732B1BD0F4000EF8ED /* BONUS_Candles_set.usdz */; };
+		D00D58762B1BD1C5000EF8ED /* BONUS_Metroid_Prime_Form_2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D58752B1BD1C5000EF8ED /* BONUS_Metroid_Prime_Form_2.usdz */; };
+		D00D58782B1BD24D000EF8ED /* BONUS_Spiderman_2099.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D58772B1BD24D000EF8ED /* BONUS_Spiderman_2099.usdz */; };
+		D00D587A2B1BD2F3000EF8ED /* BONUS_Icosphere_Flower.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D58792B1BD2F3000EF8ED /* BONUS_Icosphere_Flower.usdz */; };
+		D00D587C2B1BD42B000EF8ED /* BONUS_Solar_System_Model_Orrery.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D587B2B1BD42B000EF8ED /* BONUS_Solar_System_Model_Orrery.usdz */; };
 		D01699922B181B0D0066FE61 /* CoreLocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01699912B181B0D0066FE61 /* CoreLocationHelper.swift */; };
 		D04F82092B129060008484B8 /* ARVideoKit in Frameworks */ = {isa = PBXBuildFile; productRef = D04F82082B129060008484B8 /* ARVideoKit */; };
 		D04F820B2B12FEC7008484B8 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F820A2B12FEC7008484B8 /* InputView.swift */; };
@@ -56,11 +64,8 @@
 		D0730C5B2AFC832C00366E8D /* toy_car.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C562AFC832900366E8D /* toy_car.usdz */; };
 		D0730C5C2AFC832C00366E8D /* robot_walk_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C572AFC832A00366E8D /* robot_walk_idle.usdz */; };
 		D0730C5D2AFC832C00366E8D /* pancakes.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C582AFC832B00366E8D /* pancakes.usdz */; };
-		D0730C5E2AFC832C00366E8D /* CosmonautSuit_en.reality in Resources */ = {isa = PBXBuildFile; fileRef = D0730C592AFC832C00366E8D /* CosmonautSuit_en.reality */; };
 		D0730C5F2AFC832C00366E8D /* toy_biplane_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C5A2AFC832C00366E8D /* toy_biplane_idle.usdz */; };
-		D0730C632AFC838A00366E8D /* hab_en.reality in Resources */ = {isa = PBXBuildFile; fileRef = D0730C602AFC838800366E8D /* hab_en.reality */; };
 		D0730C642AFC838A00366E8D /* gramophone.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C612AFC838900366E8D /* gramophone.usdz */; };
-		D0730C652AFC838A00366E8D /* LunarRover_English.reality in Resources */ = {isa = PBXBuildFile; fileRef = D0730C622AFC838A00366E8D /* LunarRover_English.reality */; };
 		D0730C6A2AFC942900366E8D /* flower_tulip.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C662AFC942700366E8D /* flower_tulip.usdz */; };
 		D0730C6B2AFC942900366E8D /* fender_stratocaster.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C672AFC942800366E8D /* fender_stratocaster.usdz */; };
 		D0730C6C2AFC942900366E8D /* toy_drummer_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */; };
@@ -104,6 +109,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D00D58652B1BC340000EF8ED /* BONUS_Camero.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Camero.usdz; sourceTree = "<group>"; };
+		D00D58692B1BC69A000EF8ED /* BONUS_Snowspeeder.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Snowspeeder.usdz; sourceTree = "<group>"; };
+		D00D586F2B1BCA8E000EF8ED /* BONUS_Sci-fi_Girl_v.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "BONUS_Sci-fi_Girl_v.usdz"; sourceTree = "<group>"; };
+		D00D58732B1BD0F4000EF8ED /* BONUS_Candles_set.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Candles_set.usdz; sourceTree = "<group>"; };
+		D00D58752B1BD1C5000EF8ED /* BONUS_Metroid_Prime_Form_2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Metroid_Prime_Form_2.usdz; sourceTree = "<group>"; };
+		D00D58772B1BD24D000EF8ED /* BONUS_Spiderman_2099.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Spiderman_2099.usdz; sourceTree = "<group>"; };
+		D00D58792B1BD2F3000EF8ED /* BONUS_Icosphere_Flower.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Icosphere_Flower.usdz; sourceTree = "<group>"; };
+		D00D587B2B1BD42B000EF8ED /* BONUS_Solar_System_Model_Orrery.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Solar_System_Model_Orrery.usdz; sourceTree = "<group>"; };
 		D01699912B181B0D0066FE61 /* CoreLocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationHelper.swift; sourceTree = "<group>"; };
 		D04F820A2B12FEC7008484B8 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		D04F820C2B1305EA008484B8 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
@@ -153,11 +166,8 @@
 		D0730C562AFC832900366E8D /* toy_car.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_car.usdz; sourceTree = "<group>"; };
 		D0730C572AFC832A00366E8D /* robot_walk_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = robot_walk_idle.usdz; sourceTree = "<group>"; };
 		D0730C582AFC832B00366E8D /* pancakes.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pancakes.usdz; sourceTree = "<group>"; };
-		D0730C592AFC832C00366E8D /* CosmonautSuit_en.reality */ = {isa = PBXFileReference; lastKnownFileType = file; path = CosmonautSuit_en.reality; sourceTree = "<group>"; };
 		D0730C5A2AFC832C00366E8D /* toy_biplane_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_biplane_idle.usdz; sourceTree = "<group>"; };
-		D0730C602AFC838800366E8D /* hab_en.reality */ = {isa = PBXFileReference; lastKnownFileType = file; path = hab_en.reality; sourceTree = "<group>"; };
 		D0730C612AFC838900366E8D /* gramophone.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = gramophone.usdz; sourceTree = "<group>"; };
-		D0730C622AFC838A00366E8D /* LunarRover_English.reality */ = {isa = PBXFileReference; lastKnownFileType = file; path = LunarRover_English.reality; sourceTree = "<group>"; };
 		D0730C662AFC942700366E8D /* flower_tulip.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = flower_tulip.usdz; sourceTree = "<group>"; };
 		D0730C672AFC942800366E8D /* fender_stratocaster.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = fender_stratocaster.usdz; sourceTree = "<group>"; };
 		D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_drummer_idle.usdz; sourceTree = "<group>"; };
@@ -343,14 +353,19 @@
 		D0730C552AFC826F00366E8D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D00D58652B1BC340000EF8ED /* BONUS_Camero.usdz */,
+				D00D58692B1BC69A000EF8ED /* BONUS_Snowspeeder.usdz */,
+				D00D586F2B1BCA8E000EF8ED /* BONUS_Sci-fi_Girl_v.usdz */,
+				D00D58732B1BD0F4000EF8ED /* BONUS_Candles_set.usdz */,
+				D00D58752B1BD1C5000EF8ED /* BONUS_Metroid_Prime_Form_2.usdz */,
+				D00D58792B1BD2F3000EF8ED /* BONUS_Icosphere_Flower.usdz */,
+				D00D587B2B1BD42B000EF8ED /* BONUS_Solar_System_Model_Orrery.usdz */,
+				D00D58772B1BD24D000EF8ED /* BONUS_Spiderman_2099.usdz */,
 				D0730C672AFC942800366E8D /* fender_stratocaster.usdz */,
 				D0730C662AFC942700366E8D /* flower_tulip.usdz */,
 				D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */,
 				D0730C692AFC942900366E8D /* tv_retro.usdz */,
 				D0730C612AFC838900366E8D /* gramophone.usdz */,
-				D0730C602AFC838800366E8D /* hab_en.reality */,
-				D0730C622AFC838A00366E8D /* LunarRover_English.reality */,
-				D0730C592AFC832C00366E8D /* CosmonautSuit_en.reality */,
 				D0730C582AFC832B00366E8D /* pancakes.usdz */,
 				D0730C572AFC832A00366E8D /* robot_walk_idle.usdz */,
 				D0730C5A2AFC832C00366E8D /* toy_biplane_idle.usdz */,
@@ -479,17 +494,22 @@
 				D0730C6C2AFC942900366E8D /* toy_drummer_idle.usdz in Resources */,
 				D06CFEDB2AE75A2500FFC3F7 /* Preview Assets.xcassets in Resources */,
 				D04F82132B1316D6008484B8 /* GoogleService-Info.plist in Resources */,
+				D00D58662B1BC340000EF8ED /* BONUS_Camero.usdz in Resources */,
 				D0730C6A2AFC942900366E8D /* flower_tulip.usdz in Resources */,
+				D00D587C2B1BD42B000EF8ED /* BONUS_Solar_System_Model_Orrery.usdz in Resources */,
+				D00D58742B1BD0F4000EF8ED /* BONUS_Candles_set.usdz in Resources */,
 				D0730C6B2AFC942900366E8D /* fender_stratocaster.usdz in Resources */,
-				D0730C652AFC838A00366E8D /* LunarRover_English.reality in Resources */,
 				D0730C642AFC838A00366E8D /* gramophone.usdz in Resources */,
+				D00D58762B1BD1C5000EF8ED /* BONUS_Metroid_Prime_Form_2.usdz in Resources */,
 				D0730C5C2AFC832C00366E8D /* robot_walk_idle.usdz in Resources */,
 				D0730C5D2AFC832C00366E8D /* pancakes.usdz in Resources */,
-				D0730C632AFC838A00366E8D /* hab_en.reality in Resources */,
 				D0730C5F2AFC832C00366E8D /* toy_biplane_idle.usdz in Resources */,
 				D0730C6D2AFC942900366E8D /* tv_retro.usdz in Resources */,
+				D00D586A2B1BC69B000EF8ED /* BONUS_Snowspeeder.usdz in Resources */,
+				D00D58702B1BCA8E000EF8ED /* BONUS_Sci-fi_Girl_v.usdz in Resources */,
+				D00D58782B1BD24D000EF8ED /* BONUS_Spiderman_2099.usdz in Resources */,
+				D00D587A2B1BD2F3000EF8ED /* BONUS_Icosphere_Flower.usdz in Resources */,
 				D06CFED82AE75A2500FFC3F7 /* Assets.xcassets in Resources */,
-				D0730C5E2AFC832C00366E8D /* CosmonautSuit_en.reality in Resources */,
 				D0730C5B2AFC832C00366E8D /* toy_car.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

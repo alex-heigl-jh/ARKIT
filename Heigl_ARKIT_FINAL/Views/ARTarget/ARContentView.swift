@@ -28,9 +28,29 @@ struct ARContentView: View {
 		}
 		
 		return files.compactMap { filename in
-			filename.hasSuffix("usdz") ? Model(modelName: filename.replacingOccurrences(of: ".usdz", with: "")) : nil
+			if filename.hasSuffix("usdz") && !filename.hasPrefix("BONUS_") {
+				return Model(modelName: filename.replacingOccurrences(of: ".usdz", with: ""))
+			}
+			return nil
 		}
 	}
+
+	
+	// Function to load .reality models (similar to loadUSDZModels)
+	private static func loadBonusModels() -> [Model] {
+		let filemanager = FileManager.default
+		guard let path = Bundle.main.resourcePath, let files = try? filemanager.contentsOfDirectory(atPath: path) else {
+			return []
+		}
+		
+		return files.compactMap { filename in
+			if filename.hasSuffix("usdz") && filename.hasPrefix("BONUS_") {
+				return Model(modelName: filename.replacingOccurrences(of: ".usdz", with: ""))
+			}
+			return nil
+		}
+	}
+
 	
 	@StateObject private var locationManager = LocationManager()
 	
@@ -56,6 +76,10 @@ struct ARContentView: View {
 	@State private var showPreviewController = false
 	@State private var previewController: RPPreviewViewController?
 	
+	// Variable for controlling RealityPlacementButtonsView
+	@State private var isBonusModelsPlacementEnabled = false
+	// Variable to hold the reality models
+	@State private var realityModels: [Model] = loadBonusModels()
 	
 	var body: some View {
 		
@@ -71,6 +95,12 @@ struct ARContentView: View {
 										 isUSDZPlacementEnabled: self.$isUSDZPlacementEnabled,
 										 models: usdzModels)
 			}
+			// Display RealityPlacementButtonsView when isRealityPlacementEnabled is true
+			else if self.isBonusModelsPlacementEnabled {
+				BonusModelsPlacementButtonsView(selectedModel: self.$selectedModel,
+												isBonusModelsPlacementEnabled: self.$isBonusModelsPlacementEnabled,
+												models: realityModels)
+			}
 			// If the user selects that they would like to place a block, display scroll menu that allows them to select the desired block
 			else if self.isBoxColorSelectEnabled {
 				SelectBoxColorView(isBoxColorSelectEnabled: self.$isBoxColorSelectEnabled)
@@ -82,6 +112,7 @@ struct ARContentView: View {
 					isUSDZPlacementEnabled: $isUSDZPlacementEnabled,
 					isVideoCaptureEnabled: $isVideoCaptureEnabled,
 					isFocusEntityEnabled: $isFocusEntityEnabled,
+					isBonusModelsPlacementEnabled: $isBonusModelsPlacementEnabled,
 					presentationMode: _presentationMode,
 					locationManager: locationManager,
 					managedObjectContext: managedObjectContext,
@@ -157,9 +188,6 @@ struct ARContentView: View {
 }
 
 
-
-
-
 // Default scroll view at the bottom of the view
 struct ModelPickerView: View {
 	
@@ -167,6 +195,7 @@ struct ModelPickerView: View {
 	@Binding var isUSDZPlacementEnabled: Bool
 	@Binding var isVideoCaptureEnabled: Bool
 	@Binding var isFocusEntityEnabled: Bool
+	@Binding var isBonusModelsPlacementEnabled: Bool
 	@Environment(\.presentationMode) var presentationMode
 	
 	var locationManager: LocationManager
@@ -224,13 +253,28 @@ struct ModelPickerView: View {
 					print("DEBUG: USDZ models placement selection button selected")
 					isUSDZPlacementEnabled = true
 				}) {
-					Image(systemName: "camera.macro")
+					Image(systemName: "apple.logo")
 						.font(.system(size: 30)) 		// Adjust the size as needed
 						.frame(width: 40, height: 40) 	// Set the frame for the button
 						.foregroundColor(.white) 		// Change the color of the symbol
 						.padding() 						// Padding inside the button
 						.background(Color.blue) 		// Change the background color of the button
 						.cornerRadius(16) 				// Rounded corners for the button
+				}
+				
+				// New Bonus model selection button
+				Button(action: {
+					print("DEBUG: Bonus models placement selection button selected")
+					isBonusModelsPlacementEnabled.toggle()
+					print("isBonusModelsPlacementEnabled set to \(isBonusModelsPlacementEnabled)")
+				}) {
+					Image(systemName: "cube.transparent")
+						.font(.system(size: 30))       // Adjust the size as needed
+						.frame(width: 40, height: 40)  // Set the frame for the button
+						.foregroundColor(.white)       // Change the color of the symbol
+						.padding()                     // Padding inside the button
+						.background(Color.blue)        // Change the background color of the button
+						.cornerRadius(16)              // Rounded corners for the button
 				}
 				
 				Button {
@@ -454,6 +498,63 @@ struct USDZPlacementButtonsView: View {
 		.background(Color.black.opacity(0.5))
 	}
 }
+
+// View displayed to the user if the reality model placement button is selected
+struct BonusModelsPlacementButtonsView: View {
+
+	@Binding var selectedModel: Model?
+	@Binding var isBonusModelsPlacementEnabled: Bool
+
+	var models: [Model] // This should be your array of reality models
+
+	var body: some View {
+		ScrollView(.horizontal, showsIndicators: false) {
+			HStack {
+				// Back button
+				Button(action: {
+					print("DEBUG: Reality model placement back button selected")
+					isBonusModelsPlacementEnabled = false
+				}) {
+					Image(systemName: "arrowshape.turn.up.backward.fill")
+						.frame(width: 60, height: 60)
+						.font(.title)
+						.background(Color.white.opacity(0.75))
+						.cornerRadius(30)
+						.padding(20)
+				}
+
+				// Display the options for reality models
+				ForEach(0 ..< self.models.count) { index in
+					Button(action: {
+						print("DEBUG: selected reality model with name \(models[index].modelName)")
+						selectedModel = models[index]
+
+						if let model = selectedModel {
+							ARManager.shared.actionStream.send(.loadModel(model))
+							print("DEBUG: Sent reality model through actionStream")
+						}
+
+						DispatchQueue.main.async {
+							selectedModel = nil
+						}
+					}) {
+						Image(uiImage: self.models[index].image)
+							.resizable()
+							.frame(height: 80)
+							.aspectRatio(1/1, contentMode: .fit)
+							.background(Color.white)
+							.cornerRadius(12)
+					}
+					.buttonStyle(PlainButtonStyle())
+					.padding()
+				}
+			}
+		}
+		.padding(20)
+		.background(Color.black.opacity(0.5))
+	}
+}
+
 
 struct PreviewControllerWrapper: UIViewControllerRepresentable {
 	let previewController: RPPreviewViewController
