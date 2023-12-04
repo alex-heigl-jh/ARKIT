@@ -18,6 +18,11 @@ struct LoadingView: View {
   }
 
   var body: some View {
+  Image("applicationLogo") // Replace with your image name
+	  .resizable()
+	  .aspectRatio(contentMode: .fit)
+	  .foregroundColor(.blue) // This might not be needed if your image already has colors
+	  .padding(30)
     Text("Loading Data from Network...")
       .task {
 //        await dataModel.loadAllData(from: .Web, isLoaded: _networkDataLoaded) // Load Data from JSON files on server

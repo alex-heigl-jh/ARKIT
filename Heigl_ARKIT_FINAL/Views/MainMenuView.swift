@@ -49,7 +49,7 @@ struct MainMenuView: View {
 		.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
 		.edgesIgnoringSafeArea(.all)
 	}
-
+	
 
 	var body: some View {
 		ZStack {
@@ -74,7 +74,7 @@ struct MainMenuView: View {
 
 				Spacer()  // Pushes content downwards
 			}
-			.padding()
+			.padding([.leading, .trailing], 20)
 			.edgesIgnoringSafeArea(.top)
 
 			// Ad Banner positioned absolutely at the bottom
@@ -96,7 +96,7 @@ struct MainMenuView: View {
                         Image(systemName: imageName)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: (UIScreen.main.bounds.width - 40) / 3) // Divide by 3 because we have 3 images
+                            .frame(width: (UIScreen.main.bounds.width - 120) / 3) // Divide by 3 because we have 3 images
                             .foregroundColor(colors[1]) // Set the color of the SF Symbol
                     }
                 }
@@ -135,14 +135,22 @@ struct MainMenuView: View {
 
 	// Function to check IAP status
 	private func checkIAPStatus() {
-		// Here you should check if the user has purchased the IAP to disable ads
-		// For now, it's just a placeholder
-		// You'll replace this with your actual IAP checking logic
+		// Check if the user has purchased the IAP to disable ads
 		let hasPurchasedRemoveAds = UserDefaults.standard.bool(forKey: "removeAdsPurchased")
 		showAd = !hasPurchasedRemoveAds
 		print("showAd set to \(showAd)")
 	}
 	
+	// Initialize UserDefaults if they don't exist
+	private func initializeUserDefaults() {
+		if UserDefaults.standard.object(forKey: "selectedMapStyle") == nil {
+			UserDefaults.standard.set(0, forKey: "selectedMapStyle") // 0 for .standard
+		}
+		if UserDefaults.standard.object(forKey: "metallicBoxesEnabled") == nil {
+			UserDefaults.standard.set(false, forKey: "metallicBoxesEnabled")
+		}
+	}
+
 	
 	struct CustomTitleView: View {
 		var body: some View {

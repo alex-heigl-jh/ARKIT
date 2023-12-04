@@ -16,15 +16,21 @@
  
  */
 
+#if !targetEnvironment(simulator)
 import ARKit
+import RealityKit
+#endif
+
+
+
 import Combine
 import FocusEntity
 import Photos
-import RealityKit
 import ReplayKit
 import SwiftUI
 
 
+#if !targetEnvironment(simulator)
 class CustomARView: RealityKit.ARView {
 	
 	enum FocusStyleChoices {
@@ -214,8 +220,11 @@ class CustomARView: RealityKit.ARView {
 	// Function that places a colored block in the AR view
 	func placeBlock(ofColor color: Color) {
 		
+		// Retrieve the isMetallic value from UserDefaults
+		let isMetallic = UserDefaults.standard.bool(forKey: "metallicBoxesEnabled")
+		
 		let block = MeshResource.generateBox(size: 0.25)
-		let material = SimpleMaterial(color: UIColor(color), isMetallic: false)
+		let material = SimpleMaterial(color: UIColor(color), isMetallic: isMetallic)
 		let entity = ModelEntity(mesh: block, materials: [material])
 		
 		let anchor = AnchorEntity(plane: .any)
@@ -368,3 +377,5 @@ extension CustomARView: RPPreviewViewControllerDelegate {
 		previewController.dismiss(animated: true)
 	}
 }
+
+#endif

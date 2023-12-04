@@ -2,14 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleIdentifier</key>
+	<string>Augment</string>
+	<key>CFBundleName</key>
+	<string>Augment</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSMicrophoneUsageDescription</key>
-		<string>Needed to record audio during video recordings!</string>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Needed to export AR Media to your photos library!</string>
-		<key>NSPhotoLibraryAddUsageDescription</key>
-		<string>Needed to save photos to your library! </string>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>159.203.191.136</key>
@@ -20,6 +18,12 @@
 				<true/>
 			</dict>
 		</dict>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>Needed to record audio during video recordings!</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>Needed to save photos to your library! </string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Needed to export AR Media to your photos library!</string>
 	</dict>
 </dict>
 </plist>

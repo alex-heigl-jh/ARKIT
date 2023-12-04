@@ -8,8 +8,10 @@
 
 import Foundation
 import SwiftUI
-import ARKit
 import ReplayKit
+
+#if !targetEnvironment(simulator)
+import ARKit
 
 struct CustomARViewRepresentable: UIViewRepresentable {
 	func makeUIView(context: Context) -> CustomARView {
@@ -30,3 +32,4 @@ struct CustomARViewRepresentable: UIViewRepresentable {
 		}
 	}
 }
+#endif

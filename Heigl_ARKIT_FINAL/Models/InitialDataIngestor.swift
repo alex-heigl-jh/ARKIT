@@ -24,6 +24,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 	@Published var newsFeed: [NewsFeedJSON]?
 	@Published var safety: [SafetyJSON]?
 	@Published var iaps: [IAPJSON]?
+	@Published var faqs: [FAQJSON]?
     
 	// Function for generating random dates in November
 	func randomDateInNovember() -> Date {
@@ -65,7 +66,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		}
 		
 		let news1 = NewsFeedJSON(
-			newsContent: "Enjoying a delicious cheeseburger at AJ Bombers in Milwaukee. The cheese curds here are to die for!",
+			newsContent: "Enjoying a delicious cheeseburger at AJ Bombers in Milwaukee. Amazing cheese curds and drinks! 🍔",
 			newsCreatedOn: randomDateInNovember(),
 			newsID: UUID(),
 			mediaURL: "https://pbs.twimg.com/media/FA4Lh22XsAgzsBN?format=jpg&name=large",
@@ -162,42 +163,89 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		let safety1 = SafetyJSON(
 			safContent: "When using AR apps, it's important to be aware of your surroundings to avoid tripping over obstacles or colliding with objects.",
 			safID: UUID(),
-			safPicture: "https://allrisktraining.com/allrisktraining/wp-content/uploads/2013/10/blog3.jpg",
 			safTitle: "Be Aware of Your Surroundings",
-			safVideo: nil
+			mediaURL: "https://allrisktraining.com/allrisktraining/wp-content/uploads/2013/10/blog3.jpg",
+			mediaType: "image"
 		)
 		let safety2 = SafetyJSON(
 			safContent: "Prolonged use of AR apps may cause eye strain or fatigue. Remember to take regular breaks to rest your eyes.",
 			safID: UUID(),
-			safPicture: "https://www.eyesightassociates.com/wp-content/uploads/2017/02/iStock-492322226-low-res-400x300.jpg",
 			safTitle: "Prevent Eye Strain",
-			safVideo: nil
+			mediaURL: "https://www.eyesightassociates.com/wp-content/uploads/2017/02/iStock-492322226-low-res-400x300.jpg",
+			mediaType: "image"
 		)
 		let safety3 = SafetyJSON(
 			safContent: "AR applications may use a lot of battery power. Ensure your device is sufficiently charged before extended use.",
 			safID: UUID(),
-			safPicture: "https://support.apple.com/library/content/dam/edam/applecare/images/en_US/iOS/ios-16-1-iphone-13-pro-settings-battery.png",
 			safTitle: "Monitor Battery Usage",
-			safVideo: nil
+			mediaURL: "https://support.apple.com/library/content/dam/edam/applecare/images/en_US/iOS/ios-16-1-iphone-13-pro-settings-battery.png",
+			mediaType: "image"
 		)
 		let safety4 = SafetyJSON(
 			safContent: "Using headphones while using AR apps can lead to reduced awareness of your surroundings. Use at a low volume or use open-ear headphones.",
 			safID: UUID(),
-			safPicture: "https://static.vecteezy.com/system/resources/thumbnails/005/863/329/small_2x/no-headphones-sign-headphones-forbidden-icon-illustration-free-vector.jpg",
 			safTitle: "Sound Safety",
-			safVideo: nil
+			mediaURL: "https://static.vecteezy.com/system/resources/thumbnails/005/863/329/small_2x/no-headphones-sign-headphones-forbidden-icon-illustration-free-vector.jpg",
+			mediaType: "image"
 		)
 		let safety5 = SafetyJSON(
 			safContent: "Ensure that your AR app has appropriate privacy settings. This application requires access to the camera and the users location to function properly.",
 			safID: UUID(),
-			safPicture: "https://support.apple.com/library/content/dam/edam/applecare/images/en_US/iOS/ios-16-iphone-14-pro-maps-allow-maps-to-access-location-while-using-app.png",
 			safTitle: "Privacy Concerns",
-			safVideo: nil
+			mediaURL: "https://support.apple.com/library/content/dam/edam/applecare/images/en_US/iOS/ios-16-iphone-14-pro-maps-allow-maps-to-access-location-while-using-app.png",
+			mediaType: "image"
+			
 		)
 		
 		// Store sample safety data in a variable or use them as needed
 		self.safety = [safety1, safety2, safety3, safety4, safety5]
 	}
+	
+	
+	func loadFAQData() throws {
+		// Generate sample safety data
+		let FAQ1 = FAQJSON(
+			faqContent: "To delete a single model from the AR Scene, just press and hold the AR object with a long finger press. Use the trash icon button to delete all of the models from a scene.",
+			faqID: UUID(),
+			faqTitle: "Deleting Models from Scene",
+			mediaURL: "https://github.com/maxxfrazer/FocusEntity/blob/main/media/focusentity-dali.gif",
+			mediaType: "image"
+		)
+		let FAQ2 = FAQJSON(
+			faqContent: "All the models and blocks that you place in a scene can be rotated and resized by using two-finger 'pinch' gestures. To move an object, press on the obect in the scene and drag it to the desired location in the scene",
+			faqID: UUID(),
+			faqTitle: "Modifying Models in the Scene",
+			mediaURL: "https://github.com/maxxfrazer/FocusEntity/blob/main/media/focusentity-dali.gif",
+			mediaType: "image"
+		)
+		let FAQ3 = FAQJSON(
+			faqContent: "Some models have built in animations. To trigger these animations, single press the model after its placed. The apple models that have animations are the airplane, robot, and drummer boy. The internet models that have animations are the solar system model, spider man model, and scary alien model.",
+			faqID: UUID(),
+			faqTitle: "Triggering Model Animations in Screen",
+			mediaURL: "https://github.com/maxxfrazer/FocusEntity/blob/main/media/focusentity-dali.gif",
+			mediaType: "image"
+		)
+		let FAQ4 = FAQJSON(
+			faqContent: "When you first start using the augmented reality, scan the room with the camera so that the software can map the room. This will result in smoother user expeirence when placing and navigating around objects in the scene.",
+			faqID: UUID(),
+			faqTitle: "Optimzing AR Experience",
+			mediaURL: "https://github.com/maxxfrazer/FocusEntity/blob/main/media/focusentity-dali.gif",
+			mediaType: "image"
+		)
+		let FAQ5 = FAQJSON(
+			faqContent: "There is an entity box that can be enabled or disabled by pressing the cross-hairs button in the AR view main menu. When the box is solid, that means the software can place a model on this vertical or horizontal surface. If the box is broken into four pieces, that means the software has not identfied a location where it can place an anchor for a model or box.",
+			faqID: UUID(),
+			faqTitle: "How to Place Objects",
+			mediaURL: "https://github.com/maxxfrazer/FocusEntity/blob/main/media/focusentity-dali.gif",
+			mediaType: "image"
+			
+		)
+		
+		// Store sample safety data in a variable or use them as needed
+		self.faqs = [FAQ1, FAQ2, FAQ3, FAQ4, FAQ5]
+	}
+	
+	
 	
 	func loadSampleIAPs() throws {
 		let iap1 = IAPJSON(name: "edu.jhu.ep.ARKit.DisableAds", desc: "Unlock to disable banner advertisements", price: 1.99, purchased: false)
@@ -269,9 +317,9 @@ class InitialDataIngestor: NSObject, ObservableObject {
 			Safety.createWith(
 				safContent: saf.safContent,
 				safID: saf.safID,
-				safPicture: saf.safPicture ?? "nil",
 				safTitle: saf.safTitle,
-				safVideo: saf.safVideo ?? "nil",
+				mediaURL: saf.mediaURL,
+				mediaType: saf.mediaType,
 				in: backgroundContext
 			)
 		}
@@ -280,7 +328,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		do {
 			try backgroundContext.save()
 		} catch {
-			print("Error saving news feed data to CoreData:", error)
+			print("Error saving news safety data to CoreData:", error)
 		}
 	}
 	
@@ -305,6 +353,28 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		}
 	}
 	
+	func storeFAQsInDatabase(faqs: [FAQJSON]) {
+		print("Storing \(faqs.count) FAQ entries in database...")
+		let backgroundContext = PersistenceController.shared.newTaskContext()
+		faqs.forEach { faq in
+			FAQ.createWith(
+				faqContent: faq.faqContent,
+				faqID: faq.faqID,
+				faqTitle: faq.faqTitle,
+				mediaURL: faq.mediaURL,
+				mediaType: faq.mediaType,
+				in: backgroundContext
+			)
+		}
+
+		// Save context
+		do {
+			try backgroundContext.save()
+		} catch {
+			print("Error saving IAP data to CoreData:", error)
+		}
+	}
+	
     //MARK: -- SINGLE METHOD TO LOAD DATA FROM A GIVEN SOURCE
     func loadAllData(from: LoadingType, isLoaded: Binding<Bool>) async {
         CoreDataHelper.emptyDB()
@@ -315,6 +385,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 				try loadSampleNewsFeed()
 				try loadSafetyData()
 				try loadSampleIAPs()
+				try loadFAQData()
                 print("Loading Samples Locally")
             case .LocalJSON:
                 print("Local JSON Option selected, laoding from this not functional at this time")
@@ -327,6 +398,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 			storeNewsFeedInDatabase(newsFeeds: newsFeed ?? [])
 			storeSafetyInDatabase(safety: safety ?? [])
 			storeIAPsInDatabase(iaps: iaps ?? [])
+			storeFAQsInDatabase(faqs: faqs ?? [])
             
             try PersistenceController.shared.container.viewContext.save()
             

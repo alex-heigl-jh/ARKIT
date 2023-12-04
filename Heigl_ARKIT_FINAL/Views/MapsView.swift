@@ -9,7 +9,6 @@ import MapKit
 import CoreLocation
 import CoreData
 
-
 struct MapsView: View {
 	
 	@FetchRequest(
@@ -38,10 +37,11 @@ struct MapsView: View {
 	
 	@State private var arItemLocations: [ARItemLocation] = []
 	
+	@State private var selectedMapStyle: MapStyle = .standard
+
+	
 	var body: some View {
 		Map(position: $cameraPosition, selection: $mapSelection){
-			
-//			UserAnnotation()
 			if let userCoordinate = locationManager.location?.coordinate{
 				Annotation("My Location", coordinate: userCoordinate){
 					ZStack {
@@ -88,6 +88,8 @@ struct MapsView: View {
 			}
 
 		}
+		
+		
 		// Code block that displays search bar at top of view
 		.overlay(alignment: .top) {
 			HStack {
@@ -105,6 +107,19 @@ struct MapsView: View {
 			.padding(.top, 5) // Add top padding to create space between the search bar and top of the screen
 		}
 		.onAppear{
+			
+			let storedMapStyleRawValue = UserDefaults.standard.integer(forKey: "selectedMapStyle")
+
+			if storedMapStyleRawValue == 0 {
+				selectedMapStyle = .standard
+			} else if storedMapStyleRawValue == 1 {
+				selectedMapStyle = .imagery
+			} else if storedMapStyleRawValue == 2 {
+				selectedMapStyle = .hybrid
+			} else {
+				selectedMapStyle = .standard // Default value if the value from UserDefaults isn't valid
+			}
+			
 			loadARItemLocations()
 			if let newLocation = locationManager.location {
 				let newRegion = MKCoordinateRegion(center: newLocation.coordinate,
@@ -169,11 +184,15 @@ struct MapsView: View {
 				.presentationBackgroundInteraction(.enabled(upThrough: .height(340)))
 				.presentationCornerRadius(12)
 		})
+		
+		.mapStyle(selectedMapStyle)
+		
 		// Built-In MapKit controls / buttons / function
 		.mapControls {
 			MapCompass()
 			MapPitchToggle()
 			MapUserLocationButton()
+			MapScaleView()
 		}
 	}
 	func loadARItemLocations() {
@@ -296,5 +315,4 @@ struct MapsView_Previews: PreviewProvider {
 		MapsView()
 	}
 }
-
 

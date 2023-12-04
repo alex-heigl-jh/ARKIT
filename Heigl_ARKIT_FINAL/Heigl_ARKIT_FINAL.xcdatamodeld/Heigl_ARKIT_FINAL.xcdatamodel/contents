@@ -6,10 +6,9 @@
     <entity name="FAQ" representedClassName="FAQ" syncable="YES" codeGenerationType="class">
         <attribute name="faqContent" optional="YES" attributeType="String"/>
         <attribute name="faqID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="faqPicture1" optional="YES" attributeType="String"/>
-        <attribute name="faqPicture2" optional="YES" attributeType="String"/>
         <attribute name="faqTitle" optional="YES" attributeType="String"/>
-        <attribute name="faqVideo" optional="YES" attributeType="String"/>
+        <attribute name="mediaType" optional="YES" attributeType="String"/>
+        <attribute name="mediaURL" optional="YES" attributeType="String"/>
     </entity>
     <entity name="IAP" representedClassName="IAP" syncable="YES" codeGenerationType="class">
         <attribute name="desc" optional="YES" attributeType="String"/>
@@ -37,11 +36,11 @@
         <attribute name="notType" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Safety" representedClassName="Safety" syncable="YES" codeGenerationType="class">
+        <attribute name="mediaType" optional="YES" attributeType="String"/>
+        <attribute name="mediaURL" optional="YES" attributeType="String"/>
         <attribute name="safContent" attributeType="String"/>
         <attribute name="safID" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="safPicture" optional="YES" attributeType="String"/>
         <attribute name="safTitle" attributeType="String"/>
-        <attribute name="safVideo" optional="YES" attributeType="String"/>
     </entity>
     <entity name="SettingsPreferences" representedClassName="SettingsPreferences" syncable="YES" codeGenerationType="class">
         <attribute name="lightDark" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

@@ -14,7 +14,7 @@ extension NewsFeed {
 		newsCreatedOn: Date,
 		newsID: UUID,
 		mediaURL: String?,
-		mediaType: String?, // New field
+		mediaType: String?,
 		newsPosterID: String,
 		in context: NSManagedObjectContext
 	) {

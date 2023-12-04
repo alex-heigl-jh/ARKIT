@@ -3,8 +3,15 @@
     {
       "filename" : "DALL·E 2023-12-03 21.19.24 - A modern and sleek logo for an augmented reality app named 'Augment', featuring a stylized letter 'A' in deep purple. The logo includes a silhouette o.png",
       "idiom" : "universal",
-      "platform" : "ios",
-      "size" : "1024x1024"
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

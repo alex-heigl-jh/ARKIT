@@ -9,28 +9,30 @@ import Foundation
 import CoreData
 
 extension Safety {
-
   static func createWith(
-    safContent: String,
-    safID: UUID,
-    safPicture: String,
-    safTitle: String,
-    safVideo: String,
-    in context: NSManagedObjectContext
+	safContent: String,
+	safID: UUID,
+	safTitle: String,
+	mediaURL: String,
+	mediaType: String,
+	in context: NSManagedObjectContext
   ) {
-    context.perform {
-        let item = Safety(context: context)
-        item.safContent = safContent
-        item.safID = safID
-        item.safPicture = safPicture
-        item.safTitle = safTitle
-        item.safVideo = safVideo
-		print("Safety object \(safTitle) created.")
-      do {
-        try context.save()
-      } catch {
-        fatalError("Problem saving Saftey to CoreData")
-      }
-    }
+	context.perform {
+		let item = Safety(context: context)
+		item.safContent = safContent
+		item.safID = safID
+		item.safTitle = safTitle
+		item.mediaURL = mediaURL
+		item.mediaType = mediaType
+		print("DEBUG: Safety object \(safTitle) with ID \(safID) is being created.")
+
+		do {
+			try context.save()
+			print("DEBUG: Safety object \(safTitle) with ID \(safID) saved successfully.")
+		} catch {
+			print("ERROR: Problem saving Safety \(safTitle) with ID \(safID) to CoreData. Error: \(error)")
+		}
+	}
   }
 }
+

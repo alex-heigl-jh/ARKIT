@@ -20,10 +20,10 @@ struct RegistrationView: View {
 	var body: some View {
 		VStack{
 			// Logo for AR - Using "arkit" system symbol
-			Image(systemName: "arkit")
+			Image("applicationLogo") // Replace with your image name
 				.resizable()
 				.aspectRatio(contentMode: .fit)
-				.foregroundColor(.blue)
+				.foregroundColor(.blue) // This might not be needed if your image already has colors
 				.padding(30)
 			// Form Fields
 			VStack(spacing: 24) {

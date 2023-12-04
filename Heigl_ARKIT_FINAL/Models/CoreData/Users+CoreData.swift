@@ -8,8 +8,6 @@ import Foundation
 import CoreData
 
 extension User {
-
-  // Existing function to create a user
   static func createWith(
 	firstName: String,
 	lastName: String,

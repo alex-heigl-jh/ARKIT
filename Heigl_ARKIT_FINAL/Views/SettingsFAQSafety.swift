@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 import Foundation
+import AVKit
 
 struct SettingsPreferencesSafetyView: View {
 	@State private var selectedSection: Int = 0
@@ -61,6 +62,10 @@ struct ProfileSettingsView: View {
 	var iapDelegate: IAPViewDelegate = IAPViewDelegate()
 	@State private var isResearchKitShowing: Bool = false
 	@State private var isAdRemoved: Bool = UserDefaults.standard.bool(forKey: "removeAdsPurchased")
+	@State private var mapsDisplayEnabled: Bool = UserDefaults.standard.bool(forKey: "mapsDisplayEnabled")
+	@State private var metallicBoxesEnabled: Bool = UserDefaults.standard.bool(forKey: "metallicBoxesEnabled")
+
+	@State private var selectedMapStyleIndex: Int
 
 	
 	@FetchRequest(
@@ -68,7 +73,21 @@ struct ProfileSettingsView: View {
 	) var allIAP: FetchedResults<IAP>
 	
 //	@FetchRequest(entity: Safety.entity(), sortDescriptors: [])
+	
+	init() {
+		let savedMapStyleRawValue = UserDefaults.standard.integer(forKey: "selectedMapStyle")
 		
+		// Initialize the state variable directly without using the underscore
+		_selectedMapStyleIndex = State(initialValue: savedMapStyleRawValue)
+		
+		if let mapStyle = MapStyleDropDown(rawValue: savedMapStyleRawValue) {
+			print("Loaded saved map style: \(mapStyle.title)")
+		} else {
+			print("No saved map style found. Set to default: Standard")
+			UserDefaults.standard.set(MapStyleDropDown.standard.rawValue, forKey: "selectedMapStyle")
+		}
+	}
+	
 	
 	var body: some View {
 		if let user = viewModel.currentUser {
@@ -105,7 +124,7 @@ struct ProfileSettingsView: View {
 					.cornerRadius(10)
 					.shadow(radius: 1)
 
-					// General Section
+					// App Version Info Section
 					VStack(spacing: 8) {
 						HStack {
 							Image(systemName: "gear")
@@ -176,7 +195,7 @@ struct ProfileSettingsView: View {
 							.frame(maxWidth: .infinity, alignment: .leading)
 							.padding(.horizontal)
 						
-						Divider() // Optional: To visually separate the title from the buttons
+						Divider() // To visually separate the title from the buttons
 
 						if !isAdRemoved {
 							Button(action: {
@@ -193,6 +212,7 @@ struct ProfileSettingsView: View {
 							}
 							.frame(maxWidth: .infinity, alignment: .leading)
 						}
+						
 						
 //						Button(action: {
 //							// Action to purchase AR Model Pack
@@ -213,6 +233,72 @@ struct ProfileSettingsView: View {
 					.cornerRadius(10)
 					.shadow(radius: 1)
 					
+					// App Settings Section
+					VStack(spacing: 8) {
+						Text("Configurable App Settings")
+							.font(.headline)
+							.foregroundColor(.black)
+							.frame(maxWidth: .infinity, alignment: .leading)
+							.padding(.horizontal)
+						
+						Divider()
+
+//						Picker("Map Style", selection: $selectedMapStyleIndex) {
+//							Text("Standard").tag(0)
+//							Text("Satellite").tag(1)
+//							Text("Hybrid").tag(2)
+//						}
+//						.onChange(of: selectedMapStyleIndex) { newValue in
+//							UserDefaults.standard.set(newValue, forKey: "selectedMapStyle")
+//							if let newMapStyle = MapStyleDropDown(rawValue: newValue) {
+//								print("Map style changed to: \(newMapStyle.title)")
+//							} else {
+//								print("Invalid map style index: \(newValue)")
+//							}
+//						}
+
+							
+						// Title for the Picker
+						HStack {
+							Text("Map Style:")
+								.font(.headline) // You can adjust the font as needed
+								.foregroundColor(.black) // Set the color as needed
+							
+							Picker("Select a style", selection: $selectedMapStyleIndex) {
+								Text("Standard").tag(0)
+								Text("Satellite").tag(1)
+								Text("Hybrid").tag(2)
+							}
+							.onChange(of: selectedMapStyleIndex) { newValue in
+								UserDefaults.standard.set(newValue, forKey: "selectedMapStyle")
+								if let newMapStyle = MapStyleDropDown(rawValue: newValue) {
+									print("Map style changed to: \(newMapStyle.title)")
+								} else {
+									print("Invalid map style index: \(newValue)")
+								}
+							}
+							// You may need to adjust the frame or padding here to get the layout you want
+							.frame(maxWidth: .infinity)
+						}
+
+						.padding()
+
+						HStack {
+							Text("Enable Metallic Boxes in AR")
+								.foregroundColor(.black) // Ensure the text color is visible against the background
+							Toggle("", isOn: $metallicBoxesEnabled)
+								.labelsHidden() // This hides the default label of the Toggle
+						}
+						.onChange(of: metallicBoxesEnabled) { newValue in
+							UserDefaults.standard.set(newValue, forKey: "metallicBoxesEnabled")
+						}
+						.padding()
+					}
+					.padding(.vertical)
+					.background(Color.white)
+					.cornerRadius(10)
+					.shadow(radius: 1)
+
 				}
 				.padding(.horizontal)
 			}
@@ -228,14 +314,53 @@ struct ProfileSettingsView: View {
 	}
 }
 
-// FAQ Content View
+enum MapStyleDropDown: Int {
+	case standard = 0
+	case satellite = 1
+	case hybrid = 2
+
+	var title: String {
+		switch self {
+		case .standard: return "Standard"
+		case .satellite: return "Satellite"
+		case .hybrid: return "Hybrid"
+		}
+	}
+}
+
+// FAQ Content View with dividers and vertical padding
 struct FAQView: View {
-    var body: some View {
-        VStack {
-            Text("FAQ Content")
-            // Add more UI components specific to FAQ here
-        }
-    }
+	@FetchRequest(
+		entity: FAQ.entity(),
+		sortDescriptors: [NSSortDescriptor(keyPath: \FAQ.faqTitle, ascending: true)]
+	) var faqs: FetchedResults<FAQ>
+
+	var body: some View {
+		ScrollView {
+			VStack(alignment: .leading, spacing: 10) {
+				ForEach(faqs, id: \.faqID) { faq in
+					VStack(alignment: .leading) {
+						Text(faq.faqTitle ?? "No Title")
+							.font(.headline)
+							.foregroundColor(.primary)
+						Text(faq.faqContent ?? "No Content")
+							.font(.body)
+							.foregroundColor(.secondary)
+							.padding(.vertical, 4) // Added vertical padding
+					}
+					.padding()
+					.background(Color(.systemBackground))
+					.cornerRadius(10)
+					.shadow(radius: 3)
+
+					if faqs.last != faq {
+						Divider() // Add a divider if it's not the last item
+					}
+				}
+			}
+			.padding()
+		}
+	}
 }
 
 struct SafetyView: View {
@@ -256,14 +381,6 @@ struct SafetyView: View {
 	}
 }
 
-
-struct SettingsPreferencesSafetyView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsPreferencesSafetyView()
-    }
-}
-
-
 struct SafetyCardView: View {
 	var safetyEntry: Safety
 
@@ -272,24 +389,35 @@ struct SafetyCardView: View {
 			Text(safetyEntry.safTitle ?? "No Title")
 				.font(.headline)
 				.multilineTextAlignment(.center)
-				.frame(maxWidth: .infinity) // Use the full width available
-				.foregroundColor(.black) // Ensure the text is visible on a light background
+				.frame(maxWidth: .infinity)
+				.foregroundColor(.black)
 
-			URLImage(url: safetyEntry.safPicture ?? "")
-				.frame(width: 150, height: 150) // Adjust the size as needed
-				.cornerRadius(10)
-				.padding(.bottom, 10) // Space between image and text
+			if safetyEntry.mediaType == "image" {
+				// Display image
+				URLImage(url: safetyEntry.mediaURL ?? "")
+					.frame(width: 150, height: 150)
+					.cornerRadius(10)
+					.padding(.bottom, 10)
+			} else if safetyEntry.mediaType == "video" {
+				// Display video player
+				if let videoURL = URL(string: safetyEntry.mediaURL ?? "") {
+					VideoPlayer(player: AVPlayer(url: videoURL))
+						.frame(width: 150, height: 150)
+						.cornerRadius(10)
+						.padding(.bottom, 10)
+				}
+			}
 
 			Text(safetyEntry.safContent ?? "No Content")
 				.font(.body)
 				.multilineTextAlignment(.center)
 				.padding()
-				.frame(maxWidth: .infinity) // Use the full width available
+				.frame(maxWidth: .infinity)
 				.foregroundColor(.black)
 		}
 		.padding()
 		.frame(width: UIScreen.main.bounds.width - 40, alignment: .center)
-		.background(Color.white)
+		.background(Color.gray)
 		.cornerRadius(10)
 		.shadow(radius: 5)
 	}
@@ -339,3 +467,5 @@ struct URLImage: View {
 		}.resume()
 	}
 }
+
+

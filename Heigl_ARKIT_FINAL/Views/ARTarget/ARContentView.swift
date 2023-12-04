@@ -18,6 +18,8 @@ import CoreLocation
 import CoreData
 import Photos
 
+#if !targetEnvironment(simulator)
+
 struct ARContentView: View {
 	
 	// Function to load USDZ models
@@ -588,3 +590,16 @@ struct PreviewControllerWrapper: UIViewControllerRepresentable {
 		return Coordinator(onDismiss: onDismiss)
 	}
 }
+#else
+// Alternative structure for the simulator
+struct ARContentView: View {
+	var body: some View {
+		Text("AR View not available in the iOS simulator!")
+			.font(.title)
+			.foregroundColor(.red)
+			.multilineTextAlignment(.center)
+			.padding()
+	}
+}
+
+#endif

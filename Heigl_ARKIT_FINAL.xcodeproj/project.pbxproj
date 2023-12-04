@@ -9,14 +9,14 @@
 /* Begin PBXBuildFile section */
 		D00D58662B1BC340000EF8ED /* BONUS_Camero.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D58652B1BC340000EF8ED /* BONUS_Camero.usdz */; };
 		D00D586A2B1BC69B000EF8ED /* BONUS_Snowspeeder.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D58692B1BC69A000EF8ED /* BONUS_Snowspeeder.usdz */; };
-		D00D58702B1BCA8E000EF8ED /* BONUS_Sci-fi_Girl_v.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D586F2B1BCA8E000EF8ED /* BONUS_Sci-fi_Girl_v.usdz */; };
 		D00D58742B1BD0F4000EF8ED /* BONUS_Candles_set.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D58732B1BD0F4000EF8ED /* BONUS_Candles_set.usdz */; };
 		D00D58762B1BD1C5000EF8ED /* BONUS_Metroid_Prime_Form_2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D58752B1BD1C5000EF8ED /* BONUS_Metroid_Prime_Form_2.usdz */; };
 		D00D58782B1BD24D000EF8ED /* BONUS_Spiderman_2099.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D58772B1BD24D000EF8ED /* BONUS_Spiderman_2099.usdz */; };
 		D00D587A2B1BD2F3000EF8ED /* BONUS_Icosphere_Flower.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D58792B1BD2F3000EF8ED /* BONUS_Icosphere_Flower.usdz */; };
 		D00D587C2B1BD42B000EF8ED /* BONUS_Solar_System_Model_Orrery.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D587B2B1BD42B000EF8ED /* BONUS_Solar_System_Model_Orrery.usdz */; };
+		D00D587E2B1D316E000EF8ED /* FAQJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00D587D2B1D316E000EF8ED /* FAQJSON.swift */; };
+		D00D58802B1D61F4000EF8ED /* MapsSettingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00D587F2B1D61F4000EF8ED /* MapsSettingsHelper.swift */; };
 		D01699922B181B0D0066FE61 /* CoreLocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01699912B181B0D0066FE61 /* CoreLocationHelper.swift */; };
-		D04F82092B129060008484B8 /* ARVideoKit in Frameworks */ = {isa = PBXBuildFile; productRef = D04F82082B129060008484B8 /* ARVideoKit */; };
 		D04F820B2B12FEC7008484B8 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F820A2B12FEC7008484B8 /* InputView.swift */; };
 		D04F820D2B1305EA008484B8 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F820C2B1305EA008484B8 /* RegistrationView.swift */; };
 		D04F820F2B130C3B008484B8 /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F820E2B130C3B008484B8 /* SettingsRowView.swift */; };
@@ -70,7 +70,6 @@
 		D0730C6B2AFC942900366E8D /* fender_stratocaster.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C672AFC942800366E8D /* fender_stratocaster.usdz */; };
 		D0730C6C2AFC942900366E8D /* toy_drummer_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */; };
 		D0730C6D2AFC942900366E8D /* tv_retro.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D0730C692AFC942900366E8D /* tv_retro.usdz */; };
-		D09525872B14486E00143F29 /* SharedusdzModelLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09525862B14486E00143F29 /* SharedusdzModelLoader.swift */; };
 		D0BA2DFA2B19676100F9FB93 /* IAPViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BA2DF92B19676100F9FB93 /* IAPViewDelegate.swift */; };
 		D0BA2DFC2B19682500F9FB93 /* IAPJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BA2DFB2B19682500F9FB93 /* IAPJSON.swift */; };
 		D0BA2E002B1987A800F9FB93 /* IAPListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BA2DFF2B1987A800F9FB93 /* IAPListing.swift */; };
@@ -111,12 +110,13 @@
 /* Begin PBXFileReference section */
 		D00D58652B1BC340000EF8ED /* BONUS_Camero.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Camero.usdz; sourceTree = "<group>"; };
 		D00D58692B1BC69A000EF8ED /* BONUS_Snowspeeder.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Snowspeeder.usdz; sourceTree = "<group>"; };
-		D00D586F2B1BCA8E000EF8ED /* BONUS_Sci-fi_Girl_v.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "BONUS_Sci-fi_Girl_v.usdz"; sourceTree = "<group>"; };
 		D00D58732B1BD0F4000EF8ED /* BONUS_Candles_set.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Candles_set.usdz; sourceTree = "<group>"; };
 		D00D58752B1BD1C5000EF8ED /* BONUS_Metroid_Prime_Form_2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Metroid_Prime_Form_2.usdz; sourceTree = "<group>"; };
 		D00D58772B1BD24D000EF8ED /* BONUS_Spiderman_2099.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Spiderman_2099.usdz; sourceTree = "<group>"; };
 		D00D58792B1BD2F3000EF8ED /* BONUS_Icosphere_Flower.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Icosphere_Flower.usdz; sourceTree = "<group>"; };
 		D00D587B2B1BD42B000EF8ED /* BONUS_Solar_System_Model_Orrery.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Solar_System_Model_Orrery.usdz; sourceTree = "<group>"; };
+		D00D587D2B1D316E000EF8ED /* FAQJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQJSON.swift; sourceTree = "<group>"; };
+		D00D587F2B1D61F4000EF8ED /* MapsSettingsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsSettingsHelper.swift; sourceTree = "<group>"; };
 		D01699912B181B0D0066FE61 /* CoreLocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationHelper.swift; sourceTree = "<group>"; };
 		D04F820A2B12FEC7008484B8 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		D04F820C2B1305EA008484B8 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
@@ -172,7 +172,6 @@
 		D0730C672AFC942800366E8D /* fender_stratocaster.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = fender_stratocaster.usdz; sourceTree = "<group>"; };
 		D0730C682AFC942900366E8D /* toy_drummer_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_drummer_idle.usdz; sourceTree = "<group>"; };
 		D0730C692AFC942900366E8D /* tv_retro.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = tv_retro.usdz; sourceTree = "<group>"; };
-		D09525862B14486E00143F29 /* SharedusdzModelLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedusdzModelLoader.swift; sourceTree = "<group>"; };
 		D0BA2DF92B19676100F9FB93 /* IAPViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPViewDelegate.swift; sourceTree = "<group>"; };
 		D0BA2DFB2B19682500F9FB93 /* IAPJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPJSON.swift; sourceTree = "<group>"; };
 		D0BA2DFF2B1987A800F9FB93 /* IAPListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPListing.swift; sourceTree = "<group>"; };
@@ -186,7 +185,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D04F821A2B1317CB008484B8 /* FirebaseFirestoreSwift in Frameworks */,
-				D04F82092B129060008484B8 /* ARVideoKit in Frameworks */,
 				D04F82182B1317CB008484B8 /* FirebaseFirestore in Frameworks */,
 				D04F82162B1317CB008484B8 /* FirebaseAuth in Frameworks */,
 				D0DFB5E72B0D9BD300019DA6 /* FocusEntity in Frameworks */,
@@ -306,15 +304,16 @@
 			children = (
 				D06CFF042AE75A4300FFC3F7 /* CoreData */,
 				D06CFF172AE75B7100FFC3F7 /* InitialDataIngestor.swift */,
-				D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */,
-				D04F82102B130F1F008484B8 /* HomeUser.swift */,
 				D0BA2DFB2B19682500F9FB93 /* IAPJSON.swift */,
 				D06CFF3A2AF0834400FFC3F7 /* UsersJSON.swift */,
 				D06CFF4A2AF294ED00FFC3F7 /* NewsFeedJSON.swift */,
 				D06CFF542AF2E24600FFC3F7 /* SafetyJSON.swift */,
-				D09525862B14486E00143F29 /* SharedusdzModelLoader.swift */,
+				D00D587D2B1D316E000EF8ED /* FAQJSON.swift */,
+				D04F82102B130F1F008484B8 /* HomeUser.swift */,
+				D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */,
 				D01699912B181B0D0066FE61 /* CoreLocationHelper.swift */,
 				D0BA2DF92B19676100F9FB93 /* IAPViewDelegate.swift */,
+				D00D587F2B1D61F4000EF8ED /* MapsSettingsHelper.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -355,7 +354,6 @@
 			children = (
 				D00D58652B1BC340000EF8ED /* BONUS_Camero.usdz */,
 				D00D58692B1BC69A000EF8ED /* BONUS_Snowspeeder.usdz */,
-				D00D586F2B1BCA8E000EF8ED /* BONUS_Sci-fi_Girl_v.usdz */,
 				D00D58732B1BD0F4000EF8ED /* BONUS_Candles_set.usdz */,
 				D00D58752B1BD1C5000EF8ED /* BONUS_Metroid_Prime_Form_2.usdz */,
 				D00D58792B1BD2F3000EF8ED /* BONUS_Icosphere_Flower.usdz */,
@@ -393,7 +391,6 @@
 			name = Heigl_ARKIT_FINAL;
 			packageProductDependencies = (
 				D0DFB5E62B0D9BD300019DA6 /* FocusEntity */,
-				D04F82082B129060008484B8 /* ARVideoKit */,
 				D04F82152B1317CB008484B8 /* FirebaseAuth */,
 				D04F82172B1317CB008484B8 /* FirebaseFirestore */,
 				D04F82192B1317CB008484B8 /* FirebaseFirestoreSwift */,
@@ -472,7 +469,6 @@
 			mainGroup = D06CFEC72AE75A2300FFC3F7;
 			packageReferences = (
 				D0DFB5E52B0D9BD300019DA6 /* XCRemoteSwiftPackageReference "FocusEntity" */,
-				D04F82072B129060008484B8 /* XCLocalSwiftPackageReference "../ARVideoKit-1.6.0" */,
 				D04F82142B1317CB008484B8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = D06CFED12AE75A2300FFC3F7 /* Products */;
@@ -506,7 +502,6 @@
 				D0730C5F2AFC832C00366E8D /* toy_biplane_idle.usdz in Resources */,
 				D0730C6D2AFC942900366E8D /* tv_retro.usdz in Resources */,
 				D00D586A2B1BC69B000EF8ED /* BONUS_Snowspeeder.usdz in Resources */,
-				D00D58702B1BCA8E000EF8ED /* BONUS_Sci-fi_Girl_v.usdz in Resources */,
 				D00D58782B1BD24D000EF8ED /* BONUS_Spiderman_2099.usdz in Resources */,
 				D00D587A2B1BD2F3000EF8ED /* BONUS_Icosphere_Flower.usdz in Resources */,
 				D06CFED82AE75A2500FFC3F7 /* Assets.xcassets in Resources */,
@@ -543,13 +538,13 @@
 				D04F820D2B1305EA008484B8 /* RegistrationView.swift in Sources */,
 				D06CFF4B2AF294ED00FFC3F7 /* NewsFeedJSON.swift in Sources */,
 				D0BA2E002B1987A800F9FB93 /* IAPListing.swift in Sources */,
-				D09525872B14486E00143F29 /* SharedusdzModelLoader.swift in Sources */,
 				D06CFF552AF2E24600FFC3F7 /* SafetyJSON.swift in Sources */,
 				D06CFF242AE763B800FFC3F7 /* MapsData+CoreData.swift in Sources */,
 				D06CFED62AE75A2300FFC3F7 /* ContentView.swift in Sources */,
 				D06CFF0E2AE75AA300FFC3F7 /* NewsFeedView.swift in Sources */,
 				D06CFF222AE7637B00FFC3F7 /* FAQ+CoreData.swift in Sources */,
 				D0DFB5E42B0D7EA600019DA6 /* Models.swift in Sources */,
+				D00D587E2B1D316E000EF8ED /* FAQJSON.swift in Sources */,
 				D06CFF2C2AE7652D00FFC3F7 /* Safety+CoreData.swift in Sources */,
 				D06CFEE02AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld in Sources */,
 				D06CFF2E2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift in Sources */,
@@ -572,6 +567,7 @@
 				D06CFF082AE75A7200FFC3F7 /* LoadingView.swift in Sources */,
 				D06CFF3E2AF14A5700FFC3F7 /* CustomARView.swift in Sources */,
 				D06CFF282AE763FE00FFC3F7 /* Notifications+CoreData.swift in Sources */,
+				D00D58802B1D61F4000EF8ED /* MapsSettingsHelper.swift in Sources */,
 				D04F82112B130F1F008484B8 /* HomeUser.swift in Sources */,
 				D04F820B2B12FEC7008484B8 /* InputView.swift in Sources */,
 				D06CFF432AF15C9300FFC3F7 /* ARAction.swift in Sources */,
@@ -664,6 +660,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Augment;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -721,6 +718,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Augment;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -743,6 +741,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Heigl-ARKIT-FINAL-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Augment;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Needed to enable the AR View!";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Needed to display your location on the map!";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Needed to display your location on the map!";
@@ -757,7 +756,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-ARKIT-FINAL";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-AR-Creator";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -777,6 +776,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Heigl-ARKIT-FINAL-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Augment;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Needed to enable the AR View!";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Needed to display your location on the map!";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Needed to display your location on the map!";
@@ -791,7 +791,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-ARKIT-FINAL";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-AR-Creator";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -916,13 +916,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		D04F82072B129060008484B8 /* XCLocalSwiftPackageReference "../ARVideoKit-1.6.0" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "../ARVideoKit-1.6.0";
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
 		D04F82142B1317CB008484B8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -943,10 +936,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D04F82082B129060008484B8 /* ARVideoKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ARVideoKit;
-		};
 		D04F82152B1317CB008484B8 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D04F82142B1317CB008484B8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
