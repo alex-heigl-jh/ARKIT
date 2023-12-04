@@ -62,19 +62,6 @@ class CustomARView: RealityKit.ARView {
     dynamic required init?(coder decoder: NSCoder){
         fatalError("init (coder:) has not been implemented")
     }
-    
-	// This is the init that is actually utilized
-//    convenience init() {
-//		
-//        self.init(frame: UIScreen.main.bounds)
-//		
-//		self.setupConfig()
-//		
-//		//: call enableObjectRemoval to enable removal of individual entities from view
-//		self.enableObjectRemoval()
-//		//: Allows AR view to receive commands from ARContentView
-//		subscribeToActionStream()
-//    }
 	
 	convenience init() {
 		self.init(frame: UIScreen.main.bounds)

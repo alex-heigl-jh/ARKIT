@@ -318,7 +318,6 @@ struct ModelPickerView: View {
 				}
 				
 				//: Camera selection button
-				//: Camera selection button
 				Button(action: {
 					print("DEBUG: Capture video button selected")
 					isVideoCaptureEnabled.toggle() // Toggle the recording state
@@ -381,9 +380,6 @@ struct ModelPickerView: View {
 				  return
 			  }
 			  let coordinates = currentLocation.coordinate
-
-			  // Optionally, convert coordinates to address string
-			  // let addressString = await convertCoordinatesToAddress(coordinates)
 
 			  // Save to CoreData
 			  MapsData.createWith(dateAdded: Date(),

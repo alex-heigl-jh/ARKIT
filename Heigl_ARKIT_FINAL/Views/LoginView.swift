@@ -49,16 +49,9 @@ struct LoginEntryView: View {
 	
 	var body: some View{
 		NavigationStack{
-			// Logo for AR - Using "arkit" system symbol
-//			Image(systemName: "arkit")
-//				.resizable()
-//				.aspectRatio(contentMode: .fit)
-//				.foregroundColor(.blue)
-//				.padding(30)
-			Image("applicationLogo") // Replace with your image name
+			Image("applicationLogo")
 				.resizable()
 				.aspectRatio(contentMode: .fit)
-				.foregroundColor(.blue) // This might not be needed if your image already has colors
 				.padding(30)
 			
 			Text("Augment")
