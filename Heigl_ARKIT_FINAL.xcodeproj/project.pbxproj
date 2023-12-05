@@ -15,7 +15,6 @@
 		D00D587A2B1BD2F3000EF8ED /* BONUS_Icosphere_Flower.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D58792B1BD2F3000EF8ED /* BONUS_Icosphere_Flower.usdz */; };
 		D00D587C2B1BD42B000EF8ED /* BONUS_Solar_System_Model_Orrery.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D00D587B2B1BD42B000EF8ED /* BONUS_Solar_System_Model_Orrery.usdz */; };
 		D00D587E2B1D316E000EF8ED /* FAQJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00D587D2B1D316E000EF8ED /* FAQJSON.swift */; };
-		D00D58802B1D61F4000EF8ED /* MapsSettingsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00D587F2B1D61F4000EF8ED /* MapsSettingsHelper.swift */; };
 		D01699922B181B0D0066FE61 /* CoreLocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01699912B181B0D0066FE61 /* CoreLocationHelper.swift */; };
 		D04F820B2B12FEC7008484B8 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F820A2B12FEC7008484B8 /* InputView.swift */; };
 		D04F820D2B1305EA008484B8 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04F820C2B1305EA008484B8 /* RegistrationView.swift */; };
@@ -116,7 +115,6 @@
 		D00D58792B1BD2F3000EF8ED /* BONUS_Icosphere_Flower.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Icosphere_Flower.usdz; sourceTree = "<group>"; };
 		D00D587B2B1BD42B000EF8ED /* BONUS_Solar_System_Model_Orrery.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = BONUS_Solar_System_Model_Orrery.usdz; sourceTree = "<group>"; };
 		D00D587D2B1D316E000EF8ED /* FAQJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQJSON.swift; sourceTree = "<group>"; };
-		D00D587F2B1D61F4000EF8ED /* MapsSettingsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsSettingsHelper.swift; sourceTree = "<group>"; };
 		D01699912B181B0D0066FE61 /* CoreLocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationHelper.swift; sourceTree = "<group>"; };
 		D04F820A2B12FEC7008484B8 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		D04F820C2B1305EA008484B8 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
@@ -215,6 +213,62 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D06086682B1ECBA1003565A4 /* CoreDataJSON */ = {
+			isa = PBXGroup;
+			children = (
+				D0BA2DFB2B19682500F9FB93 /* IAPJSON.swift */,
+				D06CFF3A2AF0834400FFC3F7 /* UsersJSON.swift */,
+				D06CFF4A2AF294ED00FFC3F7 /* NewsFeedJSON.swift */,
+				D00D587D2B1D316E000EF8ED /* FAQJSON.swift */,
+				D06CFF542AF2E24600FFC3F7 /* SafetyJSON.swift */,
+			);
+			path = CoreDataJSON;
+			sourceTree = "<group>";
+		};
+		D06086692B1ECBCC003565A4 /* DataHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				D06CFF172AE75B7100FFC3F7 /* InitialDataIngestor.swift */,
+				D04F82102B130F1F008484B8 /* HomeUser.swift */,
+				D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */,
+				D01699912B181B0D0066FE61 /* CoreLocationHelper.swift */,
+			);
+			path = DataHelpers;
+			sourceTree = "<group>";
+		};
+		D060866A2B1ECC01003565A4 /* ViewHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				D0BA2DF92B19676100F9FB93 /* IAPViewDelegate.swift */,
+			);
+			path = ViewHelpers;
+			sourceTree = "<group>";
+		};
+		D060866B2B1ECDAD003565A4 /* ReUsableViews */ = {
+			isa = PBXGroup;
+			children = (
+				D04F820E2B130C3B008484B8 /* SettingsRowView.swift */,
+				D04F820A2B12FEC7008484B8 /* InputView.swift */,
+				D0BA2DFF2B1987A800F9FB93 /* IAPListing.swift */,
+			);
+			path = ReUsableViews;
+			sourceTree = "<group>";
+		};
+		D060866C2B1EE045003565A4 /* PrimaryViews */ = {
+			isa = PBXGroup;
+			children = (
+				D04F820C2B1305EA008484B8 /* RegistrationView.swift */,
+				D06CFF052AE75A6100FFC3F7 /* LoginView.swift */,
+				D06CFF072AE75A7200FFC3F7 /* LoadingView.swift */,
+				D06CFF092AE75A7C00FFC3F7 /* MainMenuView.swift */,
+				D06CFF0B2AE75A8800FFC3F7 /* MapsView.swift */,
+				D06CFF482AF1919800FFC3F7 /* LocationDetailsView.swift */,
+				D06CFF0D2AE75AA300FFC3F7 /* NewsFeedView.swift */,
+				D06CFF0F2AE75AD000FFC3F7 /* SettingsFAQSafety.swift */,
+			);
+			path = PrimaryViews;
+			sourceTree = "<group>";
+		};
 		D06CFEC72AE75A2300FFC3F7 = {
 			isa = PBXGroup;
 			children = (
@@ -283,18 +337,9 @@
 		D06CFF022AE75A3300FFC3F7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D060866C2B1EE045003565A4 /* PrimaryViews */,
 				D06CFF3C2AF1487200FFC3F7 /* ARTarget */,
-				D06CFF052AE75A6100FFC3F7 /* LoginView.swift */,
-				D04F820A2B12FEC7008484B8 /* InputView.swift */,
-				D04F820C2B1305EA008484B8 /* RegistrationView.swift */,
-				D04F820E2B130C3B008484B8 /* SettingsRowView.swift */,
-				D06CFF072AE75A7200FFC3F7 /* LoadingView.swift */,
-				D06CFF092AE75A7C00FFC3F7 /* MainMenuView.swift */,
-				D06CFF0B2AE75A8800FFC3F7 /* MapsView.swift */,
-				D06CFF482AF1919800FFC3F7 /* LocationDetailsView.swift */,
-				D06CFF0D2AE75AA300FFC3F7 /* NewsFeedView.swift */,
-				D06CFF0F2AE75AD000FFC3F7 /* SettingsFAQSafety.swift */,
-				D0BA2DFF2B1987A800F9FB93 /* IAPListing.swift */,
+				D060866B2B1ECDAD003565A4 /* ReUsableViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -302,18 +347,10 @@
 		D06CFF032AE75A3B00FFC3F7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D060866A2B1ECC01003565A4 /* ViewHelpers */,
+				D06086692B1ECBCC003565A4 /* DataHelpers */,
+				D06086682B1ECBA1003565A4 /* CoreDataJSON */,
 				D06CFF042AE75A4300FFC3F7 /* CoreData */,
-				D06CFF172AE75B7100FFC3F7 /* InitialDataIngestor.swift */,
-				D0BA2DFB2B19682500F9FB93 /* IAPJSON.swift */,
-				D06CFF3A2AF0834400FFC3F7 /* UsersJSON.swift */,
-				D06CFF4A2AF294ED00FFC3F7 /* NewsFeedJSON.swift */,
-				D06CFF542AF2E24600FFC3F7 /* SafetyJSON.swift */,
-				D00D587D2B1D316E000EF8ED /* FAQJSON.swift */,
-				D04F82102B130F1F008484B8 /* HomeUser.swift */,
-				D06CFF152AE75B5500FFC3F7 /* UserAuth.swift */,
-				D01699912B181B0D0066FE61 /* CoreLocationHelper.swift */,
-				D0BA2DF92B19676100F9FB93 /* IAPViewDelegate.swift */,
-				D00D587F2B1D61F4000EF8ED /* MapsSettingsHelper.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -567,7 +604,6 @@
 				D06CFF082AE75A7200FFC3F7 /* LoadingView.swift in Sources */,
 				D06CFF3E2AF14A5700FFC3F7 /* CustomARView.swift in Sources */,
 				D06CFF282AE763FE00FFC3F7 /* Notifications+CoreData.swift in Sources */,
-				D00D58802B1D61F4000EF8ED /* MapsSettingsHelper.swift in Sources */,
 				D04F82112B130F1F008484B8 /* HomeUser.swift in Sources */,
 				D04F820B2B12FEC7008484B8 /* InputView.swift in Sources */,
 				D06CFF432AF15C9300FFC3F7 /* ARAction.swift in Sources */,

@@ -83,6 +83,8 @@ struct ARContentView: View {
 	// Variable to hold the reality models
 	@State private var realityModels: [Model] = loadBonusModels()
 	
+	@State private var isFlashlightOn = false
+	
 	var body: some View {
 		
 		ZStack(alignment: .bottom){
@@ -115,6 +117,7 @@ struct ARContentView: View {
 					isVideoCaptureEnabled: $isVideoCaptureEnabled,
 					isFocusEntityEnabled: $isFocusEntityEnabled,
 					isBonusModelsPlacementEnabled: $isBonusModelsPlacementEnabled,
+					isFlashlightOn: $isFlashlightOn,
 					presentationMode: _presentationMode,
 					locationManager: locationManager,
 					managedObjectContext: managedObjectContext,
@@ -198,6 +201,7 @@ struct ModelPickerView: View {
 	@Binding var isVideoCaptureEnabled: Bool
 	@Binding var isFocusEntityEnabled: Bool
 	@Binding var isBonusModelsPlacementEnabled: Bool
+	@Binding var isFlashlightOn: Bool
 	@Environment(\.presentationMode) var presentationMode
 	
 	var locationManager: LocationManager
@@ -293,9 +297,23 @@ struct ModelPickerView: View {
 						.background(Color.blue)
 						.cornerRadius(16)
 				}
+				
+				// MARK: Flashlight button
+				Button {
+					isFlashlightOn.toggle() // Toggle the flashlight state
+					toggleFlashlight(on: isFlashlightOn) // Call the function to actually toggle the flashlight
+				} label: {
+					Image(systemName: isFlashlightOn ? "flashlight.off.circle" : "flashlight.on.circle.fill")
+						.resizable()
+						.scaledToFit()
+						.frame(width: 40, height: 40)
+						.padding()
+						.foregroundColor(.white)
+						.background(isFlashlightOn ? Color.yellow : Color.red)
+						.cornerRadius(16)
+				}
 
-
-				//: Camera selection button
+				// MARK: Camera selection button
 				Button(action: {
 					print("DEBUG: Capture image button selected")
 					ARManager.shared.actionStream.send(.captureImage)
@@ -390,6 +408,19 @@ struct ModelPickerView: View {
 		  }
 		}
 	}
+	private func toggleFlashlight(on: Bool) {
+		guard let device = AVCaptureDevice.default(for: AVMediaType.video),
+			  device.hasTorch else { return }
+
+		do {
+			try device.lockForConfiguration()
+			device.torchMode = on ? .on : .off
+			device.unlockForConfiguration()
+		} catch {
+			print("Flashlight could not be used")
+		}
+	}
+
 }
 
 // Once user has selected they want to place a box
