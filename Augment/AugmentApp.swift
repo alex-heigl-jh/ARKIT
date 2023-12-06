@@ -10,7 +10,7 @@ import SwiftUI
 import Firebase
 
 @main
-struct Heigl_ARKIT_FINAL: App {
+struct Augment: App {
 	
 	@StateObject var viewModel = UserAuth()
 	

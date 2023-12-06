@@ -7,7 +7,7 @@
 
 import XCTest
 
-final class Heigl_ARKIT_FINALUITestsLaunchTests: XCTestCase {
+final class AugmentUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

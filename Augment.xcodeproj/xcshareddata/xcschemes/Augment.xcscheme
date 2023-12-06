@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D06CFECF2AE75A2300FFC3F7"
-               BuildableName = "Heigl_ARKIT_FINAL.app"
-               BlueprintName = "Heigl_ARKIT_FINAL"
-               ReferencedContainer = "container:Heigl_ARKIT_FINAL.xcodeproj">
+               BuildableName = "Augment.app"
+               BlueprintName = "Augment"
+               ReferencedContainer = "container:Augment.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,9 +35,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D06CFEE42AE75A2600FFC3F7"
-               BuildableName = "Heigl_ARKIT_FINALTests.xctest"
-               BlueprintName = "Heigl_ARKIT_FINALTests"
-               ReferencedContainer = "container:Heigl_ARKIT_FINAL.xcodeproj">
+               BuildableName = "AugmentTests.xctest"
+               BlueprintName = "AugmentTests"
+               ReferencedContainer = "container:Augment.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -46,9 +46,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D06CFEEE2AE75A2600FFC3F7"
-               BuildableName = "Heigl_ARKIT_FINALUITests.xctest"
-               BlueprintName = "Heigl_ARKIT_FINALUITests"
-               ReferencedContainer = "container:Heigl_ARKIT_FINAL.xcodeproj">
+               BuildableName = "AugmentUITests.xctest"
+               BlueprintName = "AugmentUITests"
+               ReferencedContainer = "container:Augment.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -68,13 +68,13 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D06CFECF2AE75A2300FFC3F7"
-            BuildableName = "Heigl_ARKIT_FINAL.app"
-            BlueprintName = "Heigl_ARKIT_FINAL"
-            ReferencedContainer = "container:Heigl_ARKIT_FINAL.xcodeproj">
+            BuildableName = "Augment.app"
+            BlueprintName = "Augment"
+            ReferencedContainer = "container:Augment.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <StoreKitConfigurationFileReference
-         identifier = "../../Heigl_ARKIT_FINAL/InAppPurchases.storekit">
+         identifier = "../../Augment/InAppPurchases.storekit">
       </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
@@ -88,9 +88,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D06CFECF2AE75A2300FFC3F7"
-            BuildableName = "Heigl_ARKIT_FINAL.app"
-            BlueprintName = "Heigl_ARKIT_FINAL"
-            ReferencedContainer = "container:Heigl_ARKIT_FINAL.xcodeproj">
+            BuildableName = "Augment.app"
+            BlueprintName = "Augment"
+            ReferencedContainer = "container:Augment.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

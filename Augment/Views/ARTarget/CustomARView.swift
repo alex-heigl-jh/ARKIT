@@ -21,8 +21,6 @@ import ARKit
 import RealityKit
 #endif
 
-
-
 import Combine
 import FocusEntity
 import Photos
@@ -79,6 +77,19 @@ class CustomARView: RealityKit.ARView {
 		// Add tap gesture recognizer
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(recognizer:)))
 		self.addGestureRecognizer(tapGestureRecognizer)
+		
+		// Add double tap gesture recognizer
+		let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(recognizer:)))
+		doubleTapGestureRecognizer.numberOfTapsRequired = 2
+		self.addGestureRecognizer(doubleTapGestureRecognizer)
+
+		// Ensure single tap doesn't interfere with double tap
+		tapGestureRecognizer.require(toFail: doubleTapGestureRecognizer)
+		
+		// Add swipe gesture recognizer for a rightward slash
+		let swipeRightGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeRight(recognizer:)))
+		swipeRightGestureRecognizer.direction = .right
+		self.addGestureRecognizer(swipeRightGestureRecognizer)
 	}
 	
 	private var cancellables: Set<AnyCancellable> = []
@@ -332,49 +343,51 @@ class CustomARView: RealityKit.ARView {
 		}
 	}
 	
-	
-	//	@objc func handleTap(recognizer: UITapGestureRecognizer) {
-//		let location = recognizer.location(in: self)
-//		if let entity = self.entity(at: location) as? ModelEntity {
-//			// Get the Model instance from the map
-//			guard let model = entityModelMap[entity] else { return }
-//
-//			// Switch-case based on model name
-//			switch model.modelName {
-//				
-//			case "toy_biplane_idle":
-//				print("Entering animation sequence case toy_biplane_idle")
-//				playSpecificAnimation(entity, animationName: "global scene animation", duration: 2, playbackSpeed: 1)
-//				playSpecificAnimation(entity, animationName: "Animation", duration: 2, playbackSpeed: 1)
-//				playSpecificAnimation(entity, animationName: "default scene animation", duration: 2, playbackSpeed: 1)
-//				playSpecificAnimation(entity, animationName: "default subtree animation", duration: 2, playbackSpeed: 1)
-//				
-//				
-//			case "BONUS_Spiderman_2099":
-//				print("Entering animation sequence case toy_biplane_idle")
-//				playSpecificAnimation(entity, animationName: "global scene animation", duration: 3, playbackSpeed: 1)
-//				playSpecificAnimation(entity, animationName: "default scene animation", duration: 3, playbackSpeed: 1)
-//				playSpecificAnimation(entity, animationName: "default subtree animation", duration: 3, playbackSpeed: 1)
-//				playSpecificAnimation(entity, animationName: "global scene animation", duration: 3, playbackSpeed: 1)
-//			
-//			case "BONUS_Solar_System_Model_Orrery":
-//				print("Entering animation sequence case BONUS_Solar_System_Model_Orrery")
-//				playSpecificAnimation(entity, animationName: "global scene animation", duration: 6, playbackSpeed: 1)
-//				playSpecificAnimation(entity, animationName: "global scene animation", duration: 6, playbackSpeed: 0.5)
-//				playSpecificAnimation(entity, animationName: "Neptune_1_Min_Orbit", duration: 6, playbackSpeed: 1)
-//				playSpecificAnimation(entity, animationName: "default subtree animation", duration: 6, playbackSpeed: 1)
-//				playSpecificAnimation(entity, animationName: "default scene animation", duration: 6, playbackSpeed: 1)
-//			
-//				// Add more cases as needed
-//			default:
-//				playDefaultAnimation(entity)
-//				print("Entering playDefaultAnimation case")
-//			}
-//		}
-//	}
-	
-	
+	// MARK: Function that handles when an entity has been single tapped
 	@objc func handleTap(recognizer: UITapGestureRecognizer) {
+		print("Single tap detected")
+		
+		let location = recognizer.location(in: self)
+		if let entity = self.entity(at: location) as? ModelEntity {
+			guard let model = entityModelMap[entity] else { return }
+			let animationManager = AnimationQueueManager()
+			
+			switch model.modelName {
+			case "toy_biplane_idle":
+				print("Queuing animations for toy_biplane_idle")
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 1), for: entity)
+				
+			case "BONUS_Spiderman_2099":
+				print("Queuing animations for BONUS_Spiderman_2099")
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 1), for: entity)
+				
+			case "BONUS_Solar_System_Model_Orrery":
+				print("Entering animation sequence case BONUS_Solar_System_Model_Orrery")
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 15, playbackSpeed: 0.5), for: entity)
+				
+				animationManager.enqueue(AnimationTask(name: "Neptune_1_Min_Orbit", duration: 15, playbackSpeed: 0.5), for: entity)
+				
+			case "toy_drummer_idle":
+				print("Entering animation sequence case toy_drummer_idle")
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 1), for: entity)
+				
+				
+			case "robot_walk_idle":
+				print("Entering animation sequence case robot_walk_idle")
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 1), for: entity)
+				
+				
+			// Default Case
+			default:
+				print("No programmed action for requested entity")
+			}
+		}
+	}
+	
+	// MARK: Function thjat handles when an entity is double tapped
+	@objc func handleDoubleTap(recognizer: UITapGestureRecognizer) {
+		print("Double tap detected")
+		
 		let location = recognizer.location(in: self)
 		if let entity = self.entity(at: location) as? ModelEntity {
 			guard let model = entityModelMap[entity] else { return }
@@ -383,70 +396,79 @@ class CustomARView: RealityKit.ARView {
 			switch model.modelName {
 			case "toy_biplane_idle":
 				print("Queuing animations for toy_biplane_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 4), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 2), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 1), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 0.5), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 0.25), for: entity)
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 2), for: entity)
 
 			case "BONUS_Spiderman_2099":
 				print("Queuing animations for BONUS_Spiderman_2099")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 5, playbackSpeed: 4), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 5, playbackSpeed: 2), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 5, playbackSpeed: 1), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 5, playbackSpeed: 0.5), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 5, playbackSpeed: 0.25), for: entity)
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 2), for: entity)
 				
 			case "BONUS_Solar_System_Model_Orrery":
 				print("Entering animation sequence case BONUS_Solar_System_Model_Orrery")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 5, playbackSpeed: 1), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 5, playbackSpeed: 0.25), for: entity)
-				animationManager.enqueue(AnimationTask(name: "Neptune_1_Min_Orbit", duration: 10, playbackSpeed: 1), for: entity)
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 15, playbackSpeed: 0.5), for: entity)
+
+				animationManager.enqueue(AnimationTask(name: "Neptune_1_Min_Orbit", duration: 15, playbackSpeed: 0.5), for: entity)
+				
 				
 			case "toy_drummer_idle":
 				print("Entering animation sequence case toy_drummer_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 8), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 4), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 2), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 1), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 0.5), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 0.25), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 0.1), for: entity)
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 2), for: entity)
+
 				
 			case "robot_walk_idle":
 				print("Entering animation sequence case robot_walk_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 8), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 4), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 2), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 1), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 0.5), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 0.25), for: entity)
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 4, playbackSpeed: 0.1), for: entity)
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 2), for: entity)
+				
 				
 			// Default Case
 			default:
-				playDefaultAnimation(entity)
+				print("No programmed action for requested entity")
 			}
 		}
 	}
 
+	
+	@objc func handleSwipeRight(recognizer: UISwipeGestureRecognizer) {
+		// Handle rightward slash
+		print("Rightward slash detected")
+		
+		let location = recognizer.location(in: self)
+		if let entity = self.entity(at: location) as? ModelEntity {
+			guard let model = entityModelMap[entity] else { return }
+			let animationManager = AnimationQueueManager()
 
-	func playSpecificAnimation(_ entity: ModelEntity, animationName: String, duration: TimeInterval, playbackSpeed: Float, completion: @escaping () -> Void) {
-		if let animation = entity.availableAnimations.first(where: { $0.name == animationName }) {
-			print("Entering playSpecificAnimation()\nPlaying animation titled: \(animationName), for time: \(duration)s, at x\(playbackSpeed) playback speed")
-			let controller = entity.playAnimation(animation.repeat(duration: duration), transitionDuration: 0.5, startsPaused: false)
-			controller.speed = playbackSpeed
+			switch model.modelName {
+			case "toy_biplane_idle":
+				print("Queuing animations for toy_biplane_idle")
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 4), for: entity)
 
-			// Adjust completion time based on playback speed
-			let adjustedDuration = duration * Double(playbackSpeed)
-			print("")
-			DispatchQueue.main.asyncAfter(deadline: .now() + adjustedDuration) {
-				completion()
+			case "BONUS_Spiderman_2099":
+				print("Queuing animations for BONUS_Spiderman_2099")
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 4), for: entity)
+				
+			case "BONUS_Solar_System_Model_Orrery":
+				print("Entering animation sequence case BONUS_Solar_System_Model_Orrery")
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 15, playbackSpeed: 0.5), for: entity)
+
+				animationManager.enqueue(AnimationTask(name: "Neptune_1_Min_Orbit", duration: 15, playbackSpeed: 0.5), for: entity)
+				
+				
+			case "toy_drummer_idle":
+				print("Entering animation sequence case toy_drummer_idle")
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 4), for: entity)
+
+				
+			case "robot_walk_idle":
+				print("Entering animation sequence case robot_walk_idle")
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 4), for: entity)
+				
+			// Default Case
+			default:
+				print("No programmed action for requested entity")
 			}
 		}
 	}
-
-
+	
+	
 	func playDefaultAnimation(_ entity: ModelEntity) {
 		// Existing logic to play the first animation
 		if let firstAnimation = entity.availableAnimations.first {
@@ -477,12 +499,20 @@ class AnimationQueueManager {
 	}
 
 	private func playAnimation(task: AnimationTask, for entity: ModelEntity, completion: @escaping () -> Void) {
+		print("Entering playAnimation")
 		if let animation = entity.availableAnimations.first(where: { $0.name == task.name }) {
 			print("Playing animation: \(task.name)")
-			let controller = entity.playAnimation(animation.repeat(duration: task.duration), transitionDuration: 0.5, startsPaused: false)
+
+			// Play the animation infinitely
+			let controller = entity.playAnimation(animation.repeat(duration: .infinity), transitionDuration: 0.5, separateAnimatedValue: true, startsPaused: false)
 			controller.speed = task.playbackSpeed
 
+			// Schedule to stop the animation after the specified duration
 			DispatchQueue.main.asyncAfter(deadline: .now() + task.duration) {
+				// Stop the animation
+				controller.stop() // This will stop the animation playback
+				
+				// Call the completion to proceed to the next animation
 				completion()
 			}
 		}

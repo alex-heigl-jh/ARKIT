@@ -24,15 +24,15 @@
 		D04F82162B1317CB008484B8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D04F82152B1317CB008484B8 /* FirebaseAuth */; };
 		D04F82182B1317CB008484B8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D04F82172B1317CB008484B8 /* FirebaseFirestore */; };
 		D04F821A2B1317CB008484B8 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D04F82192B1317CB008484B8 /* FirebaseFirestoreSwift */; };
-		D06CFED42AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFED32AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift */; };
+		D06CFED42AE75A2300FFC3F7 /* AugmentApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFED32AE75A2300FFC3F7 /* AugmentApp.swift */; };
 		D06CFED62AE75A2300FFC3F7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFED52AE75A2300FFC3F7 /* ContentView.swift */; };
 		D06CFED82AE75A2500FFC3F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D06CFED72AE75A2500FFC3F7 /* Assets.xcassets */; };
 		D06CFEDB2AE75A2500FFC3F7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D06CFEDA2AE75A2500FFC3F7 /* Preview Assets.xcassets */; };
 		D06CFEDD2AE75A2500FFC3F7 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFEDC2AE75A2500FFC3F7 /* Persistence.swift */; };
-		D06CFEE02AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D06CFEDE2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld */; };
-		D06CFEEA2AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFEE92AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.swift */; };
-		D06CFEF42AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFEF32AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.swift */; };
-		D06CFEF62AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFEF52AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITestsLaunchTests.swift */; };
+		D06CFEE02AE75A2500FFC3F7 /* Augment.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D06CFEDE2AE75A2500FFC3F7 /* Augment.xcdatamodeld */; };
+		D06CFEEA2AE75A2600FFC3F7 /* AugmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFEE92AE75A2600FFC3F7 /* AugmentTests.swift */; };
+		D06CFEF42AE75A2600FFC3F7 /* AugmentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFEF32AE75A2600FFC3F7 /* AugmentUITests.swift */; };
+		D06CFEF62AE75A2600FFC3F7 /* AugmentUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFEF52AE75A2600FFC3F7 /* AugmentUITestsLaunchTests.swift */; };
 		D06CFF062AE75A6100FFC3F7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF052AE75A6100FFC3F7 /* LoginView.swift */; };
 		D06CFF082AE75A7200FFC3F7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF072AE75A7200FFC3F7 /* LoadingView.swift */; };
 		D06CFF0A2AE75A7C00FFC3F7 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CFF092AE75A7C00FFC3F7 /* MainMenuView.swift */; };
@@ -121,18 +121,18 @@
 		D04F820E2B130C3B008484B8 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
 		D04F82102B130F1F008484B8 /* HomeUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUser.swift; sourceTree = "<group>"; };
 		D04F82122B1316D6008484B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
-		D06CFED02AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Heigl_ARKIT_FINAL.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D06CFED32AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heigl_ARKIT_FINALApp.swift; sourceTree = "<group>"; };
+		D06CFED02AE75A2300FFC3F7 /* Augment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Augment.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D06CFED32AE75A2300FFC3F7 /* AugmentApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentApp.swift; sourceTree = "<group>"; };
 		D06CFED52AE75A2300FFC3F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D06CFED72AE75A2500FFC3F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D06CFEDA2AE75A2500FFC3F7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D06CFEDC2AE75A2500FFC3F7 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		D06CFEDF2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Heigl_ARKIT_FINAL.xcdatamodel; sourceTree = "<group>"; };
-		D06CFEE52AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Heigl_ARKIT_FINALTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D06CFEE92AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heigl_ARKIT_FINALTests.swift; sourceTree = "<group>"; };
-		D06CFEEF2AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Heigl_ARKIT_FINALUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D06CFEF32AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heigl_ARKIT_FINALUITests.swift; sourceTree = "<group>"; };
-		D06CFEF52AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heigl_ARKIT_FINALUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D06CFEE52AE75A2600FFC3F7 /* AugmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AugmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D06CFEE92AE75A2600FFC3F7 /* AugmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentTests.swift; sourceTree = "<group>"; };
+		D06CFEEF2AE75A2600FFC3F7 /* AugmentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AugmentUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D06CFEF32AE75A2600FFC3F7 /* AugmentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentUITests.swift; sourceTree = "<group>"; };
+		D06CFEF52AE75A2600FFC3F7 /* AugmentUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D06CFF052AE75A6100FFC3F7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D06CFF072AE75A7200FFC3F7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		D06CFF092AE75A7C00FFC3F7 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
@@ -154,7 +154,7 @@
 		D06CFF3A2AF0834400FFC3F7 /* UsersJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersJSON.swift; sourceTree = "<group>"; };
 		D06CFF3D2AF14A5700FFC3F7 /* CustomARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomARView.swift; sourceTree = "<group>"; };
 		D06CFF3F2AF14A9B00FFC3F7 /* CustomARViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomARViewRepresentable.swift; sourceTree = "<group>"; };
-		D06CFF412AF14F2500FFC3F7 /* Heigl-ARKIT-FINAL-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Heigl-ARKIT-FINAL-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D06CFF412AF14F2500FFC3F7 /* Augment-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Augment-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D06CFF422AF15C9300FFC3F7 /* ARAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARAction.swift; sourceTree = "<group>"; };
 		D06CFF442AF15DCD00FFC3F7 /* ARManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARManager.swift; sourceTree = "<group>"; };
 		D06CFF462AF1679D00FFC3F7 /* ARContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARContentView.swift; sourceTree = "<group>"; };
@@ -272,9 +272,9 @@
 		D06CFEC72AE75A2300FFC3F7 = {
 			isa = PBXGroup;
 			children = (
-				D06CFED22AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL */,
-				D06CFEE82AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests */,
-				D06CFEF22AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests */,
+				D06CFED22AE75A2300FFC3F7 /* Augment */,
+				D06CFEE82AE75A2600FFC3F7 /* AugmentTests */,
+				D06CFEF22AE75A2600FFC3F7 /* AugmentUITests */,
 				D06CFED12AE75A2300FFC3F7 /* Products */,
 				D04F81FE2B126FA0008484B8 /* Frameworks */,
 			);
@@ -284,29 +284,29 @@
 		D06CFED12AE75A2300FFC3F7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D06CFED02AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL.app */,
-				D06CFEE52AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.xctest */,
-				D06CFEEF2AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.xctest */,
+				D06CFED02AE75A2300FFC3F7 /* Augment.app */,
+				D06CFEE52AE75A2600FFC3F7 /* AugmentTests.xctest */,
+				D06CFEEF2AE75A2600FFC3F7 /* AugmentUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D06CFED22AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL */ = {
+		D06CFED22AE75A2300FFC3F7 /* Augment */ = {
 			isa = PBXGroup;
 			children = (
-				D06CFF412AF14F2500FFC3F7 /* Heigl-ARKIT-FINAL-Info.plist */,
+				D06CFF412AF14F2500FFC3F7 /* Augment-Info.plist */,
 				D06CFF032AE75A3B00FFC3F7 /* Models */,
 				D06CFF022AE75A3300FFC3F7 /* Views */,
-				D06CFED32AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift */,
+				D06CFED32AE75A2300FFC3F7 /* AugmentApp.swift */,
 				D06CFED52AE75A2300FFC3F7 /* ContentView.swift */,
 				D06CFED72AE75A2500FFC3F7 /* Assets.xcassets */,
 				D04F82122B1316D6008484B8 /* GoogleService-Info.plist */,
 				D06CFEDC2AE75A2500FFC3F7 /* Persistence.swift */,
-				D06CFEDE2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld */,
+				D06CFEDE2AE75A2500FFC3F7 /* Augment.xcdatamodeld */,
 				D06CFED92AE75A2500FFC3F7 /* Preview Content */,
 				D0BA2E012B1ABEF500F9FB93 /* InAppPurchases.storekit */,
 			);
-			path = Heigl_ARKIT_FINAL;
+			path = Augment;
 			sourceTree = "<group>";
 		};
 		D06CFED92AE75A2500FFC3F7 /* Preview Content */ = {
@@ -317,21 +317,21 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		D06CFEE82AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests */ = {
+		D06CFEE82AE75A2600FFC3F7 /* AugmentTests */ = {
 			isa = PBXGroup;
 			children = (
-				D06CFEE92AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.swift */,
+				D06CFEE92AE75A2600FFC3F7 /* AugmentTests.swift */,
 			);
-			path = Heigl_ARKIT_FINALTests;
+			path = AugmentTests;
 			sourceTree = "<group>";
 		};
-		D06CFEF22AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests */ = {
+		D06CFEF22AE75A2600FFC3F7 /* AugmentUITests */ = {
 			isa = PBXGroup;
 			children = (
-				D06CFEF32AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.swift */,
-				D06CFEF52AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITestsLaunchTests.swift */,
+				D06CFEF32AE75A2600FFC3F7 /* AugmentUITests.swift */,
+				D06CFEF52AE75A2600FFC3F7 /* AugmentUITestsLaunchTests.swift */,
 			);
-			path = Heigl_ARKIT_FINALUITests;
+			path = AugmentUITests;
 			sourceTree = "<group>";
 		};
 		D06CFF022AE75A3300FFC3F7 /* Views */ = {
@@ -412,9 +412,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D06CFECF2AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL */ = {
+		D06CFECF2AE75A2300FFC3F7 /* Augment */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D06CFEF92AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "Heigl_ARKIT_FINAL" */;
+			buildConfigurationList = D06CFEF92AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "Augment" */;
 			buildPhases = (
 				D06CFECC2AE75A2300FFC3F7 /* Sources */,
 				D06CFECD2AE75A2300FFC3F7 /* Frameworks */,
@@ -425,7 +425,7 @@
 			);
 			dependencies = (
 			);
-			name = Heigl_ARKIT_FINAL;
+			name = Augment;
 			packageProductDependencies = (
 				D0DFB5E62B0D9BD300019DA6 /* FocusEntity */,
 				D04F82152B1317CB008484B8 /* FirebaseAuth */,
@@ -433,12 +433,12 @@
 				D04F82192B1317CB008484B8 /* FirebaseFirestoreSwift */,
 			);
 			productName = Heigl_ARKIT_FINAL;
-			productReference = D06CFED02AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL.app */;
+			productReference = D06CFED02AE75A2300FFC3F7 /* Augment.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D06CFEE42AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests */ = {
+		D06CFEE42AE75A2600FFC3F7 /* AugmentTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D06CFEFC2AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "Heigl_ARKIT_FINALTests" */;
+			buildConfigurationList = D06CFEFC2AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "AugmentTests" */;
 			buildPhases = (
 				D06CFEE12AE75A2600FFC3F7 /* Sources */,
 				D06CFEE22AE75A2600FFC3F7 /* Frameworks */,
@@ -449,14 +449,14 @@
 			dependencies = (
 				D06CFEE72AE75A2600FFC3F7 /* PBXTargetDependency */,
 			);
-			name = Heigl_ARKIT_FINALTests;
+			name = AugmentTests;
 			productName = Heigl_ARKIT_FINALTests;
-			productReference = D06CFEE52AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.xctest */;
+			productReference = D06CFEE52AE75A2600FFC3F7 /* AugmentTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		D06CFEEE2AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests */ = {
+		D06CFEEE2AE75A2600FFC3F7 /* AugmentUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D06CFEFF2AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "Heigl_ARKIT_FINALUITests" */;
+			buildConfigurationList = D06CFEFF2AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "AugmentUITests" */;
 			buildPhases = (
 				D06CFEEB2AE75A2600FFC3F7 /* Sources */,
 				D06CFEEC2AE75A2600FFC3F7 /* Frameworks */,
@@ -467,9 +467,9 @@
 			dependencies = (
 				D06CFEF12AE75A2600FFC3F7 /* PBXTargetDependency */,
 			);
-			name = Heigl_ARKIT_FINALUITests;
+			name = AugmentUITests;
 			productName = Heigl_ARKIT_FINALUITests;
-			productReference = D06CFEEF2AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.xctest */;
+			productReference = D06CFEEF2AE75A2600FFC3F7 /* AugmentUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -495,7 +495,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D06CFECB2AE75A2300FFC3F7 /* Build configuration list for PBXProject "Heigl_ARKIT_FINAL" */;
+			buildConfigurationList = D06CFECB2AE75A2300FFC3F7 /* Build configuration list for PBXProject "Augment" */;
 			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -512,9 +512,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D06CFECF2AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL */,
-				D06CFEE42AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests */,
-				D06CFEEE2AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests */,
+				D06CFECF2AE75A2300FFC3F7 /* Augment */,
+				D06CFEE42AE75A2600FFC3F7 /* AugmentTests */,
+				D06CFEEE2AE75A2600FFC3F7 /* AugmentUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -583,7 +583,7 @@
 				D0DFB5E42B0D7EA600019DA6 /* Models.swift in Sources */,
 				D00D587E2B1D316E000EF8ED /* FAQJSON.swift in Sources */,
 				D06CFF2C2AE7652D00FFC3F7 /* Safety+CoreData.swift in Sources */,
-				D06CFEE02AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld in Sources */,
+				D06CFEE02AE75A2500FFC3F7 /* Augment.xcdatamodeld in Sources */,
 				D06CFF2E2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift in Sources */,
 				D06CFF492AF1919800FFC3F7 /* LocationDetailsView.swift in Sources */,
 				D06CFF062AE75A6100FFC3F7 /* LoginView.swift in Sources */,
@@ -593,7 +593,7 @@
 				D06CFF302AE768D100FFC3F7 /* Users+CoreData.swift in Sources */,
 				D06CFF102AE75AD000FFC3F7 /* SettingsFAQSafety.swift in Sources */,
 				D06CFF3B2AF0834400FFC3F7 /* UsersJSON.swift in Sources */,
-				D06CFED42AE75A2300FFC3F7 /* Heigl_ARKIT_FINALApp.swift in Sources */,
+				D06CFED42AE75A2300FFC3F7 /* AugmentApp.swift in Sources */,
 				D01699922B181B0D0066FE61 /* CoreLocationHelper.swift in Sources */,
 				D06CFF332AEEFF4700FFC3F7 /* CoreDataHelper.swift in Sources */,
 				D0BA2DFC2B19682500F9FB93 /* IAPJSON.swift in Sources */,
@@ -615,7 +615,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D06CFEEA2AE75A2600FFC3F7 /* Heigl_ARKIT_FINALTests.swift in Sources */,
+				D06CFEEA2AE75A2600FFC3F7 /* AugmentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,8 +623,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D06CFEF42AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITests.swift in Sources */,
-				D06CFEF62AE75A2600FFC3F7 /* Heigl_ARKIT_FINALUITestsLaunchTests.swift in Sources */,
+				D06CFEF42AE75A2600FFC3F7 /* AugmentUITests.swift in Sources */,
+				D06CFEF62AE75A2600FFC3F7 /* AugmentUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,12 +633,12 @@
 /* Begin PBXTargetDependency section */
 		D06CFEE72AE75A2600FFC3F7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D06CFECF2AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL */;
+			target = D06CFECF2AE75A2300FFC3F7 /* Augment */;
 			targetProxy = D06CFEE62AE75A2600FFC3F7 /* PBXContainerItemProxy */;
 		};
 		D06CFEF12AE75A2600FFC3F7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D06CFECF2AE75A2300FFC3F7 /* Heigl_ARKIT_FINAL */;
+			target = D06CFECF2AE75A2300FFC3F7 /* Augment */;
 			targetProxy = D06CFEF02AE75A2600FFC3F7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -772,11 +772,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Heigl_ARKIT_FINAL/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Augment/Preview Content\"";
 				DEVELOPMENT_TEAM = L969A3FLRT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Heigl-ARKIT-FINAL-Info.plist";
+				INFOPLIST_FILE = "Augment-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Augment;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Needed to enable the AR View!";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Needed to display your location on the map!";
@@ -792,7 +792,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-AR-Creator";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.jhu.ep.Augment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -807,11 +807,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Heigl_ARKIT_FINAL/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Augment/Preview Content\"";
 				DEVELOPMENT_TEAM = L969A3FLRT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Heigl-ARKIT-FINAL-Info.plist";
+				INFOPLIST_FILE = "Augment-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Augment;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Needed to enable the AR View!";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Needed to display your location on the map!";
@@ -827,7 +827,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-AR-Creator";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.jhu.ep.Augment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -844,14 +844,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4562Q5CQ46;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Augment;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-ARKIT-FINALTests";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.jhu.ep.AugmentTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Heigl_ARKIT_FINAL.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Heigl_ARKIT_FINAL";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Augment.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Augment";
 			};
 			name = Debug;
 		};
@@ -864,14 +865,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4562Q5CQ46;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Augment;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-ARKIT-FINALTests";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.jhu.ep.AugmentTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Heigl_ARKIT_FINAL.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Heigl_ARKIT_FINAL";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Augment.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Augment";
 			};
 			name = Release;
 		};
@@ -883,8 +885,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4562Q5CQ46;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Augment;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-ARKIT-FINALUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.jhu.ep.AugmentUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -901,8 +904,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4562Q5CQ46;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Augment;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.jhu.ep.Heigl-ARKIT-FINALUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.jhu.ep.AugmentUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -914,7 +918,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D06CFECB2AE75A2300FFC3F7 /* Build configuration list for PBXProject "Heigl_ARKIT_FINAL" */ = {
+		D06CFECB2AE75A2300FFC3F7 /* Build configuration list for PBXProject "Augment" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D06CFEF72AE75A2600FFC3F7 /* Debug */,
@@ -923,7 +927,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D06CFEF92AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "Heigl_ARKIT_FINAL" */ = {
+		D06CFEF92AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "Augment" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D06CFEFA2AE75A2600FFC3F7 /* Debug */,
@@ -932,7 +936,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D06CFEFC2AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "Heigl_ARKIT_FINALTests" */ = {
+		D06CFEFC2AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "AugmentTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D06CFEFD2AE75A2600FFC3F7 /* Debug */,
@@ -941,7 +945,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D06CFEFF2AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "Heigl_ARKIT_FINALUITests" */ = {
+		D06CFEFF2AE75A2600FFC3F7 /* Build configuration list for PBXNativeTarget "AugmentUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D06CFF002AE75A2600FFC3F7 /* Debug */,
@@ -995,13 +999,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		D06CFEDE2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodeld */ = {
+		D06CFEDE2AE75A2500FFC3F7 /* Augment.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				D06CFEDF2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodel */,
 			);
 			currentVersion = D06CFEDF2AE75A2500FFC3F7 /* Heigl_ARKIT_FINAL.xcdatamodel */;
-			path = Heigl_ARKIT_FINAL.xcdatamodeld;
+			path = Augment.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
