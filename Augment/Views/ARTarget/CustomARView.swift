@@ -86,10 +86,14 @@ class CustomARView: RealityKit.ARView {
 		// Ensure single tap doesn't interfere with double tap
 		tapGestureRecognizer.require(toFail: doubleTapGestureRecognizer)
 		
-		// Add swipe gesture recognizer for a rightward slash
-		let swipeRightGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeRight(recognizer:)))
-		swipeRightGestureRecognizer.direction = .right
-		self.addGestureRecognizer(swipeRightGestureRecognizer)
+		// Add double tap gesture recognizer
+		let tripleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTripleTap(recognizer:)))
+		tripleTapGestureRecognizer.numberOfTapsRequired = 3
+		self.addGestureRecognizer(tripleTapGestureRecognizer)
+
+		// Ensure single tap doesn't interfere with double tap
+		doubleTapGestureRecognizer.require(toFail: tripleTapGestureRecognizer)
+
 	}
 	
 	private var cancellables: Set<AnyCancellable> = []
@@ -427,7 +431,7 @@ class CustomARView: RealityKit.ARView {
 	}
 
 	
-	@objc func handleSwipeRight(recognizer: UISwipeGestureRecognizer) {
+	@objc func handleTripleTap(recognizer: UISwipeGestureRecognizer) {
 		// Handle rightward slash
 		print("Rightward slash detected")
 		
