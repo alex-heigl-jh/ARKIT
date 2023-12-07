@@ -26,6 +26,7 @@ import FocusEntity
 import Photos
 import ReplayKit
 import SwiftUI
+import simd
 
 
 #if !targetEnvironment(simulator)
@@ -351,6 +352,16 @@ class CustomARView: RealityKit.ARView {
 	@objc func handleTap(recognizer: UITapGestureRecognizer) {
 		print("Single tap detected")
 		
+		// Example: Create a quaternion for a 90-degree roll
+		// Example usage
+		let pitch45 = createQuaternion(rollDegrees: 0, pitchDegrees: 45, yawDegrees: 0)
+		let roll5 = createQuaternion(rollDegrees: 5, pitchDegrees: 0, yawDegrees: 0)
+
+		let noRotation = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
+		
+		let roll = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
+		let rollNeg = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
+		
 		let location = recognizer.location(in: self)
 		if let entity = self.entity(at: location) as? ModelEntity {
 			guard let model = entityModelMap[entity] else { return }
@@ -359,7 +370,12 @@ class CustomARView: RealityKit.ARView {
 			switch model.modelName {
 			case "toy_biplane_idle":
 				print("Queuing animations for toy_biplane_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 1), for: entity)
+
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 35, playbackSpeed: 2), for: entity)
+				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: 1, duration: 10.0, finalRotation: roll)
+				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: 1, duration: 10.0, finalRotation: rollNeg)
+				_ = moveEntityHorizontal(entity, distance: 5, duration: 10, finalRotation: noRotation)
+				
 				
 			case "BONUS_Spiderman_2099":
 				print("Queuing animations for BONUS_Spiderman_2099")
@@ -374,12 +390,12 @@ class CustomARView: RealityKit.ARView {
 			case "toy_drummer_idle":
 				print("Entering animation sequence case toy_drummer_idle")
 				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 1), for: entity)
-				
+				_ = moveEntityHorizontal(entity, distance: 2, duration: 10, finalRotation: noRotation)
 				
 			case "robot_walk_idle":
 				print("Entering animation sequence case robot_walk_idle")
 				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 1), for: entity)
-				
+				_ = moveEntityHorizontal(entity, distance: 2, duration: 10, finalRotation: noRotation)
 				
 			// Default Case
 			default:
@@ -392,6 +408,19 @@ class CustomARView: RealityKit.ARView {
 	@objc func handleDoubleTap(recognizer: UITapGestureRecognizer) {
 		print("Double tap detected")
 		
+		// Example: Create a quaternion for a 90-degree roll
+		let finalRotation = createQuaternion(rollDegrees: 90, pitchDegrees: 0, yawDegrees: 0)
+
+		// quaternion for a 180-degree roll
+		let Roll180 = createQuaternion(rollDegrees: 180, pitchDegrees: 0, yawDegrees: 0)
+		let Roll360 = createQuaternion(rollDegrees: 0, pitchDegrees: 90, yawDegrees: 0)
+		let pitch45 = createQuaternion(rollDegrees: 0, pitchDegrees: 45, yawDegrees: 0)
+		let yaw180 = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 180)
+		
+		let roll = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
+		let rollNeg = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
+		let noRotation = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
+		
 		let location = recognizer.location(in: self)
 		if let entity = self.entity(at: location) as? ModelEntity {
 			guard let model = entityModelMap[entity] else { return }
@@ -400,8 +429,14 @@ class CustomARView: RealityKit.ARView {
 			switch model.modelName {
 			case "toy_biplane_idle":
 				print("Queuing animations for toy_biplane_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 2), for: entity)
-
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 35, playbackSpeed: 2), for: entity)
+				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: 0.25, duration: 10.0, finalRotation: roll)
+				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: 0.25, duration: 10.0, finalRotation: rollNeg)
+				_ = moveEntityHorizontal(entity, distance: 0.5, duration: 2, finalRotation: noRotation)
+				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: -0.25, duration: 10.0, finalRotation: roll)
+				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: -0.25, duration: 10.0, finalRotation: rollNeg)
+				_ = moveEntityHorizontal(entity, distance: 1, duration: 5, finalRotation: noRotation)
+//
 			case "BONUS_Spiderman_2099":
 				print("Queuing animations for BONUS_Spiderman_2099")
 				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 2), for: entity)
@@ -415,13 +450,13 @@ class CustomARView: RealityKit.ARView {
 				
 			case "toy_drummer_idle":
 				print("Entering animation sequence case toy_drummer_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 2), for: entity)
-
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 5, playbackSpeed: 2), for: entity)
+				_ = moveEntityHorizontal(entity, distance: 2, duration: 5, finalRotation: yaw180)
 				
 			case "robot_walk_idle":
 				print("Entering animation sequence case robot_walk_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 2), for: entity)
-				
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 5, playbackSpeed: 2), for: entity)
+				_ = moveEntityHorizontal(entity, distance: 2, duration: 5, finalRotation: yaw180)
 				
 			// Default Case
 			default:
@@ -435,6 +470,11 @@ class CustomARView: RealityKit.ARView {
 		// Handle rightward slash
 		print("Rightward slash detected")
 		
+		// Example: Create a quaternion for a 90-degree roll
+		let roll = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
+		let rollNeg = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
+		let noRotation = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
+		
 		let location = recognizer.location(in: self)
 		if let entity = self.entity(at: location) as? ModelEntity {
 			guard let model = entityModelMap[entity] else { return }
@@ -443,7 +483,13 @@ class CustomARView: RealityKit.ARView {
 			switch model.modelName {
 			case "toy_biplane_idle":
 				print("Queuing animations for toy_biplane_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 4), for: entity)
+//				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 3, playbackSpeed: 4), for: entity)
+//				_ = moveEntityHorizontal(entity, distance: 2, duration: 3, finalRotation: noRotation)
+				
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 35, playbackSpeed: 2), for: entity)
+				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: 0.25, duration: 10.0, finalRotation: roll)
+				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: 0.25, duration: 10.0, finalRotation: rollNeg)
+				_ = moveEntityHorizontal(entity, distance: 2, duration: 10, finalRotation: noRotation)
 
 			case "BONUS_Spiderman_2099":
 				print("Queuing animations for BONUS_Spiderman_2099")
@@ -458,12 +504,17 @@ class CustomARView: RealityKit.ARView {
 				
 			case "toy_drummer_idle":
 				print("Entering animation sequence case toy_drummer_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 4), for: entity)
-
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 3, playbackSpeed: 4), for: entity)
+				// Move the tapped entity
+				_ = moveEntityHorizontal(entity, distance: 2, duration: 3, finalRotation: noRotation)
 				
 			case "robot_walk_idle":
 				print("Entering animation sequence case robot_walk_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 4), for: entity)
+				// This line kicks of annimation
+				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 3, playbackSpeed: 4), for: entity)
+				// This line moves the entity in the environment
+				_ = moveEntityHorizontal(entity, distance: 2, duration: 3, finalRotation: noRotation)
+				
 				
 			// Default Case
 			default:
@@ -479,9 +530,79 @@ class CustomARView: RealityKit.ARView {
 			entity.playAnimation(firstAnimation.repeat(duration: .infinity), transitionDuration: 0.5, startsPaused: false)
 		}
 	}
+	
+	// MARK: Function to move an entity horizontally with a specific rotation and return the final transform
+	private func moveEntityHorizontal(_ entity: ModelEntity, distance: Float, duration: TimeInterval, finalRotation: simd_quatf) -> Transform {
+		// Calculate the new position
+		var newPosition = entity.position
+		newPosition.z += distance // Move forward along the z-axis
+
+		// Create a transform with the new position and final rotation
+		let newTransform = Transform(scale: entity.transform.scale, rotation: finalRotation, translation: newPosition)
+
+		// Animate the movement to the new position with the final rotation
+		entity.move(to: newTransform, relativeTo: entity.parent, duration: duration, timingFunction: .linear)
+
+		return newTransform
+	}
+	
+	// MARK: Function to move an entity horizontally and vertically with a specific rotation
+	private func moveEntityHorizontallyAndVertically(_ entity: ModelEntity, horizontalDistance: Float, verticalDistance: Float, duration: TimeInterval, finalRotation: simd_quatf) -> Transform {
+		// Calculate the new position
+		var newPosition = entity.position
+		newPosition.z += horizontalDistance // Move forward along the z-axis
+		newPosition.y += verticalDistance   // Move upwards along the y-axis
+
+		// Create a transform with the new position and final rotation
+		let newTransform = Transform(scale: entity.transform.scale, rotation: finalRotation, translation: newPosition)
+
+		// Animate the movement to the new position with the final rotation
+		entity.move(to: newTransform, relativeTo: entity.parent, duration: duration, timingFunction: .linear)
+
+		return newTransform
+	}
+
+	
+	// MARK: Function to move an entity upwards with a specific rotation and return the final transform
+	private func moveEntityVertical(_ entity: ModelEntity, distance: Float, duration: TimeInterval, finalRotation: simd_quatf) -> Transform {
+		// Calculate the new position
+		var newPosition = entity.position
+		newPosition.y += distance // Move upwards along the y-axis
+
+		// Create a transform with the new position and final rotation
+		let newTransform = Transform(scale: entity.transform.scale, rotation: finalRotation, translation: newPosition)
+
+		// Animate the movement to the new position with the final rotation
+		entity.move(to: newTransform, relativeTo: entity.parent, duration: duration, timingFunction: .linear)
+
+		return newTransform
+	}
+
+	func createQuaternion(rollDegrees: Float, pitchDegrees: Float, yawDegrees: Float) -> simd_quatf {
+		// Convert roll, pitch, yaw from degrees to radians
+		let radians = simd_make_float3(rollDegrees, pitchDegrees, yawDegrees) * (Float.pi / 180)
+		// Create a rotation matrix
+		let rotationMatrix = simd_matrix3x3_make_rotation(radians)
+		// Create a quaternion from the rotation matrix
+		return simd_quatf(rotationMatrix)
+	}
+
+	// Helper function to create rotation matrix from Euler angles in radians
+	func simd_matrix3x3_make_rotation(_ radians: SIMD3<Float>) -> simd_float3x3 {
+		let (c1, c2, c3) = (cos(radians.x), cos(radians.y), cos(radians.z))
+		let (s1, s2, s3) = (sin(radians.x), sin(radians.y), sin(radians.z))
+
+		let row0 = SIMD3<Float>(c2 * c3, -c2 * s3, s2)
+		let row1 = SIMD3<Float>(c1 * s3 + c3 * s1 * s2, c1 * c3 - s1 * s2 * s3, -c2 * s1)
+		let row2 = SIMD3<Float>(s1 * s3 - c1 * c3 * s2, c3 * s1 + c1 * s2 * s3, c1 * c2)
+
+		return simd_float3x3(rows: [row0, row1, row2])
+	}
+
 
 }
 
+// MARK: OLD AnimationQueueManager
 class AnimationQueueManager {
 	private var animationQueue: [AnimationTask] = []
 	private var isAnimating = false
@@ -522,7 +643,6 @@ class AnimationQueueManager {
 		}
 	}
 }
-
 
 
 struct AnimationTask {
