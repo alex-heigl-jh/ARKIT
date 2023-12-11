@@ -109,6 +109,10 @@ struct ARContentView: View {
 			else if self.isBoxColorSelectEnabled {
 				SelectBoxColorView(isBoxColorSelectEnabled: self.$isBoxColorSelectEnabled)
 			}
+			// If the user selects that they would like to place a shape, display scroll menu that allows them to select the desired block
+			else if self.isBoxColorSelectEnabled {
+				SelectBoxColorView(isBoxColorSelectEnabled: self.$isBoxColorSelectEnabled)
+			}
 			// By default, display ModelPickerView which is gives the user the option of selecting blocks or USDZ models
 			else {
 				ModelPickerView(
@@ -132,6 +136,9 @@ struct ARContentView: View {
 					self.showPreviewController = false
 				}
 			}
+		}
+		.onDisappear() {
+			ARManager.shared.actionStream.send(.deallocateARSession)
 		}
 	}
 	// Start screen recording
@@ -451,7 +458,7 @@ struct SelectBoxColorView: View {
 				ForEach(colors, id: \.self) { color in
 					Button{
 						print("DEBUG: Placing Colored LBock with color: \(color)")
-						ARManager.shared.actionStream.send(.placeBlock(color: color))
+						ARManager.shared.actionStream.send(.placeBlock(color: color, meshType: .box))
 					} label: {
 						color
 							.frame(width: 40, height: 40)

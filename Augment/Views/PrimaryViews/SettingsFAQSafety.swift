@@ -242,21 +242,6 @@ struct ProfileSettingsView: View {
 							.padding(.horizontal)
 						
 						Divider()
-
-//						Picker("Map Style", selection: $selectedMapStyleIndex) {
-//							Text("Standard").tag(0)
-//							Text("Satellite").tag(1)
-//							Text("Hybrid").tag(2)
-//						}
-//						.onChange(of: selectedMapStyleIndex) { newValue in
-//							UserDefaults.standard.set(newValue, forKey: "selectedMapStyle")
-//							if let newMapStyle = MapStyleDropDown(rawValue: newValue) {
-//								print("Map style changed to: \(newMapStyle.title)")
-//							} else {
-//								print("Invalid map style index: \(newValue)")
-//							}
-//						}
-
 							
 						// Title for the Picker
 						HStack {

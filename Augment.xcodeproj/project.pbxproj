@@ -72,8 +72,11 @@
 		D0BA2DFA2B19676100F9FB93 /* IAPViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BA2DF92B19676100F9FB93 /* IAPViewDelegate.swift */; };
 		D0BA2DFC2B19682500F9FB93 /* IAPJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BA2DFB2B19682500F9FB93 /* IAPJSON.swift */; };
 		D0BA2E002B1987A800F9FB93 /* IAPListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BA2DFF2B1987A800F9FB93 /* IAPListing.swift */; };
-		D0DFB5E42B0D7EA600019DA6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DFB5E32B0D7EA600019DA6 /* Models.swift */; };
+		D0DFB5E42B0D7EA600019DA6 /* ModelLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DFB5E32B0D7EA600019DA6 /* ModelLoader.swift */; };
 		D0DFB5E72B0D9BD300019DA6 /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = D0DFB5E62B0D9BD300019DA6 /* FocusEntity */; };
+		D0E92B4A2B26BD7A006907EE /* AnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E92B492B26BD7A006907EE /* AnimationManager.swift */; };
+		D0E92B4C2B26CB67006907EE /* ARClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E92B4B2B26CB67006907EE /* ARClassExtensions.swift */; };
+		D0E92B4E2B26D98B006907EE /* AREnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E92B4D2B26D98B006907EE /* AREnums.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,7 +177,10 @@
 		D0BA2DFB2B19682500F9FB93 /* IAPJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPJSON.swift; sourceTree = "<group>"; };
 		D0BA2DFF2B1987A800F9FB93 /* IAPListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPListing.swift; sourceTree = "<group>"; };
 		D0BA2E012B1ABEF500F9FB93 /* InAppPurchases.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = InAppPurchases.storekit; sourceTree = "<group>"; };
-		D0DFB5E32B0D7EA600019DA6 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		D0DFB5E32B0D7EA600019DA6 /* ModelLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelLoader.swift; sourceTree = "<group>"; };
+		D0E92B492B26BD7A006907EE /* AnimationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationManager.swift; sourceTree = "<group>"; };
+		D0E92B4B2B26CB67006907EE /* ARClassExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARClassExtensions.swift; sourceTree = "<group>"; };
+		D0E92B4D2B26D98B006907EE /* AREnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AREnums.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -375,13 +381,16 @@
 		D06CFF3C2AF1487200FFC3F7 /* ARTarget */ = {
 			isa = PBXGroup;
 			children = (
-				D0730C552AFC826F00366E8D /* Models */,
+				D0E92B492B26BD7A006907EE /* AnimationManager.swift */,
+				D06CFF422AF15C9300FFC3F7 /* ARAction.swift */,
+				D0E92B4B2B26CB67006907EE /* ARClassExtensions.swift */,
+				D06CFF462AF1679D00FFC3F7 /* ARContentView.swift */,
+				D0E92B4D2B26D98B006907EE /* AREnums.swift */,
+				D06CFF442AF15DCD00FFC3F7 /* ARManager.swift */,
 				D06CFF3D2AF14A5700FFC3F7 /* CustomARView.swift */,
 				D06CFF3F2AF14A9B00FFC3F7 /* CustomARViewRepresentable.swift */,
-				D06CFF422AF15C9300FFC3F7 /* ARAction.swift */,
-				D06CFF442AF15DCD00FFC3F7 /* ARManager.swift */,
-				D06CFF462AF1679D00FFC3F7 /* ARContentView.swift */,
-				D0DFB5E32B0D7EA600019DA6 /* Models.swift */,
+				D0DFB5E32B0D7EA600019DA6 /* ModelLoader.swift */,
+				D0730C552AFC826F00366E8D /* Models */,
 			);
 			path = ARTarget;
 			sourceTree = "<group>";
@@ -580,14 +589,17 @@
 				D06CFED62AE75A2300FFC3F7 /* ContentView.swift in Sources */,
 				D06CFF0E2AE75AA300FFC3F7 /* NewsFeedView.swift in Sources */,
 				D06CFF222AE7637B00FFC3F7 /* FAQ+CoreData.swift in Sources */,
-				D0DFB5E42B0D7EA600019DA6 /* Models.swift in Sources */,
+				D0DFB5E42B0D7EA600019DA6 /* ModelLoader.swift in Sources */,
 				D00D587E2B1D316E000EF8ED /* FAQJSON.swift in Sources */,
 				D06CFF2C2AE7652D00FFC3F7 /* Safety+CoreData.swift in Sources */,
 				D06CFEE02AE75A2500FFC3F7 /* Augment.xcdatamodeld in Sources */,
 				D06CFF2E2AE768B700FFC3F7 /* SettingsPreferences+CoreData.swift in Sources */,
+				D0E92B4A2B26BD7A006907EE /* AnimationManager.swift in Sources */,
+				D0E92B4C2B26CB67006907EE /* ARClassExtensions.swift in Sources */,
 				D06CFF492AF1919800FFC3F7 /* LocationDetailsView.swift in Sources */,
 				D06CFF062AE75A6100FFC3F7 /* LoginView.swift in Sources */,
 				D0BA2DFA2B19676100F9FB93 /* IAPViewDelegate.swift in Sources */,
+				D0E92B4E2B26D98B006907EE /* AREnums.swift in Sources */,
 				D06CFF352AEF029400FFC3F7 /* IAP+CoreData.swift in Sources */,
 				D06CFF202AE7636900FFC3F7 /* ARObject+CoreData.swift in Sources */,
 				D06CFF302AE768D100FFC3F7 /* Users+CoreData.swift in Sources */,

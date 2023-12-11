@@ -32,12 +32,6 @@ import simd
 #if !targetEnvironment(simulator)
 class CustomARView: RealityKit.ARView {
 	
-	enum FocusStyleChoices {
-		case classic
-		case material
-		case color
-	}
-	
 	var lastPlayedAnimationIndex: [ModelEntity: Int] = [:]
 	
 	let focusStyle: FocusStyleChoices = .classic
@@ -49,13 +43,43 @@ class CustomARView: RealityKit.ARView {
 	var isRecording:Bool = false;
 
 	private let screenRecorder = RPScreenRecorder.shared()
-//	weak var delegate: CustomARViewDelegate?
 	var coordinator: CustomARViewRepresentable.Coordinator?
 	var showPreviewController: Binding<Bool>?
 	var previewController: Binding<RPPreviewViewController?>?
 	
 	var entityModelMap: [ModelEntity: Model] = [:]
+	
+	// Use a dictionary to store the entity type
+	var entityTypes: [Entity: EntityType] = [:]
+	// Dictionary to map entities to their anchors
+	var entityToAnchorMap: [Entity: AnchorEntity] = [:]
+	
+	private var collisionSubscriptions: Set<AnyCancellable> = []
+	
+	
+	var modelToAnimationStrategiesSingleTap: [String: [AnimationMovementTask]] = [
+		"toy_biplane_idle": [AMS.takeOff, AMS.turnRight,AMS.turnRight,AMS.turnRight,AMS.landSlow,AMS.trafficOnGround],
+		"BONUS_Spiderman_2099": [AMS.noMovePlayAnimation],
+		"toy_drummer_idle": [AMS.noMovePlayAnimation],
+		"robot_walk_idle": [AMS.noMovePlayAnimation],
+//		"BONUS_Solar_System_Model_Orrery": [AnimationMovementStrategies.noMovePlayAnimation],
+	]
 
+	var modelToAnimationStrategiesDoubleTap: [String: [AnimationMovementTask]] = [
+		"toy_biplane_idle": [AMS.takeOff, AMS.turnRight,AMS.turnRight,AMS.landSlow,AMS.trafficOnGround],
+		"BONUS_Spiderman_2099": [AMS.noMovePlayAnimation],
+		"toy_drummer_idle": [AMS.moveSlowStraight, AMS.moveBackSlowStraight,AMS.noMovePlayAnimation],
+		"robot_walk_idle": [AMS.moveSlowStraight, AMS.moveBackSlowStraight,AMS.noMovePlayAnimation],
+//		"BONUS_Solar_System_Model_Orrery": [AnimationMovementStrategies.noMovePlayAnimation],
+	]
+	
+	var modelToAnimationStrategiesTripleTap: [String: [AnimationMovementTask]] = [
+		"toy_biplane_idle": [AMS.takeOff, AMS.turnRight,AMS.landSlow],
+		"BONUS_Spiderman_2099": [AMS.noMoveFastPlayAnimation],
+		"toy_drummer_idle": [AMS.moveFastStraight, AMS.moveBackStraight,AMS.noMoveFastPlayAnimation],
+		"robot_walk_idle": [AMS.moveFastStraight, AMS.moveBackStraight, AMS.noMoveFastPlayAnimation],
+//		"BONUS_Solar_System_Model_Orrery": [AnimationMovementStrategies.noMovePlayAnimation],
+	]
 	
     required init(frame frameRect: CGRect){
         super.init(frame: frameRect)
@@ -69,6 +93,8 @@ class CustomARView: RealityKit.ARView {
 		self.init(frame: UIScreen.main.bounds)
 		
 		self.setupConfig()
+		
+		self.setupCollisionDetection()
 		
 		// call enableObjectRemoval to enable removal of individual entities from view
 		self.enableObjectRemoval()
@@ -99,18 +125,12 @@ class CustomARView: RealityKit.ARView {
 	
 	private var cancellables: Set<AnyCancellable> = []
 	
-	deinit {
-		print("CustomARView is being deinitialized")
-	}
-	
-	
 	struct ARViewState {
 		var sessionConfiguration: ARWorldTrackingConfiguration
 		var anchors: [AnchorEntity]
 	}
 	
-	
-	// function to subscribe to action stream from ARContentView, Utilizes Combine framework
+	// MARK: Function to subscribe to action stream from ARContentView, Utilizes Combine framework
 	func subscribeToActionStream(){
 		ARManager.shared
 			.actionStream
@@ -118,8 +138,8 @@ class CustomARView: RealityKit.ARView {
 			.sink { [weak self] action in
 				switch action {
 					// Place a block in the AR view
-					case .placeBlock(let color):
-						self?.placeBlock(ofColor: color)
+					case .placeBlock(let color, let meshType):
+						self?.placeBlock(ofColor: color, meshType: meshType)
 						
 					// Load a usdz model into the ARview
 					case .loadModel(let model):
@@ -142,13 +162,16 @@ class CustomARView: RealityKit.ARView {
 						print("DEBUG: User set focusEntity display to \(focusEntityEnable)")
 						self?.toggleFocusEntity(isEnabled: focusEntityEnable)
 					
+				case .deallocateARSession:
+					print("deallocateARSessionEnable AR Session")
+					self?.pauseSession()
 				}
 
 			}
 			.store(in: &cancellables)
 	}
 	
-	// AR Configuration examples
+	// MARK: AR Configuration examples
 	func configurationExamples() {
 		// Tracks the device relative to its environment
 		let configuration = ARWorldTrackingConfiguration()
@@ -165,7 +188,7 @@ class CustomARView: RealityKit.ARView {
 		
 	}
 	
-	// Even as the user moves around, anchor remains in the same position
+	// MARK: Anchor Examples
 	func anchorExamples() {
 		// Attach anchors at specific coordinates in the Iphone-centered coordinate system
 		// Places coordinate at 0,0,0
@@ -182,7 +205,7 @@ class CustomARView: RealityKit.ARView {
 		let _ = AnchorEntity(.image(group: "group", name: "name"))
 	}
 	
-	// Entity examples
+	// MARK: Entity examples
 	func entityExamples() {
 		// Load an entity for a usdz file
 		// usdz file: Apple 3D model that is included in application bundle
@@ -201,7 +224,7 @@ class CustomARView: RealityKit.ARView {
 		
 	}
 	
-	// Function that places a usdz file in the AR view
+	// MARK: Function that places a usdz file in the AR view
 	func placeEntity(from model: Model) {
 		// Clone the model entity
 		if let modelEntity = model.modelEntity?.clone(recursive: true) {
@@ -211,7 +234,12 @@ class CustomARView: RealityKit.ARView {
 
 			print("DEBUG: Adding model to scene - \(model.modelName)")
 			// Create an anchor for attaching the entity
-			let anchor = AnchorEntity(plane: .any) // You can choose .vertical or .horizontal based on your requirement
+			let anchor = AnchorEntity(plane: .any)
+			
+			// For use in collision detection --> handleCollision()
+			entityTypes[modelEntity] = .model
+			entityToAnchorMap[modelEntity] = anchor
+			modelEntity.name = model.modelName
 
 			// Add the cloned entity as a child of the anchor
 			anchor.addChild(modelEntity)
@@ -227,30 +255,42 @@ class CustomARView: RealityKit.ARView {
 		}
 	}
 
-	// Function that places a colored block in the AR view
-	func placeBlock(ofColor color: Color) {
-		
+	// MARK: Function that places a colored geometric shape in the AR view
+	func placeBlock(ofColor color: Color, meshType: MeshType) {
 		// Retrieve the isMetallic value from UserDefaults
 		let isMetallic = UserDefaults.standard.bool(forKey: "metallicBoxesEnabled")
 		
-		let block = MeshResource.generateBox(size: 0.25)
+		let mesh: MeshResource
+		switch meshType {
+		case .box:
+			mesh = MeshResource.generateBox(size: 0.25)
+		case .sphere:
+			mesh = MeshResource.generateSphere(radius: 0.25)
+		case .plane:
+			mesh = MeshResource.generatePlane(width: 0.25, depth: 0.25)
+		}
+
 		let material = SimpleMaterial(color: UIColor(color), isMetallic: isMetallic)
-		let entity = ModelEntity(mesh: block, materials: [material])
 		
+		let entity = ModelEntity(mesh: mesh, materials: [material])
+
 		let anchor = AnchorEntity(plane: .any)
 		
+		// For use in collision detection --> handleCollision()
+		entityTypes[entity] = .block
+		entityToAnchorMap[entity] = anchor
+
 		anchor.addChild(entity)
 		//: Add to scene
 		scene.addAnchor(anchor)
 		//: Generate collision shapes (needed for gestures)
 		anchor.generateCollisionShapes(recursive: true)
-		//:  Install gestures
+		//: Install gestures
 		installGestures([.translation, .rotation, .scale], for: entity)
-
-		
 	}
+
 	
-	// Function to configure the AR view when the convenience initializer is called
+	// MARK: Function to configure the AR view when the convenience initializer is called
 	func setupConfig() {
 		//		let arView = ARView(frame: .zero)
 		//		let arConfig = ARWorldTrackingConfiguration()
@@ -279,7 +319,7 @@ class CustomARView: RealityKit.ARView {
 		setupFocusEntity()
 	}
 
-	// Function to configure the focus entity (box that shows where AR content is to be placed)
+	// MARK: Function to configure the focus entity (box that shows where AR content is to be placed)
 	func setupFocusEntity(){
 		switch self.focusStyle {
 		case .color:
@@ -305,11 +345,10 @@ class CustomARView: RealityKit.ARView {
 		}
 	}
 	
-	
-	// Method to pause AR session
+	// MARK: Method to pause AR session
 	func pauseSession() {
-		print("DEBUG: Pausing AR Session")
 		self.session.pause()
+		print("DEBUG: pauseSession() called, AR Session paused")
 	}
 	
 	func captureImageFromCamera() {
@@ -322,18 +361,8 @@ class CustomARView: RealityKit.ARView {
 			UIImageWriteToSavedPhotosAlbum(snapshot, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
 		}
 	}
-
-	// Callback method after saving image
-	@objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-		if let error = error {
-			// Handle any errors
-			print("ERROR: Error saving photo: \(error.localizedDescription)")
-		} else {
-			// Image saved successfully
-			print("DEBUG: Photo saved successfully")
-		}
-	}
 	
+	// MARK: Function that toggles the focus entity on/off
 	func toggleFocusEntity(isEnabled: Bool) {
 		if isEnabled {
 			// If focus entity is to be enabled
@@ -348,334 +377,119 @@ class CustomARView: RealityKit.ARView {
 		}
 	}
 	
-	// MARK: Function that handles when an entity has been single tapped
+	// MARK: Function intended to configure collision detection between models placed in the view
+	func setupCollisionDetection() {
+		print("Setting up collision detection")
+		for (modelEntity, _) in entityModelMap {
+			modelEntity.generateCollisionShapes(recursive: true)
+			let collisionFilter = CollisionFilter(group: .default, mask: .all)
+			modelEntity.collision = CollisionComponent(shapes: [.generateBox(size: modelEntity.visualBounds(relativeTo: modelEntity).extents)], mode: .trigger, filter: collisionFilter)
+		}
+
+		// Subscribe to collision events on the scene
+		self.scene.subscribe(to: CollisionEvents.Began.self) { [weak self] event in
+			self?.handleCollision(event: event)
+		}.store(in: &collisionSubscriptions)
+		print("Subscribed to collision events")
+	}
+
+	// MARK: Modify handleCollision() to check for model-block collision
+	private func handleCollision(event: CollisionEvents.Began) {
+		let entityA = event.entityA
+		let entityB = event.entityB
+
+		let typeA = entityTypes[entityA]
+		let typeB = entityTypes[entityB]
+
+		// Check for model-block collision
+		if (typeA == .model && typeB == .block) || (typeA == .block && typeB == .model) {
+			// Determine which entity is the model and which is the block
+			let modelEntity = (typeA == .model ? entityA : entityB)
+			let blockEntity = (typeA == .block ? entityA : entityB)
+
+			// Print a detailed message
+			print("Collision detected between model \(modelEntity.name) and block.")
+
+			// Remove the block's anchor from the scene
+			if let blockAnchor = entityToAnchorMap[blockEntity] {
+				scene.removeAnchor(blockAnchor)
+			}
+		} else {
+			// Handle other types of collisions if needed
+			print("Collision detected between \(entityA.name) and \(entityB.name)")
+		}
+	}
+
+	
+	// MARK: Callback method after saving image
+	@objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+		if let error = error {
+			// Handle any errors
+			print("ERROR: Error saving photo: \(error.localizedDescription)")
+		} else {
+			// Image saved successfully
+			print("DEBUG: Photo saved successfully")
+		}
+	}
+	
+	// MARK: Function that handles when an entity is single tapped
 	@objc func handleTap(recognizer: UITapGestureRecognizer) {
-		print("Single tap detected")
-		
-		// Example: Create a quaternion for a 90-degree roll
-		// Example usage
-		let pitch45 = createQuaternion(rollDegrees: 0, pitchDegrees: 45, yawDegrees: 0)
-		let roll5 = createQuaternion(rollDegrees: 5, pitchDegrees: 0, yawDegrees: 0)
-
-		let noRotation = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-		
-		let roll = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-		let rollNeg = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-		
 		let location = recognizer.location(in: self)
-		if let entity = self.entity(at: location) as? ModelEntity {
-			guard let model = entityModelMap[entity] else { return }
+		if let entity = self.entity(at: location) as? ModelEntity, let model = entityModelMap[entity] {
 			let animationManager = AnimationQueueManager()
-			
-			switch model.modelName {
-			case "toy_biplane_idle":
-				print("Queuing animations for toy_biplane_idle")
 
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 35, playbackSpeed: 2), for: entity)
-				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: 1, duration: 10.0, finalRotation: roll)
-				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: 1, duration: 10.0, finalRotation: rollNeg)
-				_ = moveEntityHorizontal(entity, distance: 5, duration: 10, finalRotation: noRotation)
-				
-				
-			case "BONUS_Spiderman_2099":
-				print("Queuing animations for BONUS_Spiderman_2099")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 1), for: entity)
-				
-			case "BONUS_Solar_System_Model_Orrery":
-				print("Entering animation sequence case BONUS_Solar_System_Model_Orrery")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 15, playbackSpeed: 0.5), for: entity)
-				
-				animationManager.enqueue(AnimationTask(name: "Neptune_1_Min_Orbit", duration: 15, playbackSpeed: 0.5), for: entity)
-				
-			case "toy_drummer_idle":
-				print("Entering animation sequence case toy_drummer_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 1), for: entity)
-				_ = moveEntityHorizontal(entity, distance: 2, duration: 10, finalRotation: noRotation)
-				
-			case "robot_walk_idle":
-				print("Entering animation sequence case robot_walk_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 1), for: entity)
-				_ = moveEntityHorizontal(entity, distance: 2, duration: 10, finalRotation: noRotation)
-				
-			// Default Case
-			default:
-				print("No programmed action for requested entity")
+			// Retrieve the sequence of tasks for the model
+			if let tasks = modelToAnimationStrategiesSingleTap[model.modelName] {
+				// Enqueue each task in the sequence
+				tasks.forEach { animationManager.enqueue($0, for: entity) }
+			} else {
+				print("No animation strategy defined for model \(model.modelName)")
 			}
 		}
 	}
 	
-	// MARK: Function thjat handles when an entity is double tapped
+	// MARK: Function that handles when an entity is double tapped
 	@objc func handleDoubleTap(recognizer: UITapGestureRecognizer) {
 		print("Double tap detected")
-		
-		// Example: Create a quaternion for a 90-degree roll
-		let finalRotation = createQuaternion(rollDegrees: 90, pitchDegrees: 0, yawDegrees: 0)
-
-		// quaternion for a 180-degree roll
-		let Roll180 = createQuaternion(rollDegrees: 180, pitchDegrees: 0, yawDegrees: 0)
-		let Roll360 = createQuaternion(rollDegrees: 0, pitchDegrees: 90, yawDegrees: 0)
-		let pitch45 = createQuaternion(rollDegrees: 0, pitchDegrees: 45, yawDegrees: 0)
-		let yaw180 = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 180)
-		
-		let roll = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-		let rollNeg = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-		let noRotation = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-		
 		let location = recognizer.location(in: self)
-		if let entity = self.entity(at: location) as? ModelEntity {
-			guard let model = entityModelMap[entity] else { return }
+		if let entity = self.entity(at: location) as? ModelEntity, let model = entityModelMap[entity] {
 			let animationManager = AnimationQueueManager()
 
-			switch model.modelName {
-			case "toy_biplane_idle":
-				print("Queuing animations for toy_biplane_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 35, playbackSpeed: 2), for: entity)
-				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: 0.25, duration: 10.0, finalRotation: roll)
-				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: 0.25, duration: 10.0, finalRotation: rollNeg)
-				_ = moveEntityHorizontal(entity, distance: 0.5, duration: 2, finalRotation: noRotation)
-				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: -0.25, duration: 10.0, finalRotation: roll)
-				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: -0.25, duration: 10.0, finalRotation: rollNeg)
-				_ = moveEntityHorizontal(entity, distance: 1, duration: 5, finalRotation: noRotation)
-//
-			case "BONUS_Spiderman_2099":
-				print("Queuing animations for BONUS_Spiderman_2099")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 2), for: entity)
-				
-			case "BONUS_Solar_System_Model_Orrery":
-				print("Entering animation sequence case BONUS_Solar_System_Model_Orrery")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 15, playbackSpeed: 0.5), for: entity)
-
-				animationManager.enqueue(AnimationTask(name: "Neptune_1_Min_Orbit", duration: 15, playbackSpeed: 0.5), for: entity)
-				
-				
-			case "toy_drummer_idle":
-				print("Entering animation sequence case toy_drummer_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 5, playbackSpeed: 2), for: entity)
-				_ = moveEntityHorizontal(entity, distance: 2, duration: 5, finalRotation: yaw180)
-				
-			case "robot_walk_idle":
-				print("Entering animation sequence case robot_walk_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 5, playbackSpeed: 2), for: entity)
-				_ = moveEntityHorizontal(entity, distance: 2, duration: 5, finalRotation: yaw180)
-				
-			// Default Case
-			default:
-				print("No programmed action for requested entity")
+			// Retrieve the sequence of tasks for the model
+			if let tasks = modelToAnimationStrategiesDoubleTap[model.modelName] {
+				// Enqueue each task in the sequence
+				tasks.forEach { animationManager.enqueue($0, for: entity) }
+			} else {
+				print("No animation strategy defined for model \(model.modelName)")
 			}
 		}
-	}
 
+	}
 	
+	// MARK: Function that handles when an entity is tripple tapped
 	@objc func handleTripleTap(recognizer: UISwipeGestureRecognizer) {
 		// Handle rightward slash
 		print("Rightward slash detected")
 		
-		// Example: Create a quaternion for a 90-degree roll
-		let roll = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-		let rollNeg = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-		let noRotation = createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-		
 		let location = recognizer.location(in: self)
-		if let entity = self.entity(at: location) as? ModelEntity {
-			guard let model = entityModelMap[entity] else { return }
+		if let entity = self.entity(at: location) as? ModelEntity, let model = entityModelMap[entity] {
 			let animationManager = AnimationQueueManager()
 
-			switch model.modelName {
-			case "toy_biplane_idle":
-				print("Queuing animations for toy_biplane_idle")
-//				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 3, playbackSpeed: 4), for: entity)
-//				_ = moveEntityHorizontal(entity, distance: 2, duration: 3, finalRotation: noRotation)
-				
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 35, playbackSpeed: 2), for: entity)
-				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: 0.25, duration: 10.0, finalRotation: roll)
-				_ = moveEntityHorizontallyAndVertically(entity, horizontalDistance: 0.1, verticalDistance: 0.25, duration: 10.0, finalRotation: rollNeg)
-				_ = moveEntityHorizontal(entity, distance: 2, duration: 10, finalRotation: noRotation)
-
-			case "BONUS_Spiderman_2099":
-				print("Queuing animations for BONUS_Spiderman_2099")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 10, playbackSpeed: 4), for: entity)
-				
-			case "BONUS_Solar_System_Model_Orrery":
-				print("Entering animation sequence case BONUS_Solar_System_Model_Orrery")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 15, playbackSpeed: 0.5), for: entity)
-
-				animationManager.enqueue(AnimationTask(name: "Neptune_1_Min_Orbit", duration: 15, playbackSpeed: 0.5), for: entity)
-				
-				
-			case "toy_drummer_idle":
-				print("Entering animation sequence case toy_drummer_idle")
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 3, playbackSpeed: 4), for: entity)
-				// Move the tapped entity
-				_ = moveEntityHorizontal(entity, distance: 2, duration: 3, finalRotation: noRotation)
-				
-			case "robot_walk_idle":
-				print("Entering animation sequence case robot_walk_idle")
-				// This line kicks of annimation
-				animationManager.enqueue(AnimationTask(name: "global scene animation", duration: 3, playbackSpeed: 4), for: entity)
-				// This line moves the entity in the environment
-				_ = moveEntityHorizontal(entity, distance: 2, duration: 3, finalRotation: noRotation)
-				
-				
-			// Default Case
-			default:
-				print("No programmed action for requested entity")
+			// Retrieve the sequence of tasks for the model
+			if let tasks = modelToAnimationStrategiesTripleTap[model.modelName] {
+				// Enqueue each task in the sequence
+				tasks.forEach { animationManager.enqueue($0, for: entity) }
+			} else {
+				print("No animation strategy defined for model \(model.modelName)")
 			}
 		}
-	}
-	
-	
-	func playDefaultAnimation(_ entity: ModelEntity) {
-		// Existing logic to play the first animation
-		if let firstAnimation = entity.availableAnimations.first {
-			entity.playAnimation(firstAnimation.repeat(duration: .infinity), transitionDuration: 0.5, startsPaused: false)
-		}
-	}
-	
-	// MARK: Function to move an entity horizontally with a specific rotation and return the final transform
-	private func moveEntityHorizontal(_ entity: ModelEntity, distance: Float, duration: TimeInterval, finalRotation: simd_quatf) -> Transform {
-		// Calculate the new position
-		var newPosition = entity.position
-		newPosition.z += distance // Move forward along the z-axis
-
-		// Create a transform with the new position and final rotation
-		let newTransform = Transform(scale: entity.transform.scale, rotation: finalRotation, translation: newPosition)
-
-		// Animate the movement to the new position with the final rotation
-		entity.move(to: newTransform, relativeTo: entity.parent, duration: duration, timingFunction: .linear)
-
-		return newTransform
-	}
-	
-	// MARK: Function to move an entity horizontally and vertically with a specific rotation
-	private func moveEntityHorizontallyAndVertically(_ entity: ModelEntity, horizontalDistance: Float, verticalDistance: Float, duration: TimeInterval, finalRotation: simd_quatf) -> Transform {
-		// Calculate the new position
-		var newPosition = entity.position
-		newPosition.z += horizontalDistance // Move forward along the z-axis
-		newPosition.y += verticalDistance   // Move upwards along the y-axis
-
-		// Create a transform with the new position and final rotation
-		let newTransform = Transform(scale: entity.transform.scale, rotation: finalRotation, translation: newPosition)
-
-		// Animate the movement to the new position with the final rotation
-		entity.move(to: newTransform, relativeTo: entity.parent, duration: duration, timingFunction: .linear)
-
-		return newTransform
+		
 	}
 
-	
-	// MARK: Function to move an entity upwards with a specific rotation and return the final transform
-	private func moveEntityVertical(_ entity: ModelEntity, distance: Float, duration: TimeInterval, finalRotation: simd_quatf) -> Transform {
-		// Calculate the new position
-		var newPosition = entity.position
-		newPosition.y += distance // Move upwards along the y-axis
-
-		// Create a transform with the new position and final rotation
-		let newTransform = Transform(scale: entity.transform.scale, rotation: finalRotation, translation: newPosition)
-
-		// Animate the movement to the new position with the final rotation
-		entity.move(to: newTransform, relativeTo: entity.parent, duration: duration, timingFunction: .linear)
-
-		return newTransform
-	}
-
-	func createQuaternion(rollDegrees: Float, pitchDegrees: Float, yawDegrees: Float) -> simd_quatf {
-		// Convert roll, pitch, yaw from degrees to radians
-		let radians = simd_make_float3(rollDegrees, pitchDegrees, yawDegrees) * (Float.pi / 180)
-		// Create a rotation matrix
-		let rotationMatrix = simd_matrix3x3_make_rotation(radians)
-		// Create a quaternion from the rotation matrix
-		return simd_quatf(rotationMatrix)
-	}
-
-	// Helper function to create rotation matrix from Euler angles in radians
-	func simd_matrix3x3_make_rotation(_ radians: SIMD3<Float>) -> simd_float3x3 {
-		let (c1, c2, c3) = (cos(radians.x), cos(radians.y), cos(radians.z))
-		let (s1, s2, s3) = (sin(radians.x), sin(radians.y), sin(radians.z))
-
-		let row0 = SIMD3<Float>(c2 * c3, -c2 * s3, s2)
-		let row1 = SIMD3<Float>(c1 * s3 + c3 * s1 * s2, c1 * c3 - s1 * s2 * s3, -c2 * s1)
-		let row2 = SIMD3<Float>(s1 * s3 - c1 * c3 * s2, c3 * s1 + c1 * s2 * s3, c1 * c2)
-
-		return simd_float3x3(rows: [row0, row1, row2])
-	}
-
-
-}
-
-// MARK: OLD AnimationQueueManager
-class AnimationQueueManager {
-	private var animationQueue: [AnimationTask] = []
-	private var isAnimating = false
-
-	func enqueue(_ task: AnimationTask, for entity: ModelEntity) {
-		animationQueue.append(task)
-		executeNextIfPossible(for: entity)
-	}
-
-	private func executeNextIfPossible(for entity: ModelEntity) {
-		guard !isAnimating, let nextTask = animationQueue.first else { return }
-		isAnimating = true
-		animationQueue.removeFirst()
-
-		playAnimation(task: nextTask, for: entity) {
-			self.isAnimating = false
-			self.executeNextIfPossible(for: entity) // Trigger next animation
-		}
-	}
-
-	private func playAnimation(task: AnimationTask, for entity: ModelEntity, completion: @escaping () -> Void) {
-		print("Entering playAnimation")
-		if let animation = entity.availableAnimations.first(where: { $0.name == task.name }) {
-			print("Playing animation: \(task.name)")
-
-			// Play the animation infinitely
-			let controller = entity.playAnimation(animation.repeat(duration: .infinity), transitionDuration: 0.5, separateAnimatedValue: true, startsPaused: false)
-			controller.speed = task.playbackSpeed
-
-			// Schedule to stop the animation after the specified duration
-			DispatchQueue.main.asyncAfter(deadline: .now() + task.duration) {
-				// Stop the animation
-				controller.stop() // This will stop the animation playback
-				
-				// Call the completion to proceed to the next animation
-				completion()
-			}
-		}
-	}
-}
-
-
-struct AnimationTask {
-	let name: String
-	let duration: TimeInterval
-	let playbackSpeed: Float
-}
-
-
-//: Create extension of ARView to enable longPressGesture to delete AR object
-extension RealityKit.ARView {
-	//: Create enableObjectRemoval() function to add longPressGesture recognizer
-	func enableObjectRemoval(){
-		let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(recognizer:)))
-		self.addGestureRecognizer(longPressGestureRecognizer)
-	}
-	
-	//: Create selector to handleLongPress
-	@objc func handleLongPress(recognizer: UILongPressGestureRecognizer) {
-		guard recognizer.state == .began else { return } // Check if the gesture has just begun
-
-		let location = recognizer.location(in: self)
-		if let entity = self.entity(at: location) {
-			entity.removeFromParent() // Directly remove the entity
-			print("DEBUG: Removed entity")
-		}
-	}
-}
-
-
-extension CustomARView: RPPreviewViewControllerDelegate {
-	func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
-		previewController.dismiss(animated: true)
+	// MARK: Function that properly de-initialzes the AR Session when the user exits the view
+	deinit {
+		pauseSession() // Explicitly pause the AR session
+		print("deinit: CustomARView is being deinitialized and ARSession paused")
 	}
 }
 

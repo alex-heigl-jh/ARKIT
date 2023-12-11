@@ -7,14 +7,14 @@
 //  Code initially based off of tutorial from: https://www.youtube.com/watch?v=KbqbU-cCKf4
 
 import SwiftUI
+import Foundation
 
-//ARAction that we want to implement
+// MARK: AR Actions that can be called by ARContentView
 enum ARAction{
 	case captureImage
 	case disableEnableFocusEntity(Bool)
 	case loadModel(Model)
-	case placeBlock(color: Color)
+	case placeBlock(color: Color, meshType: MeshType)
 	case removeAllAnchors
+	case deallocateARSession
 }
-
-
