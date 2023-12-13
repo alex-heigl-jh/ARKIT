@@ -56,6 +56,9 @@ class CustomARView: RealityKit.ARView {
 	
 	private var collisionSubscriptions: Set<AnyCancellable> = []
 	
+	var activeEntity: Entity?
+	
+	private let gestureDelegate = GestureRecognizerDelegate()
 	
 	var modelToAnimationStrategiesSingleTap: [String: [AnimationMovementTask]] = [
 		"toy_biplane_idle": [AMS.takeOff, AMS.turnRight,AMS.turnRight,AMS.turnRight,AMS.landSlow,AMS.trafficOnGround],
@@ -120,6 +123,27 @@ class CustomARView: RealityKit.ARView {
 
 		// Ensure single tap doesn't interfere with double tap
 		doubleTapGestureRecognizer.require(toFail: tripleTapGestureRecognizer)
+		
+		// Setup swipe gestures for each direction to identify active entity
+		let directions: [UISwipeGestureRecognizer.Direction] = [.left, .right, .up, .down]
+		for direction in directions {
+			let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
+			swipeGestureRecognizer.direction = direction
+			self.addGestureRecognizer(swipeGestureRecognizer)
+		}
+		
+		let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(recognizer:)))
+		swipeGestureRecognizer.delegate = gestureDelegate
+		self.addGestureRecognizer(swipeGestureRecognizer)
+
+		
+		swipeGestureRecognizer.delegate = self
+		
+		// Implement the delegate method
+		func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+			// Decide if you want to recognize simultaneously
+			return true
+		}
 
 	}
 	
@@ -380,7 +404,9 @@ class CustomARView: RealityKit.ARView {
 	// MARK: Function intended to configure collision detection between models placed in the view
 	func setupCollisionDetection() {
 		print("Setting up collision detection")
-		for (modelEntity, _) in entityModelMap {
+
+		// Iterate over ModelEntity objects only
+		for modelEntity in entityModelMap.keys {
 			modelEntity.generateCollisionShapes(recursive: true)
 			let collisionFilter = CollisionFilter(group: .default, mask: .all)
 			modelEntity.collision = CollisionComponent(shapes: [.generateBox(size: modelEntity.visualBounds(relativeTo: modelEntity).extents)], mode: .trigger, filter: collisionFilter)
@@ -393,32 +419,55 @@ class CustomARView: RealityKit.ARView {
 		print("Subscribed to collision events")
 	}
 
+
 	// MARK: Modify handleCollision() to check for model-block collision
 	private func handleCollision(event: CollisionEvents.Began) {
 		let entityA = event.entityA
 		let entityB = event.entityB
 
-		let typeA = entityTypes[entityA]
-		let typeB = entityTypes[entityB]
+		let typeA = entityTypes[entityA, default: .block]
+		let typeB = entityTypes[entityB, default: .block]
 
-		// Check for model-block collision
-		if (typeA == .model && typeB == .block) || (typeA == .block && typeB == .model) {
-			// Determine which entity is the model and which is the block
+		// Check if one of the entities is the currently active entity
+		let initiator = (entityA === activeEntity ? entityA : (entityB === activeEntity ? entityB : nil))
+
+		switch (typeA, typeB) {
+		case (.block, .block):
+			if let initiator = initiator {
+				// Handle the case where the initiator is known
+				print("Block initiated by \(initiator.name) collided with another block.")
+			} else {
+				// Fallback case if initiator is not known
+				stackBlocks(blockA: entityA, blockB: entityB)
+			}
+		case (.model, .block), (.block, .model):
 			let modelEntity = (typeA == .model ? entityA : entityB)
 			let blockEntity = (typeA == .block ? entityA : entityB)
-
-			// Print a detailed message
 			print("Collision detected between model \(modelEntity.name) and block.")
-
-			// Remove the block's anchor from the scene
-			if let blockAnchor = entityToAnchorMap[blockEntity] {
-				scene.removeAnchor(blockAnchor)
-			}
-		} else {
-			// Handle other types of collisions if needed
+			// Handle model-block collision
+		default:
 			print("Collision detected between \(entityA.name) and \(entityB.name)")
 		}
 	}
+
+	private func stackBlocks(blockA: Entity, blockB: Entity) {
+		// Determine the active block and the other block
+		let activeBlock: Entity? = (blockA === activeEntity ? blockA : (blockB === activeEntity ? blockB : nil))
+		let otherBlock: Entity? = (blockA !== activeBlock ? blockA : blockB)
+
+		if let activeBlock = activeBlock, let otherBlock = otherBlock {
+			// Calculate new position for the active block
+			var newPosition = otherBlock.position
+			newPosition.y += otherBlock.visualBounds(relativeTo: otherBlock).extents.y / 2
+			newPosition.y += activeBlock.visualBounds(relativeTo: activeBlock).extents.y / 2
+
+			// Move the active block on top of the other block
+			activeBlock.move(to: Transform(translation: newPosition), relativeTo: otherBlock.parent, duration: 0.1, timingFunction: .easeInOut)
+		} else {
+			print("No active block identified for stacking")
+		}
+	}
+
 
 	
 	// MARK: Callback method after saving image
@@ -434,6 +483,7 @@ class CustomARView: RealityKit.ARView {
 	
 	// MARK: Function that handles when an entity is single tapped
 	@objc func handleTap(recognizer: UITapGestureRecognizer) {
+		print("Single tap detected")
 		let location = recognizer.location(in: self)
 		if let entity = self.entity(at: location) as? ModelEntity, let model = entityModelMap[entity] {
 			let animationManager = AnimationQueueManager()
@@ -447,7 +497,7 @@ class CustomARView: RealityKit.ARView {
 			}
 		}
 	}
-	
+
 	// MARK: Function that handles when an entity is double tapped
 	@objc func handleDoubleTap(recognizer: UITapGestureRecognizer) {
 		print("Double tap detected")
@@ -467,10 +517,8 @@ class CustomARView: RealityKit.ARView {
 	}
 	
 	// MARK: Function that handles when an entity is tripple tapped
-	@objc func handleTripleTap(recognizer: UISwipeGestureRecognizer) {
-		// Handle rightward slash
-		print("Rightward slash detected")
-		
+	@objc func handleTripleTap(recognizer: UITapGestureRecognizer) {
+		print("Triple tap detected")
 		let location = recognizer.location(in: self)
 		if let entity = self.entity(at: location) as? ModelEntity, let model = entityModelMap[entity] {
 			let animationManager = AnimationQueueManager()
@@ -485,11 +533,46 @@ class CustomARView: RealityKit.ARView {
 		}
 		
 	}
+	
+
+	
+	// Swipe gesture handler function
+	@objc func handleSwipe(recognizer: UISwipeGestureRecognizer) {
+		let location = recognizer.location(in: self)
+
+		// Perform a ray cast to find anchors in the 3D space
+		let rayCastResults = self.raycast(from: location, allowing: .estimatedPlane, alignment: .any)
+
+		if let firstResult = rayCastResults.first {
+			// Get the anchor from the raycast result
+			if let anchor = firstResult.anchor {
+				// Iterate through the entity-to-anchor map
+				for (entity, associatedAnchor) in entityToAnchorMap {
+					if associatedAnchor.anchorIdentifier == anchor.identifier {
+						// Check if the entity is a ModelEntity and set it as the active entity
+						if let modelEntity = entity as? ModelEntity {
+							self.activeEntity = modelEntity
+							print("Active entity set to: \(modelEntity.name)")
+							break
+						}
+					}
+				}
+			} else {
+				print("No anchor found at swipe location")
+			}
+		}
+	}
 
 	// MARK: Function that properly de-initialzes the AR Session when the user exits the view
 	deinit {
 		pauseSession() // Explicitly pause the AR session
 		print("deinit: CustomARView is being deinitialized and ARSession paused")
+	}
+}
+
+class GestureRecognizerDelegate: NSObject, UIGestureRecognizerDelegate {
+	func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+		return gestureRecognizer is UISwipeGestureRecognizer && otherGestureRecognizer is UIPanGestureRecognizer
 	}
 }
 

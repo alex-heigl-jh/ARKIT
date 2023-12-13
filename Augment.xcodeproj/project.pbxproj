@@ -181,6 +181,7 @@
 		D0E92B492B26BD7A006907EE /* AnimationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationManager.swift; sourceTree = "<group>"; };
 		D0E92B4B2B26CB67006907EE /* ARClassExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARClassExtensions.swift; sourceTree = "<group>"; };
 		D0E92B4D2B26D98B006907EE /* AREnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AREnums.swift; sourceTree = "<group>"; };
+		D0E92B4F2B292F05006907EE /* StackingObjectsARView.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = StackingObjectsARView.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,6 +301,7 @@
 		D06CFED22AE75A2300FFC3F7 /* Augment */ = {
 			isa = PBXGroup;
 			children = (
+				D0E92B502B292F1B006907EE /* Playgrounds */,
 				D06CFF412AF14F2500FFC3F7 /* Augment-Info.plist */,
 				D06CFF032AE75A3B00FFC3F7 /* Models */,
 				D06CFF022AE75A3300FFC3F7 /* Views */,
@@ -416,6 +418,14 @@
 				D0730C562AFC832900366E8D /* toy_car.usdz */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D0E92B502B292F1B006907EE /* Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				D0E92B4F2B292F05006907EE /* StackingObjectsARView.playground */,
+			);
+			path = Playgrounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
