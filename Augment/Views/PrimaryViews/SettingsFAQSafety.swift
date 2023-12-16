@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 import Foundation
 import AVKit
+import os.log
 
 struct SettingsPreferencesSafetyView: View {
 	@State private var selectedSection: Int = 0
@@ -16,6 +17,8 @@ struct SettingsPreferencesSafetyView: View {
 	
 	@EnvironmentObject var viewModel: UserAuth
 	@Environment(\.managedObjectContext) var managedObjectContext
+	
+	let log = Logger()
 
 	var body: some View {
 		VStack {
@@ -67,6 +70,7 @@ struct ProfileSettingsView: View {
 
 	@State private var selectedMapStyleIndex: Int
 
+	let log = Logger()
 	
 	@FetchRequest(
 	  sortDescriptors: [SortDescriptor(\.name)]
@@ -81,13 +85,12 @@ struct ProfileSettingsView: View {
 		_selectedMapStyleIndex = State(initialValue: savedMapStyleRawValue)
 		
 		if let mapStyle = MapStyleDropDown(rawValue: savedMapStyleRawValue) {
-			print("Loaded saved map style: \(mapStyle.title)")
+			log.info("Loaded saved map style: \(mapStyle.title)")
 		} else {
-			print("No saved map style found. Set to default: Standard")
+			log.info("No saved map style found. Set to default: Standard")
 			UserDefaults.standard.set(MapStyleDropDown.standard.rawValue, forKey: "selectedMapStyle")
 		}
 	}
-	
 	
 	var body: some View {
 		if let user = viewModel.currentUser {
@@ -145,7 +148,7 @@ struct ProfileSettingsView: View {
 					// Account Section
 					VStack(spacing: 8) {
 						Button(action: {
-							print("Sign out..")
+							log.info("Sign out..")
 							
 							viewModel.signOut()
 						}) {
@@ -160,14 +163,14 @@ struct ProfileSettingsView: View {
 						.frame(maxWidth: .infinity, alignment: .leading) // Ensures the button stretches
 
 						Button(action: {
-							print("Delete account..")
+							log.info("Delete account..")
 							Task {
 								do {
 									try await viewModel.deleteAccount()
 									// Handle any UI updates here, if necessary
 								} catch {
 									// Handle the error here, e.g., showing an alert to the user
-									print("Error deleting account: \(error.localizedDescription)")
+									log.error("Error deleting account: \(error.localizedDescription)")
 								}
 							}
 						}) {
@@ -199,7 +202,7 @@ struct ProfileSettingsView: View {
 
 						if !isAdRemoved {
 							Button(action: {
-								print("Remove Banners Ads Button Selected")
+								log.info("Remove Banners Ads Button Selected")
 								self.showIAP.toggle()
 							}) {
 								HStack {
@@ -257,9 +260,9 @@ struct ProfileSettingsView: View {
 							.onChange(of: selectedMapStyleIndex) { newValue in
 								UserDefaults.standard.set(newValue, forKey: "selectedMapStyle")
 								if let newMapStyle = MapStyleDropDown(rawValue: newValue) {
-									print("Map style changed to: \(newMapStyle.title)")
+									log.info("Map style changed to: \(newMapStyle.title)")
 								} else {
-									print("Invalid map style index: \(newValue)")
+									log.info("Invalid map style index: \(newValue)")
 								}
 							}
 							// You may need to adjust the frame or padding here to get the layout you want
@@ -412,6 +415,8 @@ struct SafetyCardView: View {
 struct URLImage: View {
 	var url: String
 	@State private var imageData: Data?
+	
+	let log = Logger()
 
 	var body: some View {
 		Group {
@@ -437,7 +442,7 @@ struct URLImage: View {
 	
 	private func loadImage() {
 		guard let url = URL(string: url) else {
-			print("Invalid URL")
+			log.info("Invalid URL")
 			return
 		}
 
@@ -447,7 +452,7 @@ struct URLImage: View {
 					self.imageData = data
 				}
 			} else {
-				print("Error loading image: \(error?.localizedDescription ?? "Unknown error")")
+				log.error("Error loading image: \(error?.localizedDescription ?? "Unknown error")")
 			}
 		}.resume()
 	}

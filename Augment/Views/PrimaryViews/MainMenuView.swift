@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 import StoreKit
+import os.log
 
 struct MainMenuView: View {
 	@State private var selectedView: Int? = nil
@@ -20,7 +21,7 @@ struct MainMenuView: View {
 	@State private var currentColorIndex = 0
 	@State private var colorTransitionProgress: CGFloat = 0
 	
-//	@StateObject private var modelData = SharedModelData()
+	let log = Logger()
 
 	// Timer to change the color
 //	let timer = Timer.publish(every: 1.5, on: .main, in: .common).autoconnect()
@@ -138,7 +139,7 @@ struct MainMenuView: View {
 		// Check if the user has purchased the IAP to disable ads
 		let hasPurchasedRemoveAds = UserDefaults.standard.bool(forKey: "removeAdsPurchased")
 		showAd = !hasPurchasedRemoveAds
-		print("showAd set to \(showAd)")
+		log.debug("showAd set to \(showAd)")
 	}
 	
 	// Initialize UserDefaults if they don't exist

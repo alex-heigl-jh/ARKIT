@@ -8,6 +8,7 @@
 import Foundation
 import Firebase
 import FirebaseFirestoreSwift
+import os.log
 
 protocol AuthenticationFormProtocol {
 	var formIsValid: Bool { get }
@@ -21,6 +22,8 @@ class UserAuth: ObservableObject {
 	@Published var currentUser: HomeUser?
 	
 	@Published var isLoggedIn = false
+	
+	let log = Logger()
 	
 	init() {
 		self.userSession = Auth.auth().currentUser
@@ -37,13 +40,13 @@ class UserAuth: ObservableObject {
 			self.userSession = result.user
 			await fetchUser()
 		} catch {
-			print("Debug: Failed to login with ")
+			log.info("Failed to login user with supplied credentials ")
 		}
 	}
 	
 	// Asynchronous function that can (potentially) throw an error
 	func createUser(withEmail email: String, password: String, fullname: String) async throws {
-		print("DEBUG: createUser from UserAuth")
+		log.info("createUser from UserAuth")
 		do {
 			let result = try await Auth.auth().createUser(withEmail: email, password: password)
 			self.userSession = result.user
@@ -55,7 +58,7 @@ class UserAuth: ObservableObject {
 			await fetchUser()
 			
 		} catch {
-			print("DEBUG: Failed to create user with error \(error.localizedDescription)")
+			log.error("Failed to create user with error \(error.localizedDescription)")
 		}
 		
 	}
@@ -66,13 +69,13 @@ class UserAuth: ObservableObject {
 			self.userSession = nil		// Wipes out user session (should re-direct to login screen)
 			self.currentUser = nil      // Wipes out current user data model 
 		} catch {
-			print("DEBUG: Failed to sign out with error \(error.localizedDescription)")
+			log.error("Failed to sign out with error \(error.localizedDescription)")
 		}
 	}
 	
 	func deleteAccount() async throws {
 		
-		print("deleteAccount triggered")
+		log.info("deleteAccount triggered")
 		// Ensure there is a user to delete
 //		guard let user = Auth.auth().currentUser else { return }
 //

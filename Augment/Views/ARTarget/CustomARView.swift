@@ -27,6 +27,7 @@ import Photos
 import ReplayKit
 import SwiftUI
 import simd
+import os.log
 
 
 #if !targetEnvironment(simulator)
@@ -60,29 +61,7 @@ class CustomARView: RealityKit.ARView {
 	
 	private let gestureDelegate = GestureRecognizerDelegate()
 	
-	var modelToAnimationStrategiesSingleTap: [String: [AnimationMovementTask]] = [
-		"toy_biplane_idle": [AMS.takeOff, AMS.turnRight,AMS.turnRight,AMS.turnRight,AMS.landSlow,AMS.trafficOnGround],
-		"BONUS_Spiderman_2099": [AMS.noMovePlayAnimation],
-		"toy_drummer_idle": [AMS.noMovePlayAnimation],
-		"robot_walk_idle": [AMS.noMovePlayAnimation],
-//		"BONUS_Solar_System_Model_Orrery": [AnimationMovementStrategies.noMovePlayAnimation],
-	]
-
-	var modelToAnimationStrategiesDoubleTap: [String: [AnimationMovementTask]] = [
-		"toy_biplane_idle": [AMS.takeOff, AMS.turnRight,AMS.turnRight,AMS.landSlow,AMS.trafficOnGround],
-		"BONUS_Spiderman_2099": [AMS.noMovePlayAnimation],
-		"toy_drummer_idle": [AMS.moveSlowStraight, AMS.moveBackSlowStraight,AMS.noMovePlayAnimation],
-		"robot_walk_idle": [AMS.moveSlowStraight, AMS.moveBackSlowStraight,AMS.noMovePlayAnimation],
-//		"BONUS_Solar_System_Model_Orrery": [AnimationMovementStrategies.noMovePlayAnimation],
-	]
-	
-	var modelToAnimationStrategiesTripleTap: [String: [AnimationMovementTask]] = [
-		"toy_biplane_idle": [AMS.takeOff, AMS.turnRight,AMS.landSlow],
-		"BONUS_Spiderman_2099": [AMS.noMoveFastPlayAnimation],
-		"toy_drummer_idle": [AMS.moveFastStraight, AMS.moveBackStraight,AMS.noMoveFastPlayAnimation],
-		"robot_walk_idle": [AMS.moveFastStraight, AMS.moveBackStraight, AMS.noMoveFastPlayAnimation],
-//		"BONUS_Solar_System_Model_Orrery": [AnimationMovementStrategies.noMovePlayAnimation],
-	]
+	let log = Logger()
 	
     required init(frame frameRect: CGRect){
         super.init(frame: frameRect)
@@ -167,7 +146,7 @@ class CustomARView: RealityKit.ARView {
 						
 					// Load a usdz model into the ARview
 					case .loadModel(let model):
-						print("DEBUG: Placing model")
+						self?.log.info("DEBUG: Placing model")
 						self?.placeEntity(from: model)
 						
 					// Remove all entities from the AR view
@@ -177,17 +156,17 @@ class CustomARView: RealityKit.ARView {
 						
 					// Capture an image of the current ARview
 					case .captureImage:
-						print("DEBUG: Capture image command received in CustomARView")
+						self?.log.info("Capture image command received in CustomARView")
 						self?.captureImageFromCamera()
-						print("DEBUG: Completed captureImageFromCamera()")
+						self?.log.info("Completed captureImageFromCamera()")
 		
 					// Disable the focus entity
 					case .disableEnableFocusEntity(let focusEntityEnable):
-						print("DEBUG: User set focusEntity display to \(focusEntityEnable)")
+						self?.log.info("DEBUG: User set focusEntity display to \(focusEntityEnable)")
 						self?.toggleFocusEntity(isEnabled: focusEntityEnable)
 					
 				case .deallocateARSession:
-					print("deallocateARSessionEnable AR Session")
+					self?.log.info("deallocateARSessionEnable AR Session")
 					self?.pauseSession()
 				}
 
@@ -256,7 +235,7 @@ class CustomARView: RealityKit.ARView {
 			// Add the model to the map
 			entityModelMap[modelEntity] = model
 
-			print("DEBUG: Adding model to scene - \(model.modelName)")
+			log.info("Adding model to scene - \(model.modelName)")
 			// Create an anchor for attaching the entity
 			let anchor = AnchorEntity(plane: .any)
 			
@@ -275,7 +254,7 @@ class CustomARView: RealityKit.ARView {
 			// Install gestures
 			installGestures([.translation, .rotation, .scale], for: modelEntity)
 		} else {
-			print("DEBUG: Unable to load modelEntity for - \(model.modelName)")
+			log.error("Unable to load modelEntity for - \(model.modelName)")
 		}
 	}
 
@@ -301,7 +280,21 @@ class CustomARView: RealityKit.ARView {
 		let anchor = AnchorEntity(plane: .any)
 		
 		// For use in collision detection --> handleCollision()
-		entityTypes[entity] = .block
+		switch meshType {
+			case .box:
+				entityTypes[entity] = .box
+				log.info("entityType logged as box")
+
+			case .sphere:
+				entityTypes[entity] = .sphere
+				log.info("entityType logged as sphere")
+
+			case .plane:
+				entityTypes[entity] = .plane
+				log.info("entityType logged as plane")
+		}
+
+		
 		entityToAnchorMap[entity] = anchor
 
 		anchor.addChild(entity)
@@ -331,9 +324,9 @@ class CustomARView: RealityKit.ARView {
 		// Check for LiDAR sensor and configure if available
 		if ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
 			config.sceneReconstruction = .mesh
-			print("DEBUG: LiDAR sensor detected, utilizing...")
+			log.info("LiDAR sensor detected, utilizing...")
 		} else {
-			print("DEBUG: LiDAR sensor not detected...")
+			log.error("LiDAR sensor not detected...")
 		}
 		
 		// Run the session with the configured settings
@@ -361,7 +354,7 @@ class CustomARView: RealityKit.ARView {
 				)
 			} catch {
 				self.focusEntity = FocusEntity(on: self, focus: .classic)
-				print("Unable to load plane textures")
+				log.error("Unable to load plane textures")
 				print(error.localizedDescription)
 			}
 		default:
@@ -372,11 +365,11 @@ class CustomARView: RealityKit.ARView {
 	// MARK: Method to pause AR session
 	func pauseSession() {
 		self.session.pause()
-		print("DEBUG: pauseSession() called, AR Session paused")
+		log.info("pauseSession() called, AR Session paused")
 	}
 	
 	func captureImageFromCamera() {
-		print("Entering captureImageFromCamera()")
+		log.info("Entering captureImageFromCamera()")
 		// Use the instance method to take a snapshot
 		self.snapshot(saveToHDR: false) { [weak self] image in
 			guard let self = self, let snapshot = image else { return }
@@ -403,7 +396,7 @@ class CustomARView: RealityKit.ARView {
 	
 	// MARK: Function intended to configure collision detection between models placed in the view
 	func setupCollisionDetection() {
-		print("Setting up collision detection")
+		log.info("Setting up collision detection")
 
 		// Iterate over ModelEntity objects only
 		for modelEntity in entityModelMap.keys {
@@ -416,7 +409,7 @@ class CustomARView: RealityKit.ARView {
 		self.scene.subscribe(to: CollisionEvents.Began.self) { [weak self] event in
 			self?.handleCollision(event: event)
 		}.store(in: &collisionSubscriptions)
-		print("Subscribed to collision events")
+		log.info("Subscribed to collision events")
 	}
 
 
@@ -425,28 +418,28 @@ class CustomARView: RealityKit.ARView {
 		let entityA = event.entityA
 		let entityB = event.entityB
 
-		let typeA = entityTypes[entityA, default: .block]
-		let typeB = entityTypes[entityB, default: .block]
+		let typeA = entityTypes[entityA, default: .box]
+		let typeB = entityTypes[entityB, default: .box]
 
 		// Check if one of the entities is the currently active entity
 		let initiator = (entityA === activeEntity ? entityA : (entityB === activeEntity ? entityB : nil))
 
 		switch (typeA, typeB) {
-		case (.block, .block):
+		case (.box, .box):
 			if let initiator = initiator {
 				// Handle the case where the initiator is known
-				print("Block initiated by \(initiator.name) collided with another block.")
+				log.info("Block initiated by \(initiator.name) collided with another block.")
 			} else {
 				// Fallback case if initiator is not known
 				stackBlocks(blockA: entityA, blockB: entityB)
 			}
-		case (.model, .block), (.block, .model):
+		case (.model, .box), (.box, .model):
 			let modelEntity = (typeA == .model ? entityA : entityB)
-			let blockEntity = (typeA == .block ? entityA : entityB)
-			print("Collision detected between model \(modelEntity.name) and block.")
+			let blockEntity = (typeA == .box ? entityA : entityB)
+			log.info("Collision detected between model \(modelEntity.name) and block.")
 			// Handle model-block collision
 		default:
-			print("Collision detected between \(entityA.name) and \(entityB.name)")
+			log.info("Collision detected between \(entityA.name) and \(entityB.name)")
 		}
 	}
 
@@ -464,17 +457,16 @@ class CustomARView: RealityKit.ARView {
 			// Move the active block on top of the other block
 			activeBlock.move(to: Transform(translation: newPosition), relativeTo: otherBlock.parent, duration: 0.1, timingFunction: .easeInOut)
 		} else {
-			print("No active block identified for stacking")
+			log.info("No active block identified for stacking")
 		}
 	}
 
 
-	
 	// MARK: Callback method after saving image
 	@objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
 		if let error = error {
 			// Handle any errors
-			print("ERROR: Error saving photo: \(error.localizedDescription)")
+			log.error("ERROR: Error saving photo: \(error.localizedDescription)")
 		} else {
 			// Image saved successfully
 			print("DEBUG: Photo saved successfully")
@@ -483,7 +475,7 @@ class CustomARView: RealityKit.ARView {
 	
 	// MARK: Function that handles when an entity is single tapped
 	@objc func handleTap(recognizer: UITapGestureRecognizer) {
-		print("Single tap detected")
+		log.info("Single tap detected")
 		let location = recognizer.location(in: self)
 		if let entity = self.entity(at: location) as? ModelEntity, let model = entityModelMap[entity] {
 			let animationManager = AnimationQueueManager()
@@ -496,11 +488,25 @@ class CustomARView: RealityKit.ARView {
 				print("No animation strategy defined for model \(model.modelName)")
 			}
 		}
+		
+		// Set active entity
+		if let entity = self.entity(at: location) {
+			self.activeEntity = entity
+			let selectedEntityType = entityTypes[entity, default: .box]
+			log.info("Active entity set to: \(selectedEntityType)")
+//			if let entity = self.entity(at: location) as? ModelEntity, let model = entityModelMap[entity] {
+//				log.info("Active entity set to: ")
+//			}
+			log.info("Entity found, model name not available")
+		} else {
+			log.info("No anchor found at swipe location")
+	    }
+
 	}
 
 	// MARK: Function that handles when an entity is double tapped
 	@objc func handleDoubleTap(recognizer: UITapGestureRecognizer) {
-		print("Double tap detected")
+		log.info("Double tap detected")
 		let location = recognizer.location(in: self)
 		if let entity = self.entity(at: location) as? ModelEntity, let model = entityModelMap[entity] {
 			let animationManager = AnimationQueueManager()
@@ -510,7 +516,7 @@ class CustomARView: RealityKit.ARView {
 				// Enqueue each task in the sequence
 				tasks.forEach { animationManager.enqueue($0, for: entity) }
 			} else {
-				print("No animation strategy defined for model \(model.modelName)")
+				log.info("No animation strategy defined for model \(model.modelName)")
 			}
 		}
 
@@ -518,7 +524,7 @@ class CustomARView: RealityKit.ARView {
 	
 	// MARK: Function that handles when an entity is tripple tapped
 	@objc func handleTripleTap(recognizer: UITapGestureRecognizer) {
-		print("Triple tap detected")
+		log.info("Triple tap detected")
 		let location = recognizer.location(in: self)
 		if let entity = self.entity(at: location) as? ModelEntity, let model = entityModelMap[entity] {
 			let animationManager = AnimationQueueManager()
@@ -528,13 +534,14 @@ class CustomARView: RealityKit.ARView {
 				// Enqueue each task in the sequence
 				tasks.forEach { animationManager.enqueue($0, for: entity) }
 			} else {
-				print("No animation strategy defined for model \(model.modelName)")
+				log.info("No animation strategy defined for model \(model.modelName)")
 			}
 		}
 		
+		
+		
 	}
 	
-
 	
 	// Swipe gesture handler function
 	@objc func handleSwipe(recognizer: UISwipeGestureRecognizer) {
@@ -552,13 +559,13 @@ class CustomARView: RealityKit.ARView {
 						// Check if the entity is a ModelEntity and set it as the active entity
 						if let modelEntity = entity as? ModelEntity {
 							self.activeEntity = modelEntity
-							print("Active entity set to: \(modelEntity.name)")
+							log.info("Active entity set to: \(modelEntity.name)")
 							break
 						}
 					}
 				}
 			} else {
-				print("No anchor found at swipe location")
+				log.info("No anchor found at swipe location")
 			}
 		}
 	}
@@ -566,7 +573,7 @@ class CustomARView: RealityKit.ARView {
 	// MARK: Function that properly de-initialzes the AR Session when the user exits the view
 	deinit {
 		pauseSession() // Explicitly pause the AR session
-		print("deinit: CustomARView is being deinitialized and ARSession paused")
+		log.info("CustomARView is being deinitialized and ARSession paused")
 	}
 }
 

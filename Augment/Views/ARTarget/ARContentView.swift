@@ -17,6 +17,7 @@ import UIKit
 import CoreLocation
 import CoreData
 import Photos
+import os.log
 
 #if !targetEnvironment(simulator)
 
@@ -62,6 +63,8 @@ struct ARContentView: View {
 	
 	//: Variable to control if box color selection scroll view is displayed to the user
 	@State private var isBoxColorSelectEnabled = false
+	//: Variable to control if box color selection scroll view is displayed to the user
+	@State private var isSphereColorSelectEnabled = false
 	//: Variable to contol if usdz placement view is displayed to user
 	@State private var isUSDZPlacementEnabled = false
 	//: Variable to control if a video capture should be started on the camera view
@@ -84,6 +87,8 @@ struct ARContentView: View {
 	@State private var realityModels: [Model] = loadBonusModels()
 	
 	@State private var isFlashlightOn = false
+	
+	let log = Logger()
 	
 	var body: some View {
 		
@@ -113,10 +118,15 @@ struct ARContentView: View {
 			else if self.isBoxColorSelectEnabled {
 				SelectBoxColorView(isBoxColorSelectEnabled: self.$isBoxColorSelectEnabled)
 			}
+			else if self.isSphereColorSelectEnabled {
+				SelectSphereColorView(isSphereColorSelectEnabled: self.$isSphereColorSelectEnabled)
+			}
+
 			// By default, display ModelPickerView which is gives the user the option of selecting blocks or USDZ models
 			else {
 				ModelPickerView(
 					isBoxColorSelectEnabled: $isBoxColorSelectEnabled,
+					isSphereColorSelectEnabled: $isSphereColorSelectEnabled,
 					isUSDZPlacementEnabled: $isUSDZPlacementEnabled,
 					isVideoCaptureEnabled: $isVideoCaptureEnabled,
 					isFocusEntityEnabled: $isFocusEntityEnabled,
@@ -145,7 +155,7 @@ struct ARContentView: View {
 	func startScreenRecording() {
 		let screenRecorder = RPScreenRecorder.shared()
 		guard screenRecorder.isAvailable else {
-			print("Screen recording is not available")
+			log.info("Screen recording is not available")
 			return
 		}
 		
@@ -154,23 +164,23 @@ struct ARContentView: View {
 		do {
 			try audioSession.setCategory(.playAndRecord, mode: .default)
 			try audioSession.setActive(true)
-			print("Audio session set to play and record")
+			log.info("Audio session set to play and record")
 		} catch {
-			print("Failed to set audio session category. Error: \(error)")
+			log.error("Failed to set audio session category. Error: \(error)")
 			return // If setting up the audio session fails, return early.
 		}
 		
 		// Enable the microphone
 		screenRecorder.isMicrophoneEnabled = true
-		print("Microphone is enabled for recording")
+		log.info("Microphone is enabled for recording")
 		
 		// Delay the recording start
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
 			screenRecorder.startRecording { error in
 				if let error = error {
-					print("Failed to start recording: \(error.localizedDescription)")
+					log.error("Failed to start recording: \(error.localizedDescription)")
 				} else {
-					print("Screen recording started successfully with microphone")
+					log.info("Screen recording started successfully with microphone")
 				}
 			}
 		}
@@ -181,15 +191,15 @@ struct ARContentView: View {
 		let screenRecorder = RPScreenRecorder.shared()
 		screenRecorder.stopRecording { (previewController, error) in
 			if let error = error {
-				print("Failed to stop recording: \(error.localizedDescription)")
+				log.error("Failed to stop recording: \(error.localizedDescription)")
 			} else {
 				print("Screen recording stopped. Is preview controller nil? \(previewController == nil)")
 				DispatchQueue.main.async {
 					self.previewController = previewController
 					self.showPreviewController = previewController != nil
-					print("Will present preview controller? \(self.showPreviewController )")
+					log.info("Will present preview controller? \(self.showPreviewController )")
 					if self.showPreviewController == true {
-						print("Preview controller should now be showing.")
+						log.info("Preview controller should now be showing.")
 					}
 				}
 
@@ -204,6 +214,7 @@ struct ARContentView: View {
 struct ModelPickerView: View {
 	
 	@Binding var isBoxColorSelectEnabled: Bool
+	@Binding var isSphereColorSelectEnabled: Bool
 	@Binding var isUSDZPlacementEnabled: Bool
 	@Binding var isVideoCaptureEnabled: Bool
 	@Binding var isFocusEntityEnabled: Bool
@@ -220,7 +231,7 @@ struct ModelPickerView: View {
 	var startRecording: () -> Void
 	var stopRecording: () -> Void
 	
-	
+	let log = Logger()
 	
 	let rainbowGradient = LinearGradient(
 		gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .indigo, .purple]),
@@ -233,7 +244,7 @@ struct ModelPickerView: View {
 			HStack(spacing: 30) {
 				
 				Button {
-					print("disableEnableTarget button selected")
+					log.info("disableEnableTarget button selected")
 					isFocusEntityEnabled.toggle()
 					ARManager.shared.actionStream.send(.disableEnableFocusEntity(isFocusEntityEnabled))
 				} label: {
@@ -264,7 +275,7 @@ struct ModelPickerView: View {
 				
 				//: Block selection button
 				Button(action: {
-					print("DEBUG: Box placement selection button selected")
+					log.info("Box placement selection button selected")
 					isBoxColorSelectEnabled = true
 				}) {
 					Rectangle()
@@ -276,9 +287,23 @@ struct ModelPickerView: View {
 				.background(Color.blue)
 				.cornerRadius(16)
 				
+				//: Sphere selection button
+				Button(action: {
+					log.info("Sphere placement selection button selected")
+					isSphereColorSelectEnabled = true
+				}) {
+					Circle()
+						.fill(rainbowGradient)
+						.frame(width: 40, height: 40)
+						.cornerRadius(8) // Optional, for rounded corners
+				}
+				.padding()
+				.background(Color.blue)
+				.cornerRadius(16)
+				
 				//: USDZ selection button
 				Button(action: {
-					print("DEBUG: USDZ models placement selection button selected")
+					log.info("USDZ models placement selection button selected")
 					isUSDZPlacementEnabled = true
 				}) {
 					Image(systemName: "apple.logo")
@@ -292,9 +317,9 @@ struct ModelPickerView: View {
 				
 				// New Bonus model selection button
 				Button(action: {
-					print("DEBUG: Bonus models placement selection button selected")
+					log.info("Bonus models placement selection button selected")
 					isBonusModelsPlacementEnabled.toggle()
-					print("isBonusModelsPlacementEnabled set to \(isBonusModelsPlacementEnabled)")
+					log.info("isBonusModelsPlacementEnabled set to \(isBonusModelsPlacementEnabled)")
 				}) {
 					Image(systemName: "cube.transparent")
 						.font(.system(size: 30))       // Adjust the size as needed
@@ -306,7 +331,7 @@ struct ModelPickerView: View {
 				}
 				
 				Button {
-					print("Mark location button")
+					log.info("Mark location button")
 					markCurrentLocation()
 		
 				} label: {
@@ -322,7 +347,7 @@ struct ModelPickerView: View {
 
 				// MARK: Camera selection button
 				Button(action: {
-					print("DEBUG: Capture image button selected")
+					log.info("DEBUG: Capture image button selected")
 					ARManager.shared.actionStream.send(.captureImage)
 					
 					// Change the color to indicate capture
@@ -344,17 +369,17 @@ struct ModelPickerView: View {
 				
 				//: Camera selection button
 				Button(action: {
-					print("DEBUG: Capture video button selected")
+					log.info("Capture video button selected")
 					isVideoCaptureEnabled.toggle() // Toggle the recording state
 					
 					if isVideoCaptureEnabled {
 						// Start recording
 						startRecording()
-						print("Starting screen recording")
+						log.info("Starting screen recording")
 					} else {
 						// Stop recording
 						stopRecording()
-						print("Stopping screen recording")
+						log.info("Stopping screen recording")
 					}
 				}) {
 					// Toggle the image based on whether video is being captured
@@ -401,7 +426,7 @@ struct ModelPickerView: View {
 		  do {
 			  // Fetch current coordinates
 			  guard let currentLocation = locationManager.location else {
-				  print("Current location is unavailable.")
+				  log.info("Current location is unavailable.")
 				  return
 			  }
 			  let coordinates = currentLocation.coordinate
@@ -411,7 +436,7 @@ struct ModelPickerView: View {
 								  sceneLocation: "\(coordinates.latitude), \(coordinates.longitude)",
 								  in: managedObjectContext)
 		  } catch {
-			  print("Error marking location: \(error)")
+			  log.error("Error marking location: \(error)")
 		  }
 		}
 	}
@@ -425,7 +450,7 @@ struct ModelPickerView: View {
 			device.torchMode = on ? .on : .off
 			device.unlockForConfiguration()
 		} catch {
-			print("Flashlight could not be used")
+			log.error("Flashlight could not be used")
 		}
 	}
 }
@@ -437,13 +462,15 @@ struct SelectBoxColorView: View {
 
 	//: Color Options for the user to select from
 	private let colors: [Color] = [.green, .red, .blue, .orange, .purple, .pink, .gray, .black, .white]
+	
+	let log = Logger()
 
 	var body: some View {
 		ScrollView(.horizontal, showsIndicators: false){
 			HStack{
 				//: Back button
 				Button(action: {
-					print("DEBUG: Box placement back button selected")
+					log.info("Box placement back button selected")
 					isBoxColorSelectEnabled = false
 				}){
 					Image(systemName: "arrowshape.turn.up.backward.fill")
@@ -457,7 +484,7 @@ struct SelectBoxColorView: View {
 				// Display the options for colored boxes
 				ForEach(colors, id: \.self) { color in
 					Button{
-						print("DEBUG: Placing Colored LBock with color: \(color)")
+						log.info("Placing Colored LBock with color: \(color)")
 						ARManager.shared.actionStream.send(.placeBlock(color: color, meshType: .box))
 					} label: {
 						color
@@ -467,12 +494,92 @@ struct SelectBoxColorView: View {
 							.cornerRadius(16)
 					}
 				}
+				
+				Button{
+					ARManager.shared.actionStream.send(.removeAllAnchors)
+				} label:{
+					Image(systemName: "trash")
+						.resizable()
+						.scaledToFit()
+						.frame(width: 40, height: 40)
+						.padding()
+						.background(Color.blue)
+						.foregroundColor(.white)
+						.cornerRadius(16)
+				}
 			}
 		}
 		.padding(20)
 		.background(Color.black.opacity(0.5))
 	}
 }
+
+// Once user has selected they want to place a sphere
+struct SelectSphereColorView: View {
+
+	@Binding var isSphereColorSelectEnabled: Bool
+
+	//: Color Options for the user to select from
+	private let colors: [Color] = [.green, .red, .blue, .orange, .purple, .pink, .gray, .black, .white]
+	
+	let log = Logger()
+
+	var body: some View {
+		ScrollView(.horizontal, showsIndicators: false){
+			HStack{
+				//: Back button
+				Button(action: {
+					log.info("Sphere placement back button selected")
+					isSphereColorSelectEnabled = false
+				}){
+					Image(systemName: "arrowshape.turn.up.backward.fill")
+						.frame(width: 60, height: 60)
+						.font(.title)
+						.background(Color.white.opacity(0.75))
+						.cornerRadius(30)
+						.padding(20)
+				}
+
+				// Display the options for colored boxes
+				ForEach(colors, id: \.self) { color in
+					Button {
+						log.info("Placing Colored Sphere with color: \(color)")
+						ARManager.shared.actionStream.send(.placeBlock(color: color, meshType: .sphere))
+					} label: {
+						ZStack {
+							// Frame's background using Material
+							RoundedRectangle(cornerRadius: 30)
+								.frame(width: 60, height: 60) // Outer frame size
+								.background(Material.regularMaterial) // Using Material for the background
+
+							// Circular color thumbnail
+							color
+								.frame(width: 60, height: 60) // Circular color size
+								.clipShape(Circle()) // Make the color view circular
+						}
+						.padding() // Padding around the entire button
+					}
+				}
+				
+				Button{
+					ARManager.shared.actionStream.send(.removeAllAnchors)
+				} label:{
+					Image(systemName: "trash")
+						.resizable()
+						.scaledToFit()
+						.frame(width: 40, height: 40)
+						.padding()
+						.background(Color.blue)
+						.foregroundColor(.white)
+						.cornerRadius(16)
+				}
+			}
+		}
+		.padding(20)
+		.background(Color.black.opacity(0.5))
+	}
+}
+
 
 //: View displayed to the user if the usdz view button is selected
 struct USDZPlacementButtonsView: View {
@@ -481,13 +588,15 @@ struct USDZPlacementButtonsView: View {
 	@Binding var isUSDZPlacementEnabled: Bool
 
 	var models: [Model]
+	
+	let log = Logger()
 
 	var body: some View {
 		ScrollView(.horizontal, showsIndicators: false){
 			HStack{
 				//: Back button
 				Button(action: {
-					print("DEBUG: usdz placement back button selected")
+					log.info("usdz placement back button selected")
 					isUSDZPlacementEnabled = false
 				}){
 					Image(systemName: "arrowshape.turn.up.backward.fill")
@@ -502,14 +611,14 @@ struct USDZPlacementButtonsView: View {
 				ForEach(0 ..< self.models.count){ index in
 
 					Button(action: {
-						print("DEBUG: selected model with name \(models[index].modelName)")
+						log.info("Selected model with name \(models[index].modelName)")
 
 						selectedModel = models[index]
 
 						if let model = selectedModel {
 
 							ARManager.shared.actionStream.send(.loadModel(model))
-							print("DEBUG: Sent model through actionStream")
+							log.info("Sent model through actionStream")
 						}
 
 						DispatchQueue.main.async{
@@ -527,7 +636,19 @@ struct USDZPlacementButtonsView: View {
 					.buttonStyle(PlainButtonStyle())
 					.padding()
 				}
-
+				
+				Button{
+					ARManager.shared.actionStream.send(.removeAllAnchors)
+				} label:{
+					Image(systemName: "trash")
+						.resizable()
+						.scaledToFit()
+						.frame(width: 40, height: 40)
+						.padding()
+						.background(Color.blue)
+						.foregroundColor(.white)
+						.cornerRadius(16)
+				}
 			}
 		}
 		.padding(20)
@@ -542,13 +663,15 @@ struct BonusModelsPlacementButtonsView: View {
 	@Binding var isBonusModelsPlacementEnabled: Bool
 
 	var models: [Model] // This should be your array of reality models
+	
+	let log = Logger()
 
 	var body: some View {
 		ScrollView(.horizontal, showsIndicators: false) {
 			HStack {
 				// Back button
 				Button(action: {
-					print("DEBUG: Reality model placement back button selected")
+					log.info("Reality model placement back button selected")
 					isBonusModelsPlacementEnabled = false
 				}) {
 					Image(systemName: "arrowshape.turn.up.backward.fill")
@@ -562,12 +685,12 @@ struct BonusModelsPlacementButtonsView: View {
 				// Display the options for reality models
 				ForEach(0 ..< self.models.count) { index in
 					Button(action: {
-						print("DEBUG: selected reality model with name \(models[index].modelName)")
+						log.info("DEBUG: selected reality model with name \(models[index].modelName)")
 						selectedModel = models[index]
 
 						if let model = selectedModel {
 							ARManager.shared.actionStream.send(.loadModel(model))
-							print("DEBUG: Sent reality model through actionStream")
+							log.info("DEBUG: Sent reality model through actionStream")
 						}
 
 						DispatchQueue.main.async {
@@ -584,6 +707,19 @@ struct BonusModelsPlacementButtonsView: View {
 					.buttonStyle(PlainButtonStyle())
 					.padding()
 				}
+				
+				Button{
+					ARManager.shared.actionStream.send(.removeAllAnchors)
+				} label:{
+					Image(systemName: "trash")
+						.resizable()
+						.scaledToFit()
+						.frame(width: 40, height: 40)
+						.padding()
+						.background(Color.blue)
+						.foregroundColor(.white)
+						.cornerRadius(16)
+				}
 			}
 		}
 		.padding(20)
@@ -595,14 +731,14 @@ struct BonusModelsPlacementButtonsView: View {
 struct PreviewControllerWrapper: UIViewControllerRepresentable {
 	let previewController: RPPreviewViewController
 	let onDismiss: () -> Void
+	
+	let log = Logger()
 
 	func makeUIViewController(context: Context) -> UIViewController {
 		let controller = previewController
 		controller.previewControllerDelegate = context.coordinator
 		return controller
 	}
-
-
 
 	func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
 
@@ -614,7 +750,7 @@ struct PreviewControllerWrapper: UIViewControllerRepresentable {
 		}
 
 		func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
-			print("DEBUG: Preview controller finished and dismissing")
+			print("Preview controller finished and dismissing")
 			previewController.dismiss(animated: true, completion: onDismiss)
 		}
 

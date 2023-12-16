@@ -6,6 +6,7 @@
 import Foundation
 import SwiftUI
 import CoreData
+import os.log
 
 enum NetworkError: Error {
   case InvalidCode
@@ -25,6 +26,8 @@ class InitialDataIngestor: NSObject, ObservableObject {
 	@Published var safety: [SafetyJSON]?
 	@Published var iaps: [IAPJSON]?
 	@Published var faqs: [FAQJSON]?
+	
+	let log = Logger()
     
 	// Function for generating random dates in November
 	func randomDateInNovember() -> Date {
@@ -61,7 +64,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 	func loadSampleNewsFeed() throws {
 		// Assuming you have users loaded already
 		guard let users = self.users, users.count >= 5 else {
-			print("Please ensure users are loaded first")
+			log.error("Please ensure users are loaded first")
 			return
 		}
 		
@@ -283,7 +286,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
     
     //add code here to save the different types to core Data
     func storeUsersInDatabase(users: [UserJSON]) {
-		print("Storing \(users.count) users in database...")
+		log.info("Storing \(users.count) users in database...")
         let backgroundContext = PersistenceController.shared.newTaskContext()
         users.forEach { user in
             User.createWith(firstName: user.firstName,
@@ -295,7 +298,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
     }
     
 	func storeNewsFeedInDatabase(newsFeeds: [NewsFeedJSON]) {
-		print("Storing \(newsFeeds.count) news feeds in database...")
+		log.info("Storing \(newsFeeds.count) news feeds in database...")
 		let backgroundContext = PersistenceController.shared.newTaskContext()
 		newsFeeds.forEach { news in
 			NewsFeed.createWith(
@@ -311,7 +314,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 	}
 		
 	func storeSafetyInDatabase(safety: [SafetyJSON]) {
-		print("Storing \(safety.count) Safety object in database...")
+		log.info("Storing \(safety.count) Safety object in database...")
 		let backgroundContext = PersistenceController.shared.newTaskContext()
 		safety.forEach { saf in
 			Safety.createWith(
@@ -328,12 +331,12 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		do {
 			try backgroundContext.save()
 		} catch {
-			print("Error saving news safety data to CoreData:", error)
+			log.error("Error saving news safety data to CoreData: \(error)")
 		}
 	}
 	
 	func storeIAPsInDatabase(iaps: [IAPJSON]) {
-		print("Storing \(iaps.count) IAPs in database...")
+		log.info("Storing \(iaps.count) IAPs in database...")
 		let backgroundContext = PersistenceController.shared.newTaskContext()
 		iaps.forEach { iap in
 			IAP.createWith(
@@ -349,12 +352,12 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		do {
 			try backgroundContext.save()
 		} catch {
-			print("Error saving IAP data to CoreData:", error)
+			log.error("Error saving IAP data to CoreData: \(error)")
 		}
 	}
 	
 	func storeFAQsInDatabase(faqs: [FAQJSON]) {
-		print("Storing \(faqs.count) FAQ entries in database...")
+		log.info("Storing \(faqs.count) FAQ entries in database...")
 		let backgroundContext = PersistenceController.shared.newTaskContext()
 		faqs.forEach { faq in
 			FAQ.createWith(
@@ -371,7 +374,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
 		do {
 			try backgroundContext.save()
 		} catch {
-			print("Error saving IAP data to CoreData:", error)
+			log.error("Error saving IAP data to CoreData: \(error)")
 		}
 	}
 	
@@ -386,11 +389,22 @@ class InitialDataIngestor: NSObject, ObservableObject {
 				try loadSafetyData()
 				try loadSampleIAPs()
 				try loadFAQData()
-                print("Loading Samples Locally")
+				log.info("Loading Samples Locally")
             case .LocalJSON:
-                print("Local JSON Option selected, laoding from this not functional at this time")
+				log.info("Local JSON Option selected, laoding from this not functional at this time")
+//				users = try getResourcesFromJSON(resourceName: "Users")
+//				newsFeed = try getResourcesFromJSON(resourceName: "NewsFeed")
+//				safety = try getResourcesFromJSON(resourceName: "Safety")
+//				iaps = try getResourcesFromJSON(resourceName: "IAPs")
+//				faqs = try getResourcesFromJSON(resourceName: "FAQs")
+
             case .Web:
-                print("Web JSON Option selected, laoding from this not functional at this time")
+				log.info("Web JSON Option selected, laoding from this not functional at this time")
+//				users = try await loadJSON(from: "http://", for: UserJSON.self)
+//				newsFeed = try await loadJSON(from: "http://", for: NewsFeedJSON.self)
+//				safety = try await loadJSON(from: "http://", for: SafetyJSON.self)
+//				iaps = try await loadJSON(from: "http://", for: IAPJSON.self)
+//				faqs = try await loadJSON(from: "http://", for: FAQJSON.self)
             }
             
             //add code here to take the read in data from any of the techniques and store it to the database
@@ -403,7 +417,7 @@ class InitialDataIngestor: NSObject, ObservableObject {
             try PersistenceController.shared.container.viewContext.save()
             
         } catch {
-            print("Error saving to core data \(error)")
+			log.error("Error saving to core data \(error)")
         }
         isLoaded.wrappedValue = true
     }

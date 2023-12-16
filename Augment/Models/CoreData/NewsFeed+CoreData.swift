@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import os.log
 
 extension NewsFeed {
 	static func createWith(
@@ -31,12 +32,12 @@ extension NewsFeed {
 			user.addToPost(item)
 		}
 		
-		print("News feed with ID \(newsID) created.")
+			print("News feed with ID \(newsID) created.")
 		
       do {
         try context.save()
       } catch {
-        fatalError("Problem saving NewsFeed to CoreData")
+		  print("Problem saving NewsFeed to CoreData")
       }
     }
   }

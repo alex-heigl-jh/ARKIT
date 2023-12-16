@@ -33,30 +33,89 @@ class AnimationQueueManager {
 		}
 	}
 
+//	private func executeTask(_ task: AnimationMovementTask, for entity: ModelEntity, completion: @escaping () -> Void) {
+//		// Perform animation if available
+//		if let animationName = task.animationName,
+//		   let animation = entity.availableAnimations.first(where: { $0.name == animationName }) {
+//			let controller = entity.playAnimation(animation.repeat(duration: .infinity),
+//												  transitionDuration: 0.5,
+//												  separateAnimatedValue: true,
+//												  startsPaused: false)
+//			controller.speed = task.playbackSpeed
+//		}
+//
+//		// Calculate new position and rotation relative to current transform
+//		let currentRotation = entity.transform.rotation
+//		let newRotation = currentRotation * task.finalRotation
+//		let moveVector = rotate(task.moveDistance, by: currentRotation) // Rotate the vector
+//		let newPosition = entity.position + moveVector
+//
+//		// Apply new transform
+//		let newTransform = Transform(scale: entity.transform.scale, rotation: newRotation, translation: newPosition)
+//		entity.move(to: newTransform, relativeTo: entity.parent, duration: task.duration, timingFunction: .linear)
+//		
+//		// Handle repeating the task
+//		if let repeatCount = task.repeatCount {
+//			for _ in 0..<repeatCount {
+//				// Perform the task
+//			}
+//		} else {
+//			// Perform the task infinitely
+//		}
+//
+//
+//		// Schedule completion
+//		DispatchQueue.main.asyncAfter(deadline: .now() + task.duration, execute: completion)
+//	}
+	
+	
 	private func executeTask(_ task: AnimationMovementTask, for entity: ModelEntity, completion: @escaping () -> Void) {
-		// Perform animation if available
-		if let animationName = task.animationName,
-		   let animation = entity.availableAnimations.first(where: { $0.name == animationName }) {
-			let controller = entity.playAnimation(animation.repeat(duration: .infinity),
-												  transitionDuration: 0.5,
-												  separateAnimatedValue: true,
-												  startsPaused: false)
-			controller.speed = task.playbackSpeed
+		func performAnimation(repeatCount: Int?) {
+			// Perform animation if available
+			if let animationName = task.animationName,
+			   let animation = entity.availableAnimations.first(where: { $0.name == animationName }) {
+				let controller = entity.playAnimation(animation.repeat(duration: .infinity),
+													  transitionDuration: 0.5,
+													  separateAnimatedValue: true,
+													  startsPaused: false)
+				controller.speed = task.playbackSpeed
+			}
+
+			// Calculate new position and rotation relative to current transform
+			let currentRotation = entity.transform.rotation
+			let newRotation = currentRotation * task.finalRotation
+			let moveVector = rotate(task.moveDistance, by: currentRotation) // Rotate the vector
+			let newPosition = entity.position + moveVector
+
+			// Apply new transform
+			let newTransform = Transform(scale: entity.transform.scale, rotation: newRotation, translation: newPosition)
+			entity.move(to: newTransform, relativeTo: entity.parent, duration: task.duration, timingFunction: .linear)
+
+			// Check if repeat is needed
+			if let repeatCount = repeatCount {
+				if repeatCount > 1 {
+					// Schedule next repetition
+					DispatchQueue.main.asyncAfter(deadline: .now() + task.duration) {
+						performAnimation(repeatCount: repeatCount - 1)
+					}
+				} else {
+					// No more repetitions, call completion
+					DispatchQueue.main.asyncAfter(deadline: .now() + task.duration, execute: completion)
+				}
+			} else {
+				// Infinite repeat, call recursively with nil
+				DispatchQueue.main.asyncAfter(deadline: .now() + task.duration) {
+					performAnimation(repeatCount: nil)
+				}
+			}
 		}
 
-		// Calculate new position and rotation relative to current transform
-		let currentRotation = entity.transform.rotation
-		let newRotation = currentRotation * task.finalRotation
-		let moveVector = rotate(task.moveDistance, by: currentRotation) // Rotate the vector
-		let newPosition = entity.position + moveVector
-
-		// Apply new transform
-		let newTransform = Transform(scale: entity.transform.scale, rotation: newRotation, translation: newPosition)
-		entity.move(to: newTransform, relativeTo: entity.parent, duration: task.duration, timingFunction: .linear)
-
-		// Schedule completion
-		DispatchQueue.main.asyncAfter(deadline: .now() + task.duration, execute: completion)
+		// Start the animation process
+		performAnimation(repeatCount: task.repeatCount)
 	}
+
+	
+	
 	// Function to rotate a SIMD3<Float> vector by a quaternion
 	func rotate(_ vector: SIMD3<Float>, by quaternion: simd_quatf) -> SIMD3<Float> {
 		let quaternionVector = SIMD3<Float>(quaternion.vector.x, quaternion.vector.y, quaternion.vector.z)
@@ -65,105 +124,4 @@ class AnimationQueueManager {
 	}
 }
 
-struct AnimationMovementTask {
-	let animationName: String?
-	let duration: TimeInterval
-	let playbackSpeed: Float
-	let moveDistance: SIMD3<Float> // x, y, z distances
-	let finalRotation: simd_quatf
-}
-
-// MARK: AnimationMovementStrategies (AMS)
-struct AMS {
-
-	static func createQuaternion(rollDegrees: Float, pitchDegrees: Float, yawDegrees: Float) -> simd_quatf {
-		let roll = simd_quaternion(rollDegrees * (Float.pi / 180), simd_float3(x: 0, y: 0, z: 1))
-		let pitch = simd_quaternion(pitchDegrees * (Float.pi / 180), simd_float3(x: 1, y: 0, z: 0))
-		let yaw = simd_quaternion(yawDegrees * (Float.pi / 180), simd_float3(x: 0, y: 1, z: 0))
-		
-		return roll * pitch * yaw
-	}
-
-	static let takeOff: AnimationMovementTask = AnimationMovementTask(
-		animationName: "global scene animation",
-		duration: 5,
-		playbackSpeed: 4,
-		moveDistance: SIMD3<Float>(0, 2, 2),
-		finalRotation: createQuaternion(rollDegrees: 0, pitchDegrees: -45, yawDegrees: 0)
-	)
-
-	static let turnRight: AnimationMovementTask = AnimationMovementTask(
-		animationName: "global scene animation",
-		duration: 2.5,
-		playbackSpeed: 2,
-		moveDistance: SIMD3<Float>(-1, 0, 0),
-		finalRotation: createQuaternion(rollDegrees: -45, pitchDegrees: 0, yawDegrees: -90)
-	)
-	
-	static let landSlow: AnimationMovementTask = AnimationMovementTask(
-		animationName: "global scene animation",
-		duration: 5,
-		playbackSpeed: 1,
-		moveDistance: SIMD3<Float>(0, -2, -2),
-		finalRotation: createQuaternion(rollDegrees: 0, pitchDegrees: -45, yawDegrees: 0)
-	)
-	
-	static let trafficOnGround: AnimationMovementTask = AnimationMovementTask(
-		animationName: "global scene animation",
-		duration: 5,
-		playbackSpeed: 0.5,
-		moveDistance: SIMD3<Float>(0, 1, 0),
-		finalRotation: createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-	)
-	
-	static let moveFastStraight: AnimationMovementTask = AnimationMovementTask(
-		animationName: "global scene animation",
-		duration: 5,
-		playbackSpeed: 2,
-		moveDistance: SIMD3<Float>(0, 0, 2),
-		finalRotation: createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-	)
-	
-	static let moveBackStraight: AnimationMovementTask = AnimationMovementTask(
-		animationName: "global scene animation",
-		duration: 5,
-		playbackSpeed: 1,
-		moveDistance: SIMD3<Float>(0, 0, -2),
-		finalRotation: createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-	)
-	
-	static let moveSlowStraight: AnimationMovementTask = AnimationMovementTask(
-		animationName: "global scene animation",
-		duration: 10,
-		playbackSpeed: 1,
-		moveDistance: SIMD3<Float>(0, 0, 2),
-		finalRotation: createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-	)
-	
-	static let moveBackSlowStraight: AnimationMovementTask = AnimationMovementTask(
-		animationName: "global scene animation",
-		duration: 10,
-		playbackSpeed: 1,
-		moveDistance: SIMD3<Float>(0, 0, -2),
-		finalRotation: createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-	)
-	
-	static let noMovePlayAnimation: AnimationMovementTask = AnimationMovementTask(
-		animationName: "global scene animation",
-		duration: 10,
-		playbackSpeed: 1,
-		moveDistance: SIMD3<Float>(0, 0, 0),
-		finalRotation: createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-	)
-	
-	static let noMoveFastPlayAnimation: AnimationMovementTask = AnimationMovementTask(
-		animationName: "global scene animation",
-		duration: 10,
-		playbackSpeed: 4,
-		moveDistance: SIMD3<Float>(0, 0, 0),
-		finalRotation: createQuaternion(rollDegrees: 0, pitchDegrees: 0, yawDegrees: 0)
-	)
-
-	// Add more predefined tasks as needed
-}
 #endif

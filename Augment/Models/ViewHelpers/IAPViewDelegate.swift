@@ -8,6 +8,7 @@
 
 import Foundation
 import StoreKit
+import os.log
 
 class IAPViewDelegate: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver
 {
@@ -19,6 +20,8 @@ class IAPViewDelegate: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
 	//purchase
 	var selectedProduct:Int!
 	var transactionInProgress = false
+	
+	let log = Logger()
 	
 	override init() {
 		super.init()
@@ -43,7 +46,7 @@ class IAPViewDelegate: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
 		}
 		else
 		{
-			print("Can't make In App Purchases - please setup a payment plan")
+			log.info("Can't make In App Purchases - please setup a payment plan")
 		}
 	}
 	
@@ -68,13 +71,13 @@ class IAPViewDelegate: NSObject, SKProductsRequestDelegate, SKPaymentTransaction
 			switch transaction.transactionState
 			{
 			case .purchased:
-				print("Transaction completed successfully.")
+				log.info("Transaction completed successfully.")
 				SKPaymentQueue.default().finishTransaction(transaction)
 				transactionInProgress = false
 				unlockAds()
 				
 			case .failed:
-				print("Transaction Failed");
+				log.info("Transaction Failed");
 				SKPaymentQueue.default().finishTransaction(transaction)
 				transactionInProgress = false
 				

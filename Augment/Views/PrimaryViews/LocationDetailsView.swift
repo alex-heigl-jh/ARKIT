@@ -8,12 +8,15 @@
 
 import MapKit
 import SwiftUI
+import os.log
 
 struct LocationDetailsView: View {
 	@Binding var mapSelection: MKMapItem?
 	@Binding var show: Bool
 	@State private var lookAroundScene: MKLookAroundScene?
 	@Binding var getDirections: Bool
+	
+	let log = Logger()
 	
 	var body: some View {
 		VStack{
@@ -85,11 +88,11 @@ struct LocationDetailsView: View {
 			
 		}
 		.onAppear {
-			print("Calling fetchLookAroundPreview() onAppear")
+			log.info("Calling fetchLookAroundPreview() onAppear")
 			fetchLookAroundPreview()
 		}
 		.onChange(of: mapSelection){ oldValue, newValue in
-			print("Calling fetchLookAroundPreview() onChange")
+			log.info("Calling fetchLookAroundPreview() onChange")
 			fetchLookAroundPreview()
 		}
 		.padding()

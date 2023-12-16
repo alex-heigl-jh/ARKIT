@@ -77,6 +77,8 @@
 		D0E92B4A2B26BD7A006907EE /* AnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E92B492B26BD7A006907EE /* AnimationManager.swift */; };
 		D0E92B4C2B26CB67006907EE /* ARClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E92B4B2B26CB67006907EE /* ARClassExtensions.swift */; };
 		D0E92B4E2B26D98B006907EE /* AREnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E92B4D2B26D98B006907EE /* AREnums.swift */; };
+		D0E92B522B2A91C2006907EE /* AnimationSequences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E92B512B2A91C2006907EE /* AnimationSequences.swift */; };
+		D0E92B542B2A9243006907EE /* AnimationMovements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E92B532B2A9243006907EE /* AnimationMovements.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,6 +184,8 @@
 		D0E92B4B2B26CB67006907EE /* ARClassExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARClassExtensions.swift; sourceTree = "<group>"; };
 		D0E92B4D2B26D98B006907EE /* AREnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AREnums.swift; sourceTree = "<group>"; };
 		D0E92B4F2B292F05006907EE /* StackingObjectsARView.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = StackingObjectsARView.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		D0E92B512B2A91C2006907EE /* AnimationSequences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationSequences.swift; sourceTree = "<group>"; };
+		D0E92B532B2A9243006907EE /* AnimationMovements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationMovements.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,6 +397,8 @@
 				D06CFF3F2AF14A9B00FFC3F7 /* CustomARViewRepresentable.swift */,
 				D0DFB5E32B0D7EA600019DA6 /* ModelLoader.swift */,
 				D0730C552AFC826F00366E8D /* Models */,
+				D0E92B512B2A91C2006907EE /* AnimationSequences.swift */,
+				D0E92B532B2A9243006907EE /* AnimationMovements.swift */,
 			);
 			path = ARTarget;
 			sourceTree = "<group>";
@@ -593,6 +599,7 @@
 				D06CFF182AE75B7100FFC3F7 /* InitialDataIngestor.swift in Sources */,
 				D04F820D2B1305EA008484B8 /* RegistrationView.swift in Sources */,
 				D06CFF4B2AF294ED00FFC3F7 /* NewsFeedJSON.swift in Sources */,
+				D0E92B542B2A9243006907EE /* AnimationMovements.swift in Sources */,
 				D0BA2E002B1987A800F9FB93 /* IAPListing.swift in Sources */,
 				D06CFF552AF2E24600FFC3F7 /* SafetyJSON.swift in Sources */,
 				D06CFF242AE763B800FFC3F7 /* MapsData+CoreData.swift in Sources */,
@@ -600,6 +607,7 @@
 				D06CFF0E2AE75AA300FFC3F7 /* NewsFeedView.swift in Sources */,
 				D06CFF222AE7637B00FFC3F7 /* FAQ+CoreData.swift in Sources */,
 				D0DFB5E42B0D7EA600019DA6 /* ModelLoader.swift in Sources */,
+				D0E92B522B2A91C2006907EE /* AnimationSequences.swift in Sources */,
 				D00D587E2B1D316E000EF8ED /* FAQJSON.swift in Sources */,
 				D06CFF2C2AE7652D00FFC3F7 /* Safety+CoreData.swift in Sources */,
 				D06CFEE02AE75A2500FFC3F7 /* Augment.xcdatamodeld in Sources */,

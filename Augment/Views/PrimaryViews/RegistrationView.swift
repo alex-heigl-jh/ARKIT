@@ -7,6 +7,7 @@
 //  Code created using tutorial from: https://www.youtube.com/watch?v=QJHmhLGv-_0&t=161s
 
 import SwiftUI
+import os.log
 
 struct RegistrationView: View {
 	@State private var email = ""
@@ -16,6 +17,7 @@ struct RegistrationView: View {
 	@Environment(\.dismiss) var dismiss
 	@EnvironmentObject var viewModel: UserAuth
 	
+	let log = Logger()
 	
 	var body: some View {
 		VStack{
@@ -65,7 +67,7 @@ struct RegistrationView: View {
 			
 			// Sign in button
 			Button {
-				print("DEBUG: Sign user up button selected")
+				log.info("Sign user up button selected")
 				Task{
 					try await viewModel.createUser(withEmail: email,
 												   password: password,

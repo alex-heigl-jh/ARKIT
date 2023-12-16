@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import os.log
 
 extension MapsData {
 	static func createWith(

@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import os.log
 
 struct LoadingView: View {
 
   let dataModel: InitialDataIngestor
   @Binding private var networkDataLoaded: Bool
+	
+  let log = Logger()
 
   init(dataModel: InitialDataIngestor = InitialDataIngestor(), networkDataLoaded: Binding<Bool>) {
     self.dataModel = dataModel

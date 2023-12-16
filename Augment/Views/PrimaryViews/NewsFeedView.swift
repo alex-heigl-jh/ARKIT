@@ -4,11 +4,12 @@
 //
 //  Created by Alex Heigl on 10/23/23.
 //
+
 import AVKit
 import CoreData
 import SwiftUI
 import UIKit
-
+import os.log
 
 struct NewsFeedView: View {
 	// Needed for CoreData Context
@@ -19,6 +20,8 @@ struct NewsFeedView: View {
 	@State private var showingAddPostSheet = false // State property for sheet presentation
 	
 	@State private var player = AVPlayer()
+	
+	let log = Logger()
 
 	@FetchRequest(
 		entity: NewsFeed.entity(),
@@ -32,7 +35,7 @@ struct NewsFeedView: View {
 				if newsFeeds.isEmpty {
 					Text("No news available")
 						.onAppear {
-							print("No news items found.")
+							log.info("No news items found.")
 						}
 				} else {
 					List(newsFeeds) { feed in
@@ -49,7 +52,7 @@ struct NewsFeedView: View {
 										Text("Loading...")
 									})
 									.onAppear {
-										print("Loading profile picture from URL: \(urlString)")
+										log.info("Loading profile picture from URL: \(urlString)")
 									}
 								} else {
 									Image(systemName: "person.fill")
@@ -58,7 +61,7 @@ struct NewsFeedView: View {
 										.frame(width: 60, height: 60)
 										.clipShape(Circle())
 										.onAppear {
-											print("Profile picture URL is either nil or invalid.")
+											log.info("Profile picture URL is either nil or invalid.")
 										}
 								}
 								
@@ -67,7 +70,7 @@ struct NewsFeedView: View {
 										Text("\(feed.poster?.firstName ?? "") \(feed.poster?.lastName ?? "")")
 											.font(.headline)
 											.onAppear {
-												print("Displaying username: \(feed.poster?.firstName ?? "Unknown") \(feed.poster?.lastName ?? "Unknown")")
+												log.info("Displaying username: \(feed.poster?.firstName ?? "Unknown") \(feed.poster?.lastName ?? "Unknown")")
 											}
 										
 										Spacer() // Pushes the date to the right end of the HStack
@@ -80,7 +83,7 @@ struct NewsFeedView: View {
 									Text(feed.newsContent ?? "")
 										.font(.subheadline)
 										.onAppear {
-											print("Displaying news content: \(feed.newsContent ?? "No Content")")
+											log.info("Displaying news content: \(feed.newsContent ?? "No Content")")
 										}
 								}
 							}
@@ -104,7 +107,7 @@ struct NewsFeedView: View {
 							}
 						}
 						.onAppear {
-							print("Attempting to display a news feed item.")
+							log.info("Attempting to display a news feed item.")
 						}
 					}
 				}
@@ -151,6 +154,7 @@ struct AddPostView: View {
 	@State private var mediaType: MediaType?
 	@State private var selectedImage: UIImage? // To hold the selected image
 	
+	let log = Logger()
 	
 	var body: some View {
 		NavigationView {
@@ -196,7 +200,7 @@ struct AddPostView: View {
 		}
 		.onAppear() {
 			if let user = viewModel.currentUser {
-				print("CHECK: User Name: \(user.fullname)")
+				log.info("CHECK: User Name: \(user.fullname)")
 			}
 		}
 	}
@@ -236,7 +240,7 @@ struct AddPostView: View {
 		do {
 			try viewContext.save()
 		} catch {
-			print("Error saving new post: \(error)")
+			log.error("Error saving new post: \(error)")
 		}
 	}
 }

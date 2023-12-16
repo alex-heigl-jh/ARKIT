@@ -7,6 +7,7 @@
 //  Code augmented using tutorial from: https://www.youtube.com/watch?v=QJHmhLGv-_0&t=161s
 
 import SwiftUI
+import os.log
 
 struct LoginView: View {
 	@EnvironmentObject var viewModel: UserAuth
@@ -45,6 +46,8 @@ struct LoginEntryView: View {
 	@State private var email = ""
 	@State private var password = ""
 	
+	let log = Logger()
+	
 	@EnvironmentObject var viewModel: UserAuth
 	
 	var body: some View{
@@ -77,8 +80,8 @@ struct LoginEntryView: View {
 			// Sign in button
 			Button {
 				Task {
-					print("DEBUG: Logging user in..")
-					try await viewModel.signIn(withEmail: email, 
+					log.info("Logging user in..")
+					try await viewModel.signIn(withEmail: email,
 											   password: password)
 				}
 

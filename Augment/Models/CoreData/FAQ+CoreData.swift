@@ -7,8 +7,12 @@
 
 import Foundation
 import CoreData
+import os.log
+
+let log = Logger()
 
 extension FAQ {
+
   static func createWith(
 	faqContent: String,
 	faqID: UUID,
@@ -25,14 +29,14 @@ extension FAQ {
 	  item.mediaURL = mediaURL
 	  item.mediaType = mediaType
 
-	  print("Attempting to save FAQ with Title: \(faqTitle)")
+		log.info("Attempting to save FAQ with Title: \(faqTitle)")
 
 	  do {
 		try context.save()
-		print("\(faqTitle) Successfully Saved!")
+		  log.info("\(faqTitle) Successfully Saved!")
 	  } catch {
-		print("Error saving FAQ with Title: \(faqTitle)")
-		print("Error Details: \(error.localizedDescription)")
+		  log.error("Error saving FAQ with Title: \(faqTitle)")
+		  log.error("Error Details: \(error.localizedDescription)")
 		// If you want the app to continue running, replace `fatalError` with the print statements.
 		// fatalError("Problem saving FAQ to CoreData")
 	  }
